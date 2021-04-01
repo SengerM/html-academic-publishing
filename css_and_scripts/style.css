@@ -1,0 +1,133 @@
+/* Basic and general stuff -------------------------------------------*/
+*{scroll-behavior: smooth !important;}
+body {
+	background-color: #faf2e4;
+	margin: 5% 5%;
+	font-family: sans-serif;
+	text-align: justify;
+}
+h1 {
+	border-bottom: 1px solid #57b1dc;
+}
+h1, h2, h3, h4, h5, h6, h7 {
+	font-family: serif;
+	font-weight: normal;
+	margin-top: 30px;
+	color: #1a1a56;
+}
+code {
+	background: #f4f4f4;
+	border: 1px solid #ddd;
+	color: #666;
+	font-family: monospace;
+	font-size: 15px;
+	line-height: 1.6;
+	margin-bottom: 1.6em;
+}
+
+#document_title {
+	font-family: serif;
+	font-weight: normal;
+	font-size: 280%;
+	text-align: center;
+	width: 75%;
+	margin: 44px auto;
+}
+.document_author {
+	font-weight: normal;
+	text-align: center;
+	width: 75%;
+	margin: 0 auto;
+}
+/* Section numbering ------------------------------------------------ */
+body {counter-reset: h1 figcaption_figure_counter;}
+h1:not(.unnumbered) {counter-reset : h2;}
+h2:not(.unnumbered) {counter-reset : h3;}
+h3:not(.unnumbered) {counter-reset : h4;}
+h4:not(.unnumbered) {counter-reset : h5;}
+h5:not(.unnumbered) {counter-reset : h6;}
+h1:before {
+	content : counter(h1,decimal) ". ";
+	counter-increment : h1;
+}
+h2:before {
+	content : counter(h1,decimal) "." counter(h2,decimal) ". ";
+	counter-increment : h2;
+}
+h3:before {
+	content : counter(h1,decimal) "." counter(h2,decimal) "." counter(h3,decimal) ". ";
+	counter-increment : h3;
+}
+h4:before {
+	content : counter(h1,decimal) "." counter(h2,decimal) "." counter(h3,decimal) "." counter(h4,decimal) ". ";
+	counter-increment : h4;
+}
+h5:before {
+	content : counter(h1,decimal) "." counter(h2,decimal) "." counter(h3,decimal) "." counter(h4,decimal) "." counter(h5,decimal) ". ";
+	counter-increment : h5;
+}
+h6:before {
+	content : counter(h1,decimal) "." counter(h2,decimal) "." counter(h3,decimal) "." counter(h4,decimal) "." counter(h5,decimal) "." counter(h6,decimal) ". ";
+	counter-increment : h6;
+}
+h1.unnumbered:before, h2.unnumbered:before, h3.unnumbered:before, h4.unnumbered:before, h5.unnumbered:before, h6.unnumbered:before {
+	content : "";
+	counter-increment : none;
+}
+/* Figures ---------------------------------------------------------- */
+figure.figure {
+	text-align: center; 
+}
+figcaption.figure {
+	color: #0066cc;
+	text-align: justify; 
+}
+figcaption.figure::before {
+	font-weight: bold;
+	content: "Figure " counter(figcaption_figure_counter) ".\0000a0\0000a0";
+	counter-increment: figcaption_figure_counter;
+}
+
+iframe.plotly {
+	width: 100%;
+	height: 480px;
+	border: 0;
+	display: block; /* This is to center the content */
+	margin: auto; /* This is to center the content */
+}
+/* Table of contents ------------------------------------------------ */
+#table-of-contents ol {
+  list-style-type: none;
+  counter-reset: item;
+  margin: 0;
+  padding: 0;
+}
+
+#table-of-contents ol > li {
+  display: table;
+  counter-increment: item;
+  margin-bottom: 0.6em;
+}
+
+#table-of-contents ol > li:before {
+  content: counters(item, ".") ". ";
+  display: table-cell;
+  padding-right: 0.6em;    
+}
+#table-of-contents li ol > li {
+  margin: 0;
+}
+
+#table-of-contents li ol > li:before {
+  content: counters(item, ".") " ";
+}
+#table-of-contents-ol a:link {
+	color: black;
+	text-decoration: none;
+}
+#table-of-contents-ol a:visited {
+  color: black;
+}
+#table-of-contents-ol a:hover {
+	color: #5555aa;
+}
