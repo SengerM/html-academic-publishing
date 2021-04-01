@@ -53,14 +53,14 @@ for(var i = 0; i < figures.length; i++) {
 	caption.innerHTML = `<b>Figure ${i+1}. </b>` + caption.innerHTML;
 	figures_ids.push(figures[i].id);
 }
-// Parse <ref> tags ----------------------------------------------------
-var refs = document.getElementById("document-content").getElementsByTagName("ref");
-for(var i = 0; i < refs.length; i++) {
-	if (figures_ids.includes(refs[i].innerHTML)) {
-		refs[i].innerHTML = `<a href="#${refs[i].innerHTML}">${figures_ids.indexOf(refs[i].innerHTML)+1}</a>`;
+// Parse <crossref> tags -----------------------------------------------
+var crossref = document.getElementById("document-content").getElementsByTagName("crossref");
+for(var i = 0; i < crossref.length; i++) {
+	var ref_to_this_id = crossref[i].innerHTML;
+	if (figures_ids.includes(ref_to_this_id)) {
+		crossref[i].innerHTML = `<a href="#${ref_to_this_id}">${figures_ids.indexOf(ref_to_this_id)+1}</a>`;
 	} else {
-		refs[i].innerHTML = `<b>ERROR: the id "${refs[i].innerHTML}" was not defined anywhere</b>`;
-		throw `ERROR: the id "${refs[i].innerHTML}" was not defined anywhere`;
+		crossref[i].innerHTML = `<b>ERROR: You are trying to do a &lt;crossref> to the id "${ref_to_this_id}" but it was not defined anywhere, please search for it in your HTML code and fix this</b>`;
+		throw `ERROR: You are trying to do a <crossref> to the id "${ref_to_this_id}" was not defined anywhere. Look for it in your HTML code and fix this problem.`;
 	}
 }
-console.log(refs)
