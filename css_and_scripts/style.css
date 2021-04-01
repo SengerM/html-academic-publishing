@@ -24,6 +24,15 @@ code {
 	line-height: 1.6;
 	margin-bottom: 1.6em;
 }
+a:link {
+	color: black;
+}
+a:visited {
+	color: black;
+}
+a:hover {
+	color: #5555aa;
+}
 
 #document_title {
 	font-family: serif;
@@ -82,12 +91,6 @@ figcaption.figure {
 	color: #0066cc;
 	text-align: justify; 
 }
-figcaption.figure::before {
-	font-weight: bold;
-	content: "Figure " counter(figcaption_figure_counter) ".\0000a0\0000a0";
-	counter-increment: figcaption_figure_counter;
-}
-
 iframe.plotly {
 	width: 100%;
 	height: 480px;
@@ -97,36 +100,35 @@ iframe.plotly {
 }
 /* Table of contents ------------------------------------------------ */
 #table-of-contents ol {
-  list-style-type: none;
-  counter-reset: item;
-  margin: 0;
-  padding: 0;
+	list-style-type: none;
+	counter-reset: item;
+	margin: 0;
+	padding: 0;
 }
 
 #table-of-contents ol > li {
-  display: table;
-  counter-increment: item;
-  margin-bottom: 0.6em;
+	display: table;
+	counter-increment: item;
+	margin-bottom: 0.6em;
 }
 
 #table-of-contents ol > li:before {
-  content: counters(item, ".") ". ";
-  display: table-cell;
-  padding-right: 0.6em;    
+	content: counters(item, ".") ". ";
+	display: table-cell;
+	padding-right: 0.6em;    
 }
 #table-of-contents li ol > li {
-  margin: 0;
+	margin: 0;
 }
-
 #table-of-contents li ol > li:before {
-  content: counters(item, ".") " ";
+	content: counters(item, ".") " ";
 }
 #table-of-contents-ol a:link {
 	color: black;
 	text-decoration: none;
 }
 #table-of-contents-ol a:visited {
-  color: black;
+	color: black;
 }
 #table-of-contents-ol a:hover {
 	color: #5555aa;
