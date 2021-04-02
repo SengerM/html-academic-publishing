@@ -1,4 +1,4 @@
-const ERROR_IS_HERE_STR = ' <b>← ERROR is here</b>';
+const ERROR_IS_HERE_STR = ' <span style="color:red;font-size:140%;font-weight: bold;background-color: yellow;">← ERROR is here</span>';
 
 document.getElementById("document_title").innerHTML = document.title;
 
@@ -8,25 +8,38 @@ var figures_reference_texts = {}
 for(var i = 0; i < figures.length; i++) {
 	var caption = figures[i].getElementsByTagName("figcaption")[0];
 	caption.innerHTML = `<b>Figure ${i+1}. </b>` + caption.innerHTML;
+	if (!figures[i].hasAttribute('id'))
+		continue;
+	if (figures[i].id in figures_reference_texts) {
+		caption.innerHTML = caption.innerHTML + ERROR_IS_HERE_STR;
+		figures[i].scrollIntoView();
+		throw `ERROR: The id "${figures[i].id}" is used in more than one figure in the document. ids cannot repeat, please fix this.`;
+	}
 	figures_reference_texts[figures[i].id] = `${i+1}`; // This text will be placed where there is a reference to this figure.
 }
-delete figures_reference_texts['']; // Remove elements that may have appeared with no id defined.
 // Parse <equation> tags -----------------------------------------------
 var equations = document.getElementById("document-content").getElementsByTagName("equation");
 var equations_reference_texts = {};
 for(var i = 0; i < equations.length; i++) {
-	equations_reference_texts[equations[i].id] = `(${i+1})`; // This text will be placed where there is a reference to this equation.
+	var equation_number_display_str = `(${i+1})`;
 	const equation_container = document.createElement('div');
 	equation_container.className = "equation";
 	equations[i].parentNode.insertBefore(equation_container, equations[i]);
 	equation_container.appendChild(equations[i])
 	const equation_number = document.createElement('div');
 	equation_number.className = "equation__number";
-	equation_number.innerHTML = `${"&nbsp;".repeat(5)}${equations_reference_texts[equations[i].id]}`;
+	equation_number.innerHTML = `${"&nbsp;".repeat(5)}${equation_number_display_str}`;
 	equation_container.appendChild(equation_number);
 	equations[i].className = "equation__content";
+	if (!equations[i].hasAttribute('id'))
+		continue;
+	if (equations[i].id in equations_reference_texts) {
+		equation_number.innerHTML = ERROR_IS_HERE_STR;
+		equations[i].scrollIntoView();
+		throw `ERROR: The id "${equations[i].id}" is used in more than one equation in the document. ids cannot repeat, please fix this.`
+	}
+	equations_reference_texts[equations[i].id] = equation_number_display_str; // This text will be placed where there is a reference to this equation.
 }
-delete equations_reference_texts['']; // Remove elements that may have appeared with no id defined.
 // Parse <h_> tags -----------------------------------------------------
 function get_all_numbered_h(document) {
 	var arr = [];
