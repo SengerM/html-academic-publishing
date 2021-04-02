@@ -36,7 +36,9 @@ a:visited {
 a:hover {
 	color: #5555aa;
 }
-
+a.cross-reference-link:link {
+	text-decoration: none;
+}
 #document_title {
 	font-family: serif;
 	font-weight: normal;

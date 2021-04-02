@@ -1,4 +1,4 @@
-const ERROR_IS_HERE_STR = ' <b>ERROR is here</b>';
+const ERROR_IS_HERE_STR = ' <b>← ERROR is here</b>';
 
 document.getElementById("document_title").innerHTML = document.title;
 
@@ -117,7 +117,7 @@ const texts_for_cross_references_by_id = Object.assign({}, figures_reference_tex
 for(var i = 0; i < crossref.length; i++) {
 	var ref_to_this_id = crossref[i].innerHTML;
 	if (ref_to_this_id in texts_for_cross_references_by_id) {
-		crossref[i].innerHTML = `<a href="#${ref_to_this_id}">${texts_for_cross_references_by_id[ref_to_this_id]}</a>`;
+		crossref[i].innerHTML = `<a class="cross-reference-link" href="#${ref_to_this_id}">${texts_for_cross_references_by_id[ref_to_this_id]}</a>`;
 	} else {
 		crossref[i].innerHTML = crossref[i].innerHTML + ERROR_IS_HERE_STR;
 		crossref[i].scrollIntoView();
