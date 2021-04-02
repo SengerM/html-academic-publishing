@@ -133,3 +133,18 @@ iframe.plotly {
 #table-of-contents-ol a:hover {
 	color: #5555aa;
 }
+/* Equations -------------------------------------------------------- */
+.equation {
+	display: table;
+	width: 100%;
+}
+.equation__content, .equation__number {
+	display: table-cell;
+}
+.equation__content {
+	width: 90%;
+}
+.equation__number {
+	text-align: right;
+	font-family: serif;
+}

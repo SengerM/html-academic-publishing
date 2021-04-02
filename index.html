@@ -58,8 +58,13 @@
 		<p>Somebody has already implemented this for HTML. Fortunately the support for mathematic equations can be added just by linking a script with a few lines in the header of the HTML file. Then you can just write your equations using Latex code, which is very nice for equations. You can add inline equations $x^2+x+1=0$ and you can add "display" equations 
 				
 				<equation id="my first equation">$$\intop_0^1f(x)dx=\pi\text{.}$$</equation>
+
+			The previous equation is numbered. Now I have another important equation
 			
-			I still don't know how to number and cross reference to the equations.</p>
+				<equation id="Dirac equation">$$\left( i \gamma^\mu \partial_\mu - m \right) \psi = 0$$</equation>
+			
+			that later on I will cite.
+		</p>
 		
 		<h1>Figures</h1>
 		<p>One very crucial aspect is to be able to insert figures with captions. Of course this is possible in HTML. The figure below is inserted in such a way that its width matches the width of the document, so if you change the width of the window you are using to read this document the size of the image will also change accordingly.</p>
@@ -90,8 +95,10 @@
 		<h1>Cross referencing</h1>
 		<p>This is the very first implementation of cross referencing for figures: See figure <crossref>measured delay average</crossref> or figure <crossref>figure with Newton in full width</crossref>.</p>
 <!--
-		<p>This is a wrong reference: <crossref>this id does not exist</crossref>.</p>
+		<p>This is a wrong reference: <crossref>this id does not exist</crossref>.</p>s
 -->
+		<p>We can also insert a reference to an equation like this: See eq. <crossref>my first equation</crossref>. Note that you don't have to specify that this is an equation or add the parentheses, it is automatic.</p>
+		<p>Now you can see eq. <crossref>Dirac equation</crossref>.</p>
 		
 		<h1>Still to do</h1>
 		<p>Though this is already looking good, there is still much work to do:</p>

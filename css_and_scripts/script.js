@@ -53,12 +53,33 @@ for(var i = 0; i < figures.length; i++) {
 	caption.innerHTML = `<b>Figure ${i+1}. </b>` + caption.innerHTML;
 	figures_ids.push(figures[i].id);
 }
+// Parse <equation> tags -----------------------------------------------
+var equations = document.getElementById("document-content").getElementsByTagName("equation");
+var equations_ids = []
+var equations_reference_texts = {};
+for(var i = 0; i < equations.length; i++) {
+	equations_ids.push(equations[i].id);
+	equations_reference_texts[equations[i].id] = `(${i+1})`;
+	const equation_container = document.createElement('div');
+	equation_container.className = "equation";
+	equations[i].parentNode.insertBefore(equation_container, equations[i]);
+	equation_container.appendChild(equations[i])
+	const equation_number = document.createElement('div');
+	equation_number.className = "equation__number";
+	equation_number.innerHTML = equations_reference_texts[equations[i].id];
+	equation_container.appendChild(equation_number);
+	equations[i].className = "equation__content";
+}
+console.log(equations_reference_texts)
+
 // Parse <crossref> tags -----------------------------------------------
 var crossref = document.getElementById("document-content").getElementsByTagName("crossref");
 for(var i = 0; i < crossref.length; i++) {
 	var ref_to_this_id = crossref[i].innerHTML;
 	if (figures_ids.includes(ref_to_this_id)) {
 		crossref[i].innerHTML = `<a href="#${ref_to_this_id}">${figures_ids.indexOf(ref_to_this_id)+1}</a>`;
+	} else if (ref_to_this_id in equations_reference_texts) {
+		crossref[i].innerHTML = `<a href="#${ref_to_this_id}">${equations_reference_texts[ref_to_this_id]}</a>`;
 	} else {
 		crossref[i].innerHTML = `<b>ERROR: You are trying to do a &lt;crossref> to the id "${ref_to_this_id}" but it was not defined anywhere, please search for it in your HTML code and fix this</b>`;
 		throw `ERROR: You are trying to do a <crossref> to the id "${ref_to_this_id}" was not defined anywhere. Look for it in your HTML code and fix this problem.`;
