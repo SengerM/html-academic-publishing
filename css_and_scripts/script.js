@@ -1,6 +1,8 @@
 const ERROR_IS_HERE_STR = ' <span style="color:red;font-size:140%;font-weight: bold;background-color: yellow;">← ERROR is here</span>';
 
-document.getElementById("document_title").innerHTML = document.title;
+try {
+	document.getElementById("document_title").innerHTML = document.title;
+} catch {}
 
 // Parse <figure> tags -------------------------------------------------
 var figures = document.getElementById("document-content").getElementsByTagName("figure");
@@ -20,6 +22,7 @@ for(var i = 0; i < figures.length; i++) {
 // Parse <equation> tags -----------------------------------------------
 var equations = document.getElementById("document-content").getElementsByTagName("equation");
 var equations_reference_texts = {};
+var equations_reference_popup_texts = {};
 for(var i = 0; i < equations.length; i++) {
 	var equation_number_display_str = `(${i+1})`;
 	const equation_container = document.createElement('div');
@@ -39,6 +42,7 @@ for(var i = 0; i < equations.length; i++) {
 		throw `ERROR: The id "${equations[i].id}" is used in more than one equation in the document. ids cannot repeat, please fix this.`
 	}
 	equations_reference_texts[equations[i].id] = equation_number_display_str; // This text will be placed where there is a reference to this equation.
+	equations_reference_popup_texts[equations[i].id] =  equations[i].innerHTML.replaceAll('$$','$');// This will appear in the popup window when the mouse hovers over the reference.
 }
 // Parse <h_> tags -----------------------------------------------------
 function get_all_numbered_h(document) {
@@ -129,13 +133,20 @@ if (document.getElementById("table-of-contents") != null) {
 // Parse <crossref> tags -----------------------------------------------
 var crossref = document.getElementById("document-content").getElementsByTagName("crossref");
 const texts_for_cross_references_by_id = Object.assign({}, figures_reference_texts, equations_reference_texts, headings_reference_texts); // This is a dictionary of the form dict[id] = "text_to_be_shown_in_the_reference".
+const texts_for_popup_windows_by_id = Object.assign({}, equations_reference_popup_texts);
 for(var i = 0; i < crossref.length; i++) {
 	var ref_to_this_id = crossref[i].innerHTML;
+	var reference_str;
 	if (ref_to_this_id in texts_for_cross_references_by_id) {
-		crossref[i].innerHTML = `<a class="cross-reference-link" href="#${ref_to_this_id}">${texts_for_cross_references_by_id[ref_to_this_id]}</a>`;
+		reference_str = `<a class="cross-reference-link" href="#${ref_to_this_id}">${texts_for_cross_references_by_id[ref_to_this_id]}</a>`;
+		if (ref_to_this_id in texts_for_popup_windows_by_id) {
+			reference_str = `<span class="popup_cross_reference" onMouseOver="javascript:this.className='popup_cross_reference_hover'" onMouseOut="javascript:this.className='popup_cross_reference'">` + reference_str + `<span>${texts_for_popup_windows_by_id[ref_to_this_id]}</span></span>`;
+		}
 	} else {
 		crossref[i].innerHTML = crossref[i].innerHTML + ERROR_IS_HERE_STR;
 		crossref[i].scrollIntoView();
 		throw `ERROR: You are trying to do a <crossref> to the id "${ref_to_this_id}" was not defined anywhere. Look for it in your HTML code and fix this problem.`;
 	}
+	crossref[i].innerHTML = reference_str;
 }
+

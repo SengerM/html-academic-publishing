@@ -113,3 +113,20 @@ iframe.plotly {
 	text-align: right;
 	font-family: serif;
 }
+/* Popup cross references  ------------------------------------------ */
+.popup_cross_reference {position:relative; }
+.popup_cross_reference span {display: none;}
+.popup_cross_reference_hover {position:relative;}
+.popup_cross_reference_hover span {
+	display: block;
+	position: absolute;
+	background-color: White;
+	z-index:1000;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
+	background-color: #444;
+	color: #fff;
+	border-radius: 10px;
+}
