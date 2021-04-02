@@ -47,19 +47,18 @@ document.getElementById("table-of-contents").appendChild(result);
 
 // Parse <figure> tags -------------------------------------------------
 var figures = document.getElementById("document-content").getElementsByTagName("figure");
-var figures_ids = []
+var figures_reference_texts = {}
 for(var i = 0; i < figures.length; i++) {
 	var caption = figures[i].getElementsByTagName("figcaption")[0];
 	caption.innerHTML = `<b>Figure ${i+1}. </b>` + caption.innerHTML;
-	figures_ids.push(figures[i].id);
+	figures_reference_texts[figures[i].id] = `${i+1}`; // This text will be placed where there is a reference to this figure.
 }
+delete figures_reference_texts['']; // Remove elements that may have appeared with no id defined.
 // Parse <equation> tags -----------------------------------------------
 var equations = document.getElementById("document-content").getElementsByTagName("equation");
-var equations_ids = []
 var equations_reference_texts = {};
 for(var i = 0; i < equations.length; i++) {
-	equations_ids.push(equations[i].id);
-	equations_reference_texts[equations[i].id] = `(${i+1})`;
+	equations_reference_texts[equations[i].id] = `(${i+1})`; // This text will be placed where there is a reference to this equation.
 	const equation_container = document.createElement('div');
 	equation_container.className = "equation";
 	equations[i].parentNode.insertBefore(equation_container, equations[i]);
@@ -70,18 +69,17 @@ for(var i = 0; i < equations.length; i++) {
 	equation_container.appendChild(equation_number);
 	equations[i].className = "equation__content";
 }
-console.log(equations_reference_texts)
-
+delete equations_reference_texts['']; // Remove elements that may have appeared with no id defined.
 // Parse <crossref> tags -----------------------------------------------
 var crossref = document.getElementById("document-content").getElementsByTagName("crossref");
+const texts_for_cross_references_by_id = Object.assign({}, figures_reference_texts, equations_reference_texts); // This is a dictionary of the form dict[id] = "text_to_be_shown_in_the_reference".
 for(var i = 0; i < crossref.length; i++) {
 	var ref_to_this_id = crossref[i].innerHTML;
-	if (figures_ids.includes(ref_to_this_id)) {
-		crossref[i].innerHTML = `<a href="#${ref_to_this_id}">${figures_ids.indexOf(ref_to_this_id)+1}</a>`;
-	} else if (ref_to_this_id in equations_reference_texts) {
-		crossref[i].innerHTML = `<a href="#${ref_to_this_id}">${equations_reference_texts[ref_to_this_id]}</a>`;
+	if (ref_to_this_id in texts_for_cross_references_by_id) {
+		crossref[i].innerHTML = `<a href="#${ref_to_this_id}">${texts_for_cross_references_by_id[ref_to_this_id]}</a>`;
 	} else {
 		crossref[i].innerHTML = `<b>ERROR: You are trying to do a &lt;crossref> to the id "${ref_to_this_id}" but it was not defined anywhere, please search for it in your HTML code and fix this</b>`;
+		crossref[i].scrollIntoView();
 		throw `ERROR: You are trying to do a <crossref> to the id "${ref_to_this_id}" was not defined anywhere. Look for it in your HTML code and fix this problem.`;
 	}
 }

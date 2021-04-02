@@ -59,11 +59,15 @@
 				
 				<equation id="my first equation">$$\intop_0^1f(x)dx=\pi\text{.}$$</equation>
 
-			The previous equation is numbered. Now I have another important equation
+			The previous equation is numbered. What happens if I insert an equation with no id?
+				
+				<equation>$$E=mc^2$$</equation>
+			
+			The equation is numbered, though I cannot insert a reference to it because it has no id. Now I have another important equation
 			
 				<equation id="Dirac equation">$$\left( i \gamma^\mu \partial_\mu - m \right) \psi = 0$$</equation>
 			
-			that later on I will cite.
+			that later on I will cite. 
 		</p>
 		
 		<h1>Figures</h1>
@@ -95,7 +99,7 @@
 		<h1>Cross referencing</h1>
 		<p>This is the very first implementation of cross referencing for figures: See figure <crossref>measured delay average</crossref> or figure <crossref>figure with Newton in full width</crossref>.</p>
 <!--
-		<p>This is a wrong reference: <crossref>this id does not exist</crossref>.</p>s
+		<p>This is a wrong reference: <crossref>this id does not exist</crossref>.</p>
 -->
 		<p>We can also insert a reference to an equation like this: See eq. <crossref>my first equation</crossref>. Note that you don't have to specify that this is an equation or add the parentheses, it is automatic.</p>
 		<p>Now you can see eq. <crossref>Dirac equation</crossref>.</p>
