@@ -9,8 +9,8 @@ body {
 h1 {
 	border-bottom: 1px solid #57b1dc;
 }
-h2, h3, h4, h5, h6, h7 {
-	font-size: 150%;
+h4, h5, h6, h7 {
+	font-size: 100%;
 }
 h1, h2, h3, h4, h5, h6, h7 {
 	font-family: serif;
@@ -69,19 +69,14 @@ iframe.plotly {
 /* Table of contents ------------------------------------------------ */
 #table-of-contents ol {
 	list-style-type: none;
-	counter-reset: item;
 	margin: 0;
 	padding: 0;
 }
-
 #table-of-contents ol > li {
 	display: table;
-	counter-increment: item;
 	margin-bottom: 0.6em;
 }
-
 #table-of-contents ol > li:before {
-	content: counters(item, ".") ". ";
 	display: table-cell;
 	padding-right: 0.6em;    
 }
@@ -89,7 +84,7 @@ iframe.plotly {
 	margin: 0;
 }
 #table-of-contents li ol > li:before {
-	content: counters(item, ".") " ";
+	content: "\00a0 \00a0";
 }
 #table-of-contents-ol a:link {
 	color: black;
