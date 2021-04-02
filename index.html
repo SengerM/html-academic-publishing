@@ -76,16 +76,14 @@
 			
 			that later on I will cite. Now I will try a very long equation:
 				
-<!--
-				<equation>$$\frac{dF}{dx}\frac{dx}{dy}\frac{dy}{d\xi}=\intop_{\mathbb{R}}f(\zeta)e^{-\zeta}\cos(w^{2}-\zeta)\ d\zeta+\frac{3x^{3}+(\nabla\times\boldsymbol{E})\cdot\boldsymbol{B}}{\vec{r}\cdot\vec{E}}+8\pi\hbar+\log\cos\tan\sin\pi$$</equation>
--->
+				<equation id="very long equation">$$\frac{dF}{dx}\frac{dx}{dy}\frac{dy}{d\xi}=\intop_{\mathbb{R}}f(\zeta)e^{-\zeta}\cos(w^{2}-\zeta)\ d\zeta+\frac{3x^{3}+(\nabla\times\boldsymbol{E})\cdot\boldsymbol{B}}{\vec{r}\cdot\vec{E}}+8\pi\hbar+\log\cos\tan\sin\pi$$</equation>
 		</p>
 		
 		<h1>Figures</h1>
 		<p>One very crucial aspect is to be able to insert figures with captions. Of course this is possible in HTML. The figure below is inserted in such a way that its width matches the width of the document, so if you change the width of the window you are using to read this document the size of the image will also change accordingly.</p>
 		<figure class="figure" id="figure with Newton in full width">
 			<image src="media/Inkscape.svg" width="100%"></image>
-			<figcaption class="figure">This image was created with Inkscape and inserted directly into this HTML file. So you are seeing a vector image, with all the cool things this implies. This image was configured to fit the width of the document, so if you change the width of the window in which you are reading this it should also change the width of this image.</figcaption>
+			<figcaption class="figure">This image was created with Inkscape and inserted directly into this HTML file. So you are seeing a vector image, with all the cool things this implies. This image was configured to fit the width of the document, so if you change the width of the window in which you are reading this it should also change the width of this image. This is a cross reference inside a caption: see figure <crossref>measured delay average</crossref>.</figcaption>
 		</figure>
 		<p>We can also specify the size we want for our image such that it does not change with the width of the window:</p>
 		<figure class="figure">
@@ -95,7 +93,7 @@
 		
 		<h2>Interactive plots</h2>
 		<p>I started saying that one major drawback of PDF files is that you cannot display more than text and images. But up to now I have only showed you text and images here. Let's go one step further and insert an interactive plot produced with <a href="https://plotly.com/">plotly</a>:</p>
-		<figure class="figure">
+		<figure class="figure" id="figure with math in caption">
 			<iframe class="plotly" src="media/Reconstruction error mean.html" style="width: 555px ! important;"></iframe>
 			<figcaption class="figure">This is the caption, it may content math $x^2 = 5$. This plot has a "custom width" which is implemented by adding <code>style="width: 555px ! important;"</code> to the <code>iframe</code>.</figcaption>
 		</figure>
@@ -108,13 +106,14 @@
 		<p>Another advantage of these "interactive plots" is that the text in the legend/labels zooms accordingly to the zoom of the window. Try to <code>ctrl+wheel</code> to change the zoom in this window and see how the text and markers in these plots is modified. Cool.</p>
 		
 		<h1>Cross referencing</h1>
-		<p>This is the very first implementation of cross referencing for figures: See figure <crossref>measured delay average</crossref> or figure <crossref>figure with Newton in full width</crossref>.</p>
+		<p>This is the very first implementation of cross referencing for figures: See figure <crossref>measured delay average</crossref> or figure <crossref>figure with Newton in full width</crossref>. This figure has math in its caption: fig. <crossref>figure with math in caption</crossref>.</p>
 		<p>We can also insert a reference to an equation like this: See eq. <crossref>my first equation</crossref>. Note that you don't have to specify that this is an equation or add the parentheses, it is automatic.</p>
 		<p>Now you can see eq. <crossref>Dirac equation</crossref>.</p>
 		<p>It is, of course, possible to reference to sections. For example see section <crossref>introduction section</crossref> or <crossref>Mathematic equations</crossref>, or even <crossref>Interactive plots</crossref>. For the two sections with the same name we can refer to them using their <code>id</code>s, or the title of the section for the one with no <code>id</code> defined: See section <crossref>Two sections with the same name</crossref> that has no <code>id</code> defined or <crossref>I want two sections with the same title</crossref> that has <code>id</code> defined.</p>
-<!--
-		<p>Error in cross reference: <crossref>This does not exist</crossref>.</p>
--->
+		<p>This is a cross reference to the very long equation: <crossref>very long equation</crossref>.</p>
+		
+		<h2>Pop-ups in cross references</h2>
+		<p>Hover your mouse pointer over any cross reference (e.g. this one <crossref>Dirac equation</crossref>) to see what happens. This is really nice and useful!</p>
 		
 		<h1>Still to do</h1>
 		<p>Though this is already looking good, there is still much work to do:</p>

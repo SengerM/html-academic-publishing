@@ -28,10 +28,10 @@ code {
 	margin-bottom: 1.6em;
 }
 a:link {
-	color: black;
+	color: inherit;
 }
 a:visited {
-	color: black;
+	color: inherit;
 }
 a:hover {
 	color: #5555aa;
@@ -126,7 +126,11 @@ iframe.plotly {
 	margin-bottom: 5px;
 	margin-right: 5px;
 	margin-left: 5px;
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
 	background-color: #444;
-	color: #fff;
+	color: #ccc;
 	border-radius: 10px;
 }
