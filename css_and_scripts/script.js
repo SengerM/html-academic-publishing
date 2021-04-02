@@ -65,7 +65,7 @@ for(var i = 0; i < equations.length; i++) {
 	equation_container.appendChild(equations[i])
 	const equation_number = document.createElement('div');
 	equation_number.className = "equation__number";
-	equation_number.innerHTML = equations_reference_texts[equations[i].id];
+	equation_number.innerHTML = `${"&nbsp;".repeat(5)}${equations_reference_texts[equations[i].id]}`;
 	equation_container.appendChild(equation_number);
 	equations[i].className = "equation__content";
 }
