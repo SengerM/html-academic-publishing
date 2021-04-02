@@ -117,13 +117,15 @@ function buildRec(nodes, elm, level) {
 	}
 }
 
-var all = document.getElementById("document-content").getElementsByTagName("*");
-var nodes = [];
-for(var i = all.length; i--; nodes.unshift(all[i]));
-var result = document.createElement("ol");
-result.setAttribute("id", "table-of-contents-ol");
-buildRec(nodes, result, 1);
-document.getElementById("table-of-contents").appendChild(result);
+if (document.getElementById("table-of-contents") != null) {
+	var all = document.getElementById("document-content").getElementsByTagName("*");
+	var nodes = [];
+	for(var i = all.length; i--; nodes.unshift(all[i]));
+	var result = document.createElement("ol");
+	result.setAttribute("id", "table-of-contents-ol");
+	buildRec(nodes, result, 1);
+	document.getElementById("table-of-contents").appendChild(result);
+}
 // Parse <crossref> tags -----------------------------------------------
 var crossref = document.getElementById("document-content").getElementsByTagName("crossref");
 const texts_for_cross_references_by_id = Object.assign({}, figures_reference_texts, equations_reference_texts, headings_reference_texts); // This is a dictionary of the form dict[id] = "text_to_be_shown_in_the_reference".
