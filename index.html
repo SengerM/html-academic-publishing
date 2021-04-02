@@ -30,7 +30,7 @@
 	
 	
 	<div id="document-content">
-		<h1>Introduction</h1>
+		<h1 id="introduction section">Introduction</h1>
 		<p>One key point in science is to share your results with other people. The most usual way to do this is by producing a PDF document with either slides or “paper pages” that contains just what a PDF file can contain: Text and images. But what if you want to share a video? What if you want to share something that is interactive? You can't do this with a PDF document. Nowadays filming videos and producing interactive media has become very accessible to everyone. Thus, though the PDF format is practically unbeatable in accomplishing its design objective (i.e. to produce a digital version of a “paper document”), it's a pity to be stuck with the PDF format since the 90s. I think we need a change in paradigm here: To abandon some concepts tied to paper-printed documents and start producing material for monitor-rendered documents. After all, what is the fraction of PDF files that you actually print?</p>
 		
 		<h2>What can replace the PDF format?</h2>
@@ -56,6 +56,10 @@
 		<p>Sometimes you want to put a section header but without numbering it and without listing it in the table of contents. This can be done just by specifying <code>class="unnumbered"</code> for the section you don't want to number, as follows:</p>
 		<h4 class="unnumbered">This is an unnumbered section</h4>
 		<p>This section will not be listed in the table of contents, it is just aesthetic. You can do this with any type of heading tag.</p>
+		
+		<h3>Two sections with the same name</h3>
+		<h3 id="I want two sections with the same title">Two sections with the same name</h3>
+		<p>Two sections with the same name requre at least one of them with a different id. Otherwise they are the same section and we don't know which of them to refer to when there is a cross reference.</p>
 		
 		<h1>Mathematic equations</h1>
 		<p>Somebody has already implemented this for HTML. Fortunately the support for mathematic equations can be added just by linking a script with a few lines in the header of the HTML file. Then you can just write your equations using Latex code, which is very nice for equations. You can add inline equations $x^2+x+1=0$ and you can add "display" equations 
@@ -107,6 +111,7 @@
 		<p>This is the very first implementation of cross referencing for figures: See figure <crossref>measured delay average</crossref> or figure <crossref>figure with Newton in full width</crossref>.</p>
 		<p>We can also insert a reference to an equation like this: See eq. <crossref>my first equation</crossref>. Note that you don't have to specify that this is an equation or add the parentheses, it is automatic.</p>
 		<p>Now you can see eq. <crossref>Dirac equation</crossref>.</p>
+		<p>It is, of course, possible to reference to sections. For example see section <crossref>introduction section</crossref> or <crossref>Mathematic equations</crossref>, or even <crossref>Interactive plots</crossref>. For the two sections with the same name we can refer to them using their <code>id</code>s, or the title of the section for the one with no <code>id</code> defined: See section <crossref>Two sections with the same name</crossref> that has no <code>id</code> defined or <crossref>I want two sections with the same title</crossref> that has <code>id</code> defined.</p>
 		
 		<h1>Still to do</h1>
 		<p>Though this is already looking good, there is still much work to do:</p>

@@ -1,3 +1,5 @@
+const ERROR_IS_HERE_STR = ' <b>ERROR is here</b>';
+
 document.getElementById("document_title").innerHTML = document.title;
 
 // Parse <figure> tags -------------------------------------------------
@@ -55,22 +57,16 @@ for (var i=0; i<numbered_headings.length; i++) {
 		current_section_numbering = new_section_numbering;
 	}
 	// Here we have the "2.4.3..." numbering for the current section stored in "current_section_numbering".
+	var current_id = numbered_headings[i].hasAttribute('id') ? numbered_headings[i].id : numbered_headings[i].innerHTML;
 	numbered_headings[i].innerHTML = current_section_numbering.join('.') + '. ' + numbered_headings[i].innerHTML;
-}
-// Parse <crossref> tags -----------------------------------------------
-var crossref = document.getElementById("document-content").getElementsByTagName("crossref");
-const texts_for_cross_references_by_id = Object.assign({}, figures_reference_texts, equations_reference_texts); // This is a dictionary of the form dict[id] = "text_to_be_shown_in_the_reference".
-for(var i = 0; i < crossref.length; i++) {
-	var ref_to_this_id = crossref[i].innerHTML;
-	if (ref_to_this_id in texts_for_cross_references_by_id) {
-		crossref[i].innerHTML = `<a href="#${ref_to_this_id}">${texts_for_cross_references_by_id[ref_to_this_id]}</a>`;
-	} else {
-		crossref[i].innerHTML = `<b>ERROR: You are trying to do a &lt;crossref> to the id "${ref_to_this_id}" but it was not defined anywhere, please search for it in your HTML code and fix this</b>`;
-		crossref[i].scrollIntoView();
-		throw `ERROR: You are trying to do a <crossref> to the id "${ref_to_this_id}" was not defined anywhere. Look for it in your HTML code and fix this problem.`;
+	if (current_id in headings_reference_texts) {
+		numbered_headings[i].innerHTML = numbered_headings[i].innerHTML + ERROR_IS_HERE_STR;
+		numbered_headings[i].scrollIntoView();
+		throw `ERROR: The id/name "${current_id}" is used in more than one heading in the document. If you manually defined this id please change one of them as they cannot repeat, if you have more than one section with the same name please assign them different ids to the section in order to use the same title.`;
 	}
+	headings_reference_texts[current_id] = current_section_numbering.join('.');
+	numbered_headings[i].id = current_id; // If the heading had no id, this will set it. Otherwise it does nothing.
 }
-
 // Automatic table of contents -----------------------------------------
 //     This was taken from https://stackoverflow.com/a/17430494/8849755                                 
 //     Here there is a working example http://jsfiddle.net/funkyeah/s8m2t/3/                            
@@ -115,3 +111,16 @@ var result = document.createElement("ol");
 result.setAttribute("id", "table-of-contents-ol");
 buildRec(nodes, result, 1);
 document.getElementById("table-of-contents").appendChild(result);
+// Parse <crossref> tags -----------------------------------------------
+var crossref = document.getElementById("document-content").getElementsByTagName("crossref");
+const texts_for_cross_references_by_id = Object.assign({}, figures_reference_texts, equations_reference_texts, headings_reference_texts); // This is a dictionary of the form dict[id] = "text_to_be_shown_in_the_reference".
+for(var i = 0; i < crossref.length; i++) {
+	var ref_to_this_id = crossref[i].innerHTML;
+	if (ref_to_this_id in texts_for_cross_references_by_id) {
+		crossref[i].innerHTML = `<a href="#${ref_to_this_id}">${texts_for_cross_references_by_id[ref_to_this_id]}</a>`;
+	} else {
+		crossref[i].innerHTML = crossref[i].innerHTML + ERROR_IS_HERE_STR;
+		crossref[i].scrollIntoView();
+		throw `ERROR: You are trying to do a <crossref> to the id "${ref_to_this_id}" was not defined anywhere. Look for it in your HTML code and fix this problem.`;
+	}
+}
