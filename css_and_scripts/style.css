@@ -9,6 +9,9 @@ body {
 h1 {
 	border-bottom: 1px solid #57b1dc;
 }
+h2, h3, h4, h5, h6, h7 {
+	font-size: 150%;
+}
 h1, h2, h3, h4, h5, h6, h7 {
 	font-family: serif;
 	font-weight: normal;
@@ -47,41 +50,6 @@ a:hover {
 	text-align: center;
 	width: 75%;
 	margin: 0 auto;
-}
-/* Section numbering ------------------------------------------------ */
-body {counter-reset: h1 figcaption_figure_counter;}
-h1:not(.unnumbered) {counter-reset : h2;}
-h2:not(.unnumbered) {counter-reset : h3;}
-h3:not(.unnumbered) {counter-reset : h4;}
-h4:not(.unnumbered) {counter-reset : h5;}
-h5:not(.unnumbered) {counter-reset : h6;}
-h1:before {
-	content : counter(h1,decimal) ". ";
-	counter-increment : h1;
-}
-h2:before {
-	content : counter(h1,decimal) "." counter(h2,decimal) ". ";
-	counter-increment : h2;
-}
-h3:before {
-	content : counter(h1,decimal) "." counter(h2,decimal) "." counter(h3,decimal) ". ";
-	counter-increment : h3;
-}
-h4:before {
-	content : counter(h1,decimal) "." counter(h2,decimal) "." counter(h3,decimal) "." counter(h4,decimal) ". ";
-	counter-increment : h4;
-}
-h5:before {
-	content : counter(h1,decimal) "." counter(h2,decimal) "." counter(h3,decimal) "." counter(h4,decimal) "." counter(h5,decimal) ". ";
-	counter-increment : h5;
-}
-h6:before {
-	content : counter(h1,decimal) "." counter(h2,decimal) "." counter(h3,decimal) "." counter(h4,decimal) "." counter(h5,decimal) "." counter(h6,decimal) ". ";
-	counter-increment : h6;
-}
-h1.unnumbered:before, h2.unnumbered:before, h3.unnumbered:before, h4.unnumbered:before, h5.unnumbered:before, h6.unnumbered:before {
-	content : "";
-	counter-increment : none;
 }
 /* Figures ---------------------------------------------------------- */
 figure.figure {

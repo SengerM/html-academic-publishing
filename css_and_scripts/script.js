@@ -70,6 +70,38 @@ for(var i = 0; i < equations.length; i++) {
 	equations[i].className = "equation__content";
 }
 delete equations_reference_texts['']; // Remove elements that may have appeared with no id defined.
+// Parse <h_> tags -----------------------------------------------------
+function get_all_numbered_h(document) {
+	var arr = [];
+	if (!document) return arr;
+	var all_el = document.getElementsByTagName('*');
+	for (var i = 0, n = all_el.length; i < n; i++) {
+		if (/^h\d{1}$/gi.test(all_el[i].nodeName) && all_el[i].className!='unnumbered') {
+			arr.push(all_el[i]);
+		}
+	}
+	return arr;
+}
+var numbered_headings = get_all_numbered_h(document);
+var headings_reference_texts = {};
+var current_section_numbering = [0];
+for (var i=0; i<numbered_headings.length; i++) {
+	var current_indentation_level = parseInt(numbered_headings[i].tagName.toLowerCase().replace('h', ''));
+	if (current_section_numbering.length == current_indentation_level) {
+		current_section_numbering[current_section_numbering.length - 1] += 1;
+	} else {
+		var new_section_numbering = Array(current_indentation_level).fill(1)
+		for (var k=0; k < (current_section_numbering.length<new_section_numbering.length ? current_section_numbering.length : new_section_numbering.length); k++) {
+			new_section_numbering[k] = current_section_numbering[k];
+		}
+		if (current_section_numbering.length > new_section_numbering.length) {
+			new_section_numbering[new_section_numbering.length -1] += 1;
+		}
+		current_section_numbering = new_section_numbering;
+	}
+	// Here we have the "2.4.3..." numbering for the current section stored in "current_section_numbering".
+	numbered_headings[i].innerHTML = current_section_numbering.join('.') + '. ' + numbered_headings[i].innerHTML;
+}
 // Parse <crossref> tags -----------------------------------------------
 var crossref = document.getElementById("document-content").getElementsByTagName("crossref");
 const texts_for_cross_references_by_id = Object.assign({}, figures_reference_texts, equations_reference_texts); // This is a dictionary of the form dict[id] = "text_to_be_shown_in_the_reference".
