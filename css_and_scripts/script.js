@@ -144,7 +144,17 @@ for(var i = 0; i < crossref.length; i++) {
 	if (ref_to_this_id in texts_for_cross_references_by_id) {
 		reference_str = `<a class="cross-reference-link" href="#${ref_to_this_id}">${texts_for_cross_references_by_id[ref_to_this_id]}</a>`;
 		if (ref_to_this_id in texts_for_popup_windows_by_id) {
-			reference_str = `<span class="popup_cross_reference" onMouseOver="javascript:this.className='popup_cross_reference_hover'" onMouseOut="javascript:this.className='popup_cross_reference'">` + reference_str + `<span>${texts_for_popup_windows_by_id[ref_to_this_id]}</span></span>`;
+			var popup_text = texts_for_popup_windows_by_id[ref_to_this_id];
+			if (popup_text.includes('<crossref>')) {
+				// Before inserting the text we have to replace all the possible crossrefs by their respective text:
+				popup_text = popup_text.replaceAll('<crossref>','').replaceAll('</crossref>','');
+				for (var id in texts_for_popup_windows_by_id) {
+					if (popup_text.includes(id)) {
+						popup_text = popup_text.replace(id, texts_for_cross_references_by_id[id]);
+					}
+				}
+			} 
+			reference_str = `<span class="popup_cross_reference" onMouseOver="javascript:this.className='popup_cross_reference_hover'" onMouseOut="javascript:this.className='popup_cross_reference'">` + reference_str + `<span>${popup_text}</span></span>`;
 		}
 	} else {
 		crossref[i].innerHTML = crossref[i].innerHTML + ERROR_IS_HERE_STR;
