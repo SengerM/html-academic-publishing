@@ -44,7 +44,7 @@ This equation will automatically be numbered. The `id` is optional, if you provi
 ## Cross references
 
 Cross references are extremely useful in scientific documents. To insert a cross reference in HTML-SD we use the non-standard tag `<crossref>` and inside it we put the `id` of whatever we want to refer to. For example 
-```
+```html
 <h1>The first section</h1>
 <p>This is some random text, and now an equation:
 	<equation id="definition of f">$$f(x)=x^2$$</equation>
