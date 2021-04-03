@@ -69,35 +69,8 @@ iframe.plotly {
 	margin: auto; /* This is to center the content */
 }
 /* Table of contents ------------------------------------------------ */
-#table-of-contents ol {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-#table-of-contents ol > li {
-	display: table;
-	margin-bottom: 0.6em;
-}
-#table-of-contents ol > li:before {
-	display: table-cell;
-	padding-right: 0.6em;    
-}
-#table-of-contents li ol > li {
-	margin: 0;
-}
-#table-of-contents li ol > li:before {
-	content: "\00a0 \00a0";
-}
-#table-of-contents-ol a:link {
-	color: black;
-	text-decoration: none;
-}
-#table-of-contents-ol a:visited {
-	color: black;
-}
-#table-of-contents-ol a:hover {
-	color: #5555aa;
-}
+#table-of-contents ul {list-style-type: none;}
+#table-of-contents-ol a:link {text-decoration: none;}
 /* Equations -------------------------------------------------------- */
 .equation {
 	display: table;
