@@ -27,24 +27,32 @@
 	<div id="document_content">
 		<div id="document_title"></div>
 		
-		<p class="document_author">Matías Senger</p>
+		<div class="document_author">
+			<div class="author_name">Matías Senger</div>
+		</div>
 	
 		<div id="table-of-contents">
 			<h2 class="unnumbered">Table of contents</h2> <!-- Feel free to change this title. -->
-			<!-- This is filled by the script "table_of_contents.js" linked close to the </body> tag -->
+			<!-- Here will be placed the table of contents -->
 		</div>
-		<div w3-include-html="my_latex_macros.html"></div> 
-		
 		
 		<h1 id="introduction section">Introduction</h1>
-		<p>One key point in science is to share your results with other people. The most usual way to do this is by producing a PDF document with either slides or “paper pages” that contains just what a PDF file can contain: Text and images. But what if you want to share a video? What if you want to share something that is interactive? You can't do this with a PDF document. Nowadays filming videos and producing interactive media has become very accessible to everyone. Thus, though the PDF format is practically unbeatable in accomplishing its design objective (i.e. to produce a digital version of a “paper document”), it's a pity to be stuck with the PDF format since the 90s. I think we need a change in paradigm here: To abandon some concepts tied to paper-printed documents and start producing material for monitor-rendered documents. After all, what is the fraction of PDF files that you actually print?</p>
+		<p>One key point in science is to share your results with other people. The most usual way to do this is by producing a PDF document that contains just what a PDF file can contain: Text and images. But what if you want to share a video? What if you want to share something that is interactive? What if you want to read it in your mobile? Or increase the font size? You can't do this with a PDF document (or you'll have a hard time in doing it). Thus, though the PDF format is practically unbeatable in accomplishing its design objective (i.e. to produce a digital version of a “paper document”), it's a pity to limit the capability of documents to what this format allows to do. After all, what is the fraction of PDF files that you actually print? I think we need a change in paradigm here: To abandon some concepts tied to paper-printed documents and start producing material for monitor-rendered documents.</p>
 		
 		<h2>What can replace the PDF format?</h2>
-		<p>PDF is nowadays the most extended format for sharing documents. If you receive a PDF file, it does not matter which device you use or which operating system or which software, you will find a way to read it. So if we are going to replace the PDF format, we need something that is at least as universal as the PDF.</p>
-		<p>But how can we do this? Well, if you think of websites the progress that has been done in the last decades is amazing. You can show literally any type of content and display it however you want. So the technologies behind web sites look promising to replace old school PDF files. Furthermore, these technologies are free, cross platform (Windows, Mac, Linux, Android, etc), device friendly (computer, cell phone, tablet, etc), easy to share, and if you still want to have a PDF file you can just <code>ctrl+p</code> the document and produce a nice PDF separated in "paper pages". One example of such a "scientific HTML publication" is this document that you are reading.</p>
+		<p>PDF is nowadays the most extended format for sharing documents. If you receive a PDF file, it does not matter which device you use or which operating system or which software, you will find a way to read it. If you are in a mobile device you will probably suffer of reading a PDF in such a small screen, but you will definetly be able to read it. So if we are going to replace the PDF format, we need something that is at least as universal as the PDF. We also need something that can handle all the stuff that a PDF file can contain, this however is not complicated as this consists just in images and text.</p>
+		<p>So, which is a good alternative to replace PDF? Well, if you think of websites they can show text, images, and they render good with appropriate text size either in a computer or in a mobile. It does not matter which operating system do you use or which web browser, the web site will display fine. This looks promising.</p>
+		<p>The progress that has been done in the last decades with HTML is amazing. You can show literally any type of content and display it however you want. So the technologies behind web sites look as a good option to replace the PDF format. Furthermore, these technologies are free, cross platform (Windows, Mac, Linux, Android, etc), device friendly (computer, cell phone, tablet, etc), easy share, etc.</p>
+		
+		<h3>Still want a PDF?</h3>
+		<p>You still want a PDF? Open this document with your favourite web broser, hit <code>ctrl+print</code> and save it as a PDF file. Firefox can do this, probably all other "famous" browsers can too. You may have to set up the zoom, margins, background, etc. such that it looks fine as in the browser. But believe me, it is trivial to get a good looking PDF from this.</p>
 		
 		<h2>Latex vs HTML</h2>
-		<p>In physics, math and other related fields of science it is very common to write documents using Latex. Latex is very nice and powerful, it produces amazing PDF files. Latex is a markup language, as it is HTML. The problem with Latex is that the community of users it has, as compared to HTML, is very small. Furthermore the documentation for Latex is very poor, if existent at all. In contrast, HTML is very well documented and the community of users is infinitely bigger. Also, web browsers cannot render Latex files. So if you write a document in Latex your (almost) only option is to produce a PDF file to share. Thus, although Latex is very popular in our community and it is a very powerful tool, I think it is time to replace it by something bigger as HTML. If you are used to writing in Latex, switching to this type of HTML document is very easy.</p>
+		<p>In physics, math and other related fields of science it is very common to write documents using Latex. Latex is very nice and powerful, it produces amazing PDF files. But this is preciselly the problem I see: It produces PDFs. If you write in Latex it is because you want a PDF.</p>
+		<p>HTML, as Latex, is a markup language but, in contrast, it is much more widespread due to its masive usage in websites. The comunity of HTML users is infinitely bigger than the comunity of Latex users and HTML is beautifully rendered by any modern web browser available in any device.</p>
+		<p>So, suppose you want to embed a video in your document, or produce a document which adapts itself to the width of the window in which your are reading it, or that has some interactive feature. You can probably implement this for Latex, but you will have a lot of work<footnote>I guess you will have to invent some new format from scratch.</footnote>. For HTML this is already done! You just have to write your document and open it with a web browser. But the machinery that makes it work is already implemented and spread around the world.</p>
+		<p>In view of this it looks very reasonable to choose HTML as the tool for "the next generation of scientific documents" rather than Latex or anything else.</p>
+		
 		
 		<h1>HTML academic publishing</h1>
 		<p>Here I will describe my current approach which produces a document as the one you are reading right now.</p>
