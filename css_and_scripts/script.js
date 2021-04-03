@@ -1,11 +1,16 @@
 const ERROR_IS_HERE_STR = ' <span style="color:red;font-size:140%;font-weight: bold;background-color: yellow;">← ERROR is here</span>';
 
+const document_content = document.getElementById("document_content")
+if (document_content == null) {
+	throw 'ERROR: HTML-SD requires a <div id="document_content"> object in which you put your document. This object could not be found in your HTML document.';
+}
+
 try {
 	document.getElementById("document_title").innerHTML = document.title;
 } catch {}
 
 // Parse <figure> tags -------------------------------------------------
-var figures = document.getElementById("document-content").getElementsByTagName("figure");
+var figures = document_content.getElementsByTagName("figure");
 var figures_reference_texts = {};
 var figures_reference_popup_texts = {};
 for(var i = 0; i < figures.length; i++) {
@@ -22,7 +27,7 @@ for(var i = 0; i < figures.length; i++) {
 	figures_reference_popup_texts[figures[i].id] = caption.innerHTML;
 }
 // Parse <equation> tags -----------------------------------------------
-var equations = document.getElementById("document-content").getElementsByTagName("equation");
+var equations = document_content.getElementsByTagName("equation");
 var equations_reference_texts = {};
 var equations_reference_popup_texts = {};
 for(var i = 0; i < equations.length; i++) {
@@ -47,10 +52,10 @@ for(var i = 0; i < equations.length; i++) {
 	equations_reference_popup_texts[equations[i].id] =  equations[i].innerHTML.replaceAll('$$','$');// This will appear in the popup window when the mouse hovers over the reference.
 }
 // Parse <h_> tags -----------------------------------------------------
-function get_all_numbered_h(document) {
+function get_all_numbered_h(elements) {
 	var arr = [];
-	if (!document) return arr;
-	var all_el = document.getElementsByTagName('*');
+	if (!elements) return arr;
+	var all_el = elements.getElementsByTagName('*');
 	for (var i = 0, n = all_el.length; i < n; i++) {
 		if (/^h\d{1}$/gi.test(all_el[i].nodeName) && all_el[i].className!='unnumbered') {
 			arr.push(all_el[i]);
@@ -58,7 +63,7 @@ function get_all_numbered_h(document) {
 	}
 	return arr;
 }
-var numbered_headings = get_all_numbered_h(document);
+var numbered_headings = get_all_numbered_h(document_content);
 var headings_reference_texts = {};
 var headings_reference_popup_texts = {};
 var current_section_numbering = [0];
@@ -88,6 +93,8 @@ for (var i=0; i<numbered_headings.length; i++) {
 	headings_reference_popup_texts[current_id] = numbered_headings[i].innerHTML;
 	numbered_headings[i].id = current_id; // If the heading had no id, this will set it. Otherwise it does nothing.
 }
+//~ // Parse footnotes -----------------------------------------------------
+//~ var footnotes = document.getElementById("document-content").getElementsByTagName("footnotes");
 // Automatic table of contents -----------------------------------------
 //     This was taken from https://stackoverflow.com/a/17430494/8849755                                 
 //     Here there is a working example http://jsfiddle.net/funkyeah/s8m2t/3/                            
@@ -113,7 +120,7 @@ function buildRec(nodes, elm, level) {
 				li = elm.lastChild;
 				if(li == null)
 					li = elm.appendChild(document.createElement("li"));
-				elm = li.appendChild(document.createElement("ol"));
+				elm = li.appendChild(document.createElement("ul"));
 				cnt++;
 			} while(cnt < (curlevel - level));
 		}
@@ -126,16 +133,16 @@ function buildRec(nodes, elm, level) {
 }
 
 if (document.getElementById("table-of-contents") != null) {
-	var all = document.getElementById("document-content").getElementsByTagName("*");
+	var all = document.getElementsByTagName("*");
 	var nodes = [];
 	for(var i = all.length; i--; nodes.unshift(all[i]));
-	var result = document.createElement("ol");
+	var result = document.createElement("ul");
 	result.setAttribute("id", "table-of-contents-ol");
 	buildRec(nodes, result, 1);
 	document.getElementById("table-of-contents").appendChild(result);
 }
 // Parse <crossref> tags -----------------------------------------------
-var crossref = document.getElementById("document-content").getElementsByTagName("crossref");
+var crossref = document_content.getElementsByTagName("crossref");
 const texts_for_cross_references_by_id = Object.assign({}, figures_reference_texts, equations_reference_texts, headings_reference_texts); // This is a dictionary of the form dict[id] = "text_to_be_shown_in_the_reference".
 const texts_for_popup_windows_by_id = Object.assign({}, equations_reference_popup_texts, headings_reference_popup_texts, figures_reference_popup_texts);
 for(var i = 0; i < crossref.length; i++) {

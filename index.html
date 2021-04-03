@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>Modern scientific publishing with HTML</title>
+	<title>Modern scientific documents with HTML</title>
 	
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="./css_and_scripts/style.css">
@@ -23,16 +23,19 @@
 </head>
 
 <body>
-	<p id="document_title">Title of the document</p> <!-- Do not change this line, put your title in the "<title></title>" tag. -->
-	<p class="document_author">Matías Senger</p>
 	
-	<div id="table-of-contents">
-		<h2 class="unnumbered">Table of contents</h2> <!-- Feel free to change this title. -->
-		<!-- This is filled by the script "table_of_contents.js" linked close to the </body> tag -->
-	</div>
-	<div w3-include-html="my_latex_macros.html"></div> 
+	<div id="document_content">
+		<div id="document_title"></div>
+		
+		<p class="document_author">Matías Senger</p>
 	
-	<div id="document-content">
+		<div id="table-of-contents">
+			<h2 class="unnumbered">Table of contents</h2> <!-- Feel free to change this title. -->
+			<!-- This is filled by the script "table_of_contents.js" linked close to the </body> tag -->
+		</div>
+		<div w3-include-html="my_latex_macros.html"></div> 
+		
+		
 		<h1 id="introduction section">Introduction</h1>
 		<p>One key point in science is to share your results with other people. The most usual way to do this is by producing a PDF document with either slides or “paper pages” that contains just what a PDF file can contain: Text and images. But what if you want to share a video? What if you want to share something that is interactive? You can't do this with a PDF document. Nowadays filming videos and producing interactive media has become very accessible to everyone. Thus, though the PDF format is practically unbeatable in accomplishing its design objective (i.e. to produce a digital version of a “paper document”), it's a pity to be stuck with the PDF format since the 90s. I think we need a change in paradigm here: To abandon some concepts tied to paper-printed documents and start producing material for monitor-rendered documents. After all, what is the fraction of PDF files that you actually print?</p>
 		
@@ -123,20 +126,24 @@
 		<p>Another advantage of these "interactive plots" is that the text in the legend/labels zooms accordingly to the zoom of the window. Try to <code>ctrl+wheel</code> to change the zoom in this window and see how the text and markers in these plots is modified. Cool.</p>
 		
 		<h1>Cross referencing</h1>
-		<p>This is the very first implementation of cross referencing for figures: See figure <crossref>measured delay average</crossref> or figure <crossref>figure with Newton in full width</crossref>. This figure has math in its caption: fig. <crossref>figure with math in caption</crossref>.</p>
+		<p>This is the very first implementation of cross referencing for figures: See figure <crossref>measured delay average</crossref> or figure&nbsp;<crossref>figure with Newton in full width</crossref>. This figure has math in its caption: fig. <crossref>figure with math in caption</crossref>.</p>
 		<p>We can also insert a reference to an equation like this: See eq. <crossref>my first equation</crossref>. Note that you don't have to specify that this is an equation or add the parentheses, it is automatic.</p>
-		<p>Now you can see eq. <crossref>Dirac equation</crossref>.</p>
+		<p>Now you can see eq.&nbsp;<crossref>Dirac equation</crossref>.</p>
 		<p>It is, of course, possible to reference to sections. For example see section <crossref>introduction section</crossref> or <crossref>Mathematic equations</crossref>, or even <crossref>Interactive plots</crossref>. For the two sections with the same name we can refer to them using their <code>id</code>s, or the title of the section for the one with no <code>id</code> defined: See section <crossref>Two sections with the same name</crossref> that has no <code>id</code> defined or <crossref>I want two sections with the same title</crossref> that has <code>id</code> defined.</p>
 		<p>This is a cross reference to the very long equation: <crossref>very long equation</crossref>. This has problems when it is close to the left margin, try with this one <crossref>very long equation</crossref>.</p>
 		
 		<h2>Pop-ups in cross references</h2>
 		<p>Hover your mouse pointer over any cross reference (e.g. this one <crossref>Dirac equation</crossref>) to see what happens. This is really nice and useful!</p>
 		
+		<h1>Footnotes</h1>
+		<p>It is usual to add footnotes when something needs clarification but you don't want to overload the text. Here you can add footnotes by using the <code>&lt;footnote></code> tag. For example here you have a footnote<footnote>This is a footnote. We can have an equation $e^{i\pi}+1=0$.</footnote>.</p>
+		
 		<h1>Still to do</h1>
 		<p>Though this is already looking good, there is still much work to do:</p>
 		<ul>
 			<li>Implement foot notes that are displayed on hover with the mouse.</li>
 			<li>Implement bibliography and references.</li>
+			<li>Implement a translator Latex → this.</li>
 			<li>Probably many things more.</li>
 		</ul>
 		
@@ -145,7 +152,6 @@
 	</div>
 	
 	<script src="./css_and_scripts/script.js"></script>
-	<script src="./css_and_scripts/html_include.js"></script>
 </body>
 
 </html>
