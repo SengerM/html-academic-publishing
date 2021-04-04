@@ -154,8 +154,8 @@ function buildRec(nodes, elm, level) {
 		}
 		li = elm.appendChild(document.createElement("li"));
 		// replace the next line with archor tags or whatever you want
-		li.innerHTML = `<a href="#section_${node.innerHTML}">${node.textContent}</a>`
-		node.innerHTML = `<a class="offset-anchor" id="section_${node.innerHTML}"></a>` + node.innerHTML
+		li.innerHTML = `<a href="#${node.id}">${node.textContent}</a>`
+		//~ node.innerHTML = `<a class="offset-anchor" id="section_${node.innerHTML}"></a>` + node.innerHTML
 		buildRec(nodes, elm, level + cnt);
 	}
 }

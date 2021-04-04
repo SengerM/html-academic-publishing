@@ -107,10 +107,10 @@ iframe.plotly {
 	border-radius: 10px;
     right: 0px;
     top: 0px;
-    animation: fade 0.1s linear;
+    animation: popups_fade_in 0.1s linear;
     font-size: 90%;
 }
-@keyframes fade {
+@keyframes popups_fade_in {
 	0% { opacity: 0 }
 	100% { opacity: 1 }
 }
@@ -128,4 +128,13 @@ iframe.plotly {
 }
 #footnotes_list ul li {
 	margin: 0 0 5px 0;
+}
+
+:target {
+	animation: link_highlight_fade_out 1s linear 0s 2 normal forwards;
+}
+@keyframes link_highlight_fade_out {
+	0% {background-color: inherit;}
+	50% {background-color: #ffaaaa;}
+	100% {background-color: inherit;}
 }
