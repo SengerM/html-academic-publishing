@@ -81,12 +81,10 @@ iframe.plotly {
 }
 .equation__content {
 	width: 90%;
-	overflow-x: scroll;
 }
 .equation__number {
 	text-align: right;
 	font-family: serif;
-	font-size: 100%;
 }
 /* Popup cross references  ------------------------------------------ */
 .popup_cross_reference {position:relative; }
