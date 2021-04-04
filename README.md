@@ -85,9 +85,13 @@ The `id`s are defined in the same way as is standard in HTML. Examples:
 
 ## Footnotes
 
-**Not yet implemented**
-
-To insert footnotes I will use the non-standard `<footnote>` tag, for example `<footnote>This is a footnote.</footnote>`. All footnotes will be automatically numbered, shown in the end of the document, linked and display a popup bubble on mouse hover.
+To insert footnotes use the non-standard `<footnote>` tag, for example `<footnote>This is a footnote.</footnote>`. All footnotes will be automatically numbered and added to the footnotes list. For the moment you must tell where the footnotes list will be located by inserting `<div id="footnotes_list"></div>` somewhere in the document (it can be anywhere). You can add extra elements, for example:
+```html
+<div id="footnotes_list">
+	<h2 class="unnumbered">Footnotes</h2>
+	<!-- The list of footnotes will be placed here -->
+</div>
+```
 
 ## Bibliography
 
