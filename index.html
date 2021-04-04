@@ -64,16 +64,15 @@
 		<h3>Latex vs HTML</h3>
 		<p>In physics, math and other related fields of science it is very common to write documents using Latex. Latex is very nice and powerful, it produces amazing PDF files. But this is preciselly the problem I see: It produces PDFs. If you write in Latex it is because in the end you want a PDF.</p>
 		<p>HTML, as Latex, is a markup language but, in contrast, it is much more widespread due to its masive usage in websites. The comunity of HTML users is infinitely bigger than the comunity of Latex users. Nowadays there is nothing Latex can do that HTML cannot do (for example beautiful equations). Even more, you don't need to install anything in order to create/view an HTML document because you already have a text editor and a web browser in all your devices.</p>
-		<p>In view of this it looks very reasonable for me to choose HTML as the tool for "the next generation of scientific documents" rather than Latex or anything else.</p>
+		<p>In view of this it looks very reasonable for me to choose HTML as the basis for "the next generation of scientific documents" rather than Latex or anything else.</p>
 		
 		
 		<h2>Still want a PDF?</h2>
-		<p>You still want a PDF? Open this document with your favourite web broser, hit <code>ctrl+print</code> and save it as a PDF file<footnote>Firefox can do this, probably all other "famous" browsers can too. You may have to set up the zoom, margins, background, etc. such that it looks fine as in the browser. But believe me, it is trivial to get a good looking PDF from this.</footnote>.</p>
-		
+		<p>You still want a PDF? Open this document with your favourite web broser, hit <code>ctrl+print</code> and save it as a PDF file<footnote>Firefox can do this, probably all other "famous" browsers can too. You may have to set up the zoom, margins, background, etc. such that it looks fine as in the browser. But believe me, it is trivial to get a good looking PDF from this.</footnote>. There are probably other ways of getting a PDF from an HTML file.</p>
 		
 		
 		<h1>HTML Scientific Document</h1>
-		<p>Here I will describe my current approach which produces a document as the one you are reading right now. Still not perfect but already better than a PDF.</p>
+		<p>Here I will describe my current approach which produces a document as the one you are reading right now. Still not perfect but, from my point of view, already better than a PDF.</p>
 		
 		<h2>The structure of the documents</h2>
 		<p>This is based in HTML so anything that applies to HTML also applies to this. The structure of an HTML-SD must follow the <a href="https://www.w3schools.com/html/html_intro.asp">structure of an HTML document</a>. As an example you can take the source code for this document, just select "view source" with your favourite web browser or download this file (using <code>ctrl+s</code> for example) and open it with a text editor.</p>
@@ -174,6 +173,7 @@
 				<li>Tables (not implemented yet).</li>
 			</ul>
 			The machinery behind HTML Scientific Document automatically detects what you are refering to and uses the propper reference text<footnote>This means that you don't have to wrap equation references between parentheses, this is automatic.</footnote>. For example: See figure <crossref>figure with Newton in full width</crossref>, equation <crossref>Dirac equation</crossref> or section <crossref>Sections and sub-sections</crossref>. 
+			This is a reference to the very long equation, eq. <crossref>very long equation</crossref>.
 		</p>
 		
 		<h2>Cross referencing sections without the need of adding an id</h2>
