@@ -97,26 +97,31 @@ for (var i=0; i<numbered_headings.length; i++) {
 var footnotes = document_content.getElementsByTagName("footnote");
 var footnotes_reference_texts = {};
 var footnotes_reference_popup_texts = {};
-var footnotes_list = document.createElement("ul");
-footnotes_list.setAttribute('id', 'footnotes_list');
-for (var i=0; i<footnotes.length; i++) {
-	var current_footnote_id = `footnote_${i+1}`;
-	var current_footnote_content = footnotes[i].innerHTML;
-	if (current_footnote_content.includes('<footnote>')) {
-		footnotes[i].innerHTML = footnotes[i].innerHTML + ERROR_IS_HERE_STR;
-		footnotes[i].scrollIntoView();
-		throw `ERROR: Found a footnote that contains a footnote inside it. This is not allowed, sorry. The footnote content is "${current_footnote_content}"`;
+if (footnotes != null) {
+	if (document.getElementById("footnotes_list") == null) {
+		throw 'ERROR: You inserted footnotes in your document but there is nowhere to put the list of footnotes. Please add "<div id="footnotes_list></div>" somewhere in your document.';
 	}
-	var current_footnote_entry = document.createElement('li');
-	footnotes_list.appendChild(current_footnote_entry);
-	current_footnote_entry.setAttribute('id', current_footnote_id + '_list_element');
-	footnotes_reference_texts[current_footnote_entry.id] = `<sup>[${i+1}]</sup>`;
-	footnotes[i].setAttribute('id', current_footnote_id);
-	footnotes[i].innerHTML = '<crossref>' + current_footnote_entry.id + '</crossref>';
-	current_footnote_entry.innerHTML = `<a href=#${footnotes[i].id}>` + footnotes_reference_texts[current_footnote_entry.id] + '</a> ' + current_footnote_content;
-	footnotes_reference_popup_texts[current_footnote_entry.id] = current_footnote_content;
+	var footnotes_list = document.createElement("ul");
+	footnotes_list.setAttribute('id', 'footnotes_list');
+	for (var i=0; i<footnotes.length; i++) {
+		var current_footnote_id = `footnote_${i+1}`;
+		var current_footnote_content = footnotes[i].innerHTML;
+		if (current_footnote_content.includes('<footnote>')) {
+			footnotes[i].innerHTML = footnotes[i].innerHTML + ERROR_IS_HERE_STR;
+			footnotes[i].scrollIntoView();
+			throw `ERROR: Found a footnote that contains a footnote inside it. This is not allowed, sorry. The footnote content is "${current_footnote_content}"`;
+		}
+		var current_footnote_entry = document.createElement('li');
+		footnotes_list.appendChild(current_footnote_entry);
+		current_footnote_entry.setAttribute('id', current_footnote_id + '_list_element');
+		footnotes_reference_texts[current_footnote_entry.id] = `<sup>[${i+1}]</sup>`;
+		footnotes[i].setAttribute('id', current_footnote_id);
+		footnotes[i].innerHTML = '<crossref>' + current_footnote_entry.id + '</crossref>';
+		current_footnote_entry.innerHTML = `<a href=#${footnotes[i].id}>` + footnotes_reference_texts[current_footnote_entry.id] + '</a> ' + current_footnote_content;
+		footnotes_reference_popup_texts[current_footnote_entry.id] = current_footnote_content;
+	}
+	document.getElementById("footnotes_list").appendChild(footnotes_list);
 }
-document.getElementById("footnotes_list").appendChild(footnotes_list);
 // Automatic table of contents -----------------------------------------
 //     This was taken from https://stackoverflow.com/a/17430494/8849755                                 
 //     Here there is a working example http://jsfiddle.net/funkyeah/s8m2t/3/                            
