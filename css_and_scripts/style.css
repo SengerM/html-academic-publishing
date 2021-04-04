@@ -118,7 +118,7 @@ iframe.plotly {
 #footnotes_list {
 	font-size: 90%;
 }
-#footnotes_list a:link {
+#footnotes_list a.footnote_key_link:link {
 	text-decoration: none;
 }
 #footnotes_list ul {

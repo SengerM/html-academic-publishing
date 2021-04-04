@@ -118,7 +118,7 @@ if (footnotes.length != 0) {
 		footnotes_reference_texts[current_footnote_entry.id] = `<sup>[${i+1}]</sup>`;
 		footnotes[i].setAttribute('id', current_footnote_id);
 		footnotes[i].innerHTML = '<crossref>' + current_footnote_entry.id + '</crossref>';
-		current_footnote_entry.innerHTML = `<a href=#${footnotes[i].id}>` + footnotes_reference_texts[current_footnote_entry.id] + '</a> ' + current_footnote_content;
+		current_footnote_entry.innerHTML = `<a href=#${footnotes[i].id} class="footnote_key_link">` + footnotes_reference_texts[current_footnote_entry.id] + '</a> ' + current_footnote_content;
 		footnotes_reference_popup_texts[current_footnote_entry.id] = current_footnote_content;
 	}
 	document.getElementById("footnotes_list").appendChild(footnotes_list);
@@ -198,7 +198,11 @@ for(var i = 0; i < crossref.length; i++) {
 						popup_text = popup_text.replace(id, texts_for_cross_references_by_id[id]);
 					}
 				}
-			} 
+			}
+			if (popup_text.includes('<footnote>')) {
+				// Let's give a nice format to footnotes within in popups.
+				popup_text = popup_text.replaceAll('<footnote>','<sup>[').replaceAll('</footnote>',']</sup>')
+			}
 			reference_str = `<span class="popup_cross_reference" onMouseOver="javascript:this.className='popup_cross_reference_hover'" onMouseOut="javascript:this.className='popup_cross_reference'">` + reference_str + `<span>${popup_text}</span></span>`;
 		}
 	} else {
