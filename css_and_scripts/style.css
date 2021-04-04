@@ -85,6 +85,7 @@ iframe.plotly {
 .equation__number {
 	text-align: right;
 	font-family: serif;
+	font-size: 150%;
 }
 /* Popup cross references  ------------------------------------------ */
 .popup_cross_reference {position:relative; }
