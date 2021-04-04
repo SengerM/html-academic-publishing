@@ -20,6 +20,16 @@ In an HTML document the title is specified by the tag `<title>` within the `<hea
 
 Scientific documents are always sturctured following sections, subsections, subsubsections and so on. In HTML this is done using the `<h1>` ... `<h6>` tags, see [here](https://www.w3schools.com/html/html_headings.asp). In HTML-SD all `<h_>` tags inside the `<div id="document_content">` will be automatically numbered (unless otherwise specified with `<h1 class="unnumbered">`), listed in the table of contents, available for cross referencing, etc.
 
+### Table of contents
+
+If you want a table of contents, just insert `<div id="table-of-contents"></div>` wherever you want it. You can also add a title, for example:
+```html
+<div id="table-of-contents">
+	<h2 class="unnumbered">Table of contents</h2> <!-- Feel free to change this title. -->
+	<!-- Here will be placed the table of contents -->
+</div>
+```
+
 ## Figures and tables
 
 To keep everything as close as possible to the standard, figures and tables are entered in the same way as in HTML. So for figures you would do [this](https://www.w3schools.com/tags/tag_figcaption.asp) and for tables [this](https://www.w3schools.com/tags/tag_caption.asp). Note that figures and tables will be automatically numbered by HTML-SD and if an `id` is provided made available for cross referencing. The `id` is specified not in the caption but in the `<figure>` or `<table>` tags, e.g. 
