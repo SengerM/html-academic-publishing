@@ -97,8 +97,9 @@ for (var i=0; i<numbered_headings.length; i++) {
 var footnotes = document_content.getElementsByTagName("footnote");
 var footnotes_reference_texts = {};
 var footnotes_reference_popup_texts = {};
-if (footnotes != null) {
+if (footnotes.length != 0) {
 	if (document.getElementById("footnotes_list") == null) {
+		footnotes[0].innerHTML = '[' + footnotes[0].innerHTML + '] <b>You inserted at least this footnote but there is nowhere the <code>&lt;div id="footnotes_list">&lt;/div></code>, please add it somewhere in your HTML doucment where you want the footnotes list to be displayed, for example at the end close to <code>&lt;/body></code>.</b>' + ERROR_IS_HERE_STR;
 		throw 'ERROR: You inserted footnotes in your document but there is nowhere to put the list of footnotes. Please add "<div id="footnotes_list></div>" somewhere in your document.';
 	}
 	var footnotes_list = document.createElement("ul");
