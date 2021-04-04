@@ -110,10 +110,11 @@ for (var i=0; i<footnotes.length; i++) {
 	var current_footnote_entry = document.createElement('li');
 	footnotes_list.appendChild(current_footnote_entry);
 	current_footnote_entry.setAttribute('id', current_footnote_id + '_list_element');
-	footnotes_reference_texts[current_footnote_id] = `<sup>[${i+1}]</sup>`;
+	footnotes_reference_texts[current_footnote_entry.id] = `<sup>[${i+1}]</sup>`;
 	footnotes[i].setAttribute('id', current_footnote_id);
-	footnotes[i].innerHTML = `<a href=#${current_footnote_entry.id}>` + footnotes_reference_texts[current_footnote_id] + '</a>';
-	current_footnote_entry.innerHTML = `<a href=#${footnotes[i].id}>` + footnotes_reference_texts[current_footnote_id] + '</a> ' + current_footnote_content;
+	footnotes[i].innerHTML = '<crossref>' + current_footnote_entry.id + '</crossref>';
+	current_footnote_entry.innerHTML = `<a href=#${footnotes[i].id}>` + footnotes_reference_texts[current_footnote_entry.id] + '</a> ' + current_footnote_content;
+	footnotes_reference_popup_texts[current_footnote_entry.id] = current_footnote_content;
 }
 document.getElementById("footnotes_list").appendChild(footnotes_list);
 // Automatic table of contents -----------------------------------------
@@ -164,8 +165,18 @@ if (document.getElementById("table-of-contents") != null) {
 }
 // Parse <crossref> tags -----------------------------------------------
 var crossref = document_content.getElementsByTagName("crossref");
-const texts_for_cross_references_by_id = Object.assign({}, figures_reference_texts, equations_reference_texts, headings_reference_texts); // This is a dictionary of the form dict[id] = "text_to_be_shown_in_the_reference".
-const texts_for_popup_windows_by_id = Object.assign({}, equations_reference_popup_texts, headings_reference_popup_texts, figures_reference_popup_texts);
+const texts_for_cross_references_by_id = Object.assign({}, 
+	figures_reference_texts, 
+	equations_reference_texts, 
+	headings_reference_texts,
+	footnotes_reference_texts
+); // This is a dictionary of the form dict[id] = "text_to_be_shown_in_the_reference".
+const texts_for_popup_windows_by_id = Object.assign({}, 
+	equations_reference_popup_texts, 
+	headings_reference_popup_texts, 
+	figures_reference_popup_texts,
+	footnotes_reference_popup_texts
+);
 for(var i = 0; i < crossref.length; i++) {
 	var ref_to_this_id = crossref[i].innerHTML;
 	var reference_str;
