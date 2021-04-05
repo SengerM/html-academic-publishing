@@ -22,7 +22,6 @@ if (authors.length > 0) {
 	for (var i=0; i<authors.length; i++) {
 		authors_names_container.appendChild(authors[i]);
 		var current_author_affiliations = authors[i].getAttribute('affiliation').split('|');
-		console.log(current_author_affiliations);
 		var current_author_affiliations_text_with_references = '';
 		var affiliations_processed = 0;
 		for (var k=0; k<affiliations_list.length; k++) {
