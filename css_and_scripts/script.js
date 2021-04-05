@@ -32,15 +32,15 @@ var equations_reference_texts = {};
 var equations_reference_popup_texts = {};
 for(var i = 0; i < equations.length; i++) {
 	var equation_number_display_str = `(${i+1})`;
-	const equation_container = document.createElement('div');
-	equation_container.className = "equation";
-	equations[i].parentNode.insertBefore(equation_container, equations[i]);
-	equation_container.appendChild(equations[i])
+	const numbered_equation_container = document.createElement('div');
+	numbered_equation_container.className = "numbered_equation_container";
+	equations[i].parentNode.insertBefore(numbered_equation_container, equations[i]);
+	numbered_equation_container.appendChild(equations[i])
 	const equation_number = document.createElement('div');
-	equation_number.className = "equation__number";
+	equation_number.className = "equation_number";
 	equation_number.innerHTML = `${"&nbsp;".repeat(5)}${equation_number_display_str}`;
-	equation_container.appendChild(equation_number);
-	equations[i].className = "equation__content";
+	numbered_equation_container.appendChild(equation_number);
+	equations[i].className = "equation_content";
 	if (!equations[i].hasAttribute('id'))
 		continue;
 	if (equations[i].id in equations_reference_texts) {

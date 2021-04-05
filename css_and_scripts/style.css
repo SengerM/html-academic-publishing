@@ -72,20 +72,18 @@ iframe.plotly {
 #table-of-contents ul {list-style-type: none;}
 #table-of-contents-ol a:link {text-decoration: none;}
 /* Equations -------------------------------------------------------- */
-.equation {
-	display: table;
+.numbered_equation_container {
 	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
-.equation__content, .equation__number {
-	display: table-cell;
+.equation_content {
+	width: 100%;
+	overflow-x: auto;
 }
-.equation__content {
-	width: 90%;
-}
-.equation__number {
-	text-align: right;
-	font-family: serif;
-	font-size: 150%;
+.equation_number {
+	display: table-column;
 }
 /* Popup cross references  ------------------------------------------ */
 .popup_cross_reference {position:relative; }
