@@ -26,7 +26,19 @@ In an HTML document the title is specified by the tag `<title>` within the `<hea
 
 ## Authors
 
-**Not yet implemented**.
+To specify the authors of the document use the `<author>` tag like this:
+```html
+<author affiliation="Universität Zürich|Fermilab|Princeton|Cambridge|Universidad de Buenos Aires|CERN|Oxford">
+	Smart Guy
+</author>
+<author	affiliation="Universität Zürich|Weird Institution with Such a Long Name That you Barely Konw How to Write" email="juanca@gmail.com">
+	Juan Carlos
+</author>
+<author affiliation="The Pirates University" email="theblackpearl@tortuga.com.pi">
+	Captain Jack Sparrow<footnote>Yo ho, yo ho, a pirate's life for me.</footnote>
+</author>
+```
+The order of the authors is the one you write them. The list of affiliations is automatically assembled and ordered alphabetically.
 
 ## Sections and subsections
 
