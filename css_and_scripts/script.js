@@ -9,7 +9,10 @@ var authors = document.getElementsByTagName('author');
 if (authors.length > 0) {
 	var affiliations_list = new Set();
 	for (var i=0; i<authors.length; i++) {
-		var current_author_affiliations = authors[i].getAttribute('affiliation').split('|');
+		var current_author_affiliations = authors[i].getAttribute('affiliation');
+		if (current_author_affiliations == null)
+			continue;
+		current_author_affiliations = current_author_affiliations.split('|');
 		for (var k=0; k<current_author_affiliations.length; k++) {
 			affiliations_list.add(current_author_affiliations[k]);
 		}
@@ -21,7 +24,10 @@ if (authors.length > 0) {
 	authors[0].parentNode.insertBefore(authors_names_container, authors[0]);
 	for (var i=0; i<authors.length; i++) {
 		authors_names_container.appendChild(authors[i]);
-		var current_author_affiliations = authors[i].getAttribute('affiliation').split('|');
+		var current_author_affiliations = authors[i].getAttribute('affiliation');
+		if (current_author_affiliations == null)
+			continue;
+		current_author_affiliations = current_author_affiliations.split('|');
 		var current_author_affiliations_text_with_references = '';
 		var affiliations_processed = 0;
 		for (var k=0; k<affiliations_list.length; k++) {
