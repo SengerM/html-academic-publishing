@@ -4,6 +4,12 @@ I want to replace the PDF format, which is tied to the concept of a paper-printe
 
 You can see how this "PDF replacement attempt" looks like in [this link](https://sengerm.github.io/html-academic-publishing/).
 
+## Template
+
+You can find a template [here](https://github.com/SengerM/html-academic-publishing/blob/main/template.html). Just download it and start playing. Open it with your favourite text editor and at the same time with your favourite web browser. Let the magic begin...
+
+## Tests that this works
+
 As of 5-April-2021 I tested this in the following browsers:
 
 - Firefox in Linux: Works perfect.
@@ -14,7 +20,7 @@ As of 5-April-2021 I tested this in the following browsers:
 
 # HTML-SD specificaitons
 
-Throughout this file I will refer to "HTML scientific documents" as HTML-SD".
+Throughout this file I will refer to "HTML scientific documents" as "HTML-SD".
 
 ## Document structure
 

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Template for "Modern scientific documents with HTML"</title>
+	
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://sengerm.github.io/html-academic-publishing/css_and_scripts/style.css"> <!-- This will load the style sheet directly from the online repo, so you don't need to download it but you need internet connection. -->
+	<!-- Math support https://www.mathjax.org/#gettingstarted -->
+	<script>
+	MathJax = {
+	  tex: {
+		inlineMath: [['$', '$'], ['\\(', '\\)']]
+	  },
+	  svg: {
+		fontCache: 'global'
+	  }
+	};
+	</script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+	
+</head>
+
+<body>
+	
+	<div id="document_title">This will be replaced by the title of the document</div>
+	
+	<!-- Insert the authors below -->
+	<author affiliation="X University|Y Lab">
+		Author 1
+	</author>
+	<author email="thisisnotmyemail@gmail.com">
+		Author 2<footnote>Some comment you want to make about Author 2. For example that this author has no affiliation but he is a genious.</footnote>
+	</author>
+	<author	affiliation="X University|Z University" email="juanca@gmail.com">
+		Author 3
+	</author>
+	
+	<!-- Write your document below -->
+	<div id="table-of-contents">
+		<h2 class="unnumbered">Table of contents</h2> <!-- Feel free to change this title, remove it or even add more elements. -->
+		<!-- Here will be placed the table of contents -->
+	</div>
+	
+	<h1 id="SEC: use this id to insert a crossreference to this section">Your first section</h1>
+	<p>Write your first paragraph here.</p>
+	<p>Here you write your second paragraph with some math $x^2+x+1=0$ or $$ x^2+x+1=0 $$ or a numbered equation
+		
+		<equation id="EQ: id of my equation">$$ {{f}_{r:n}}(x)=\frac{n!}{(r-1)!(n-r+1)!}\,\left[ {{\left( \frac{x-1}{k}\right)}^{r-1}}\ {{\left( \frac{k-x+1}{k} \right)}^{n-r+1}}-{{\left( \frac{x}{k} \right)}^{r-1}}\ {{\left( \frac{k-x}{k} \right)}^{n-r+1}} \right]+{{f}_{r-1:n}}(x) $$</equation>
+		
+		that you can cite now: See eq. <crossref>EQ: id of my equation</crossref>.
+		
+	</p>
+	
+	<h1>Figures</h1>
+	<p>Add a figure to your document, for example see figure <crossref>FIG: my first figure</crossref>.
+	
+		<figure id="FIG: my first figure">
+		<image src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Hydrogen_discharge_tube.jpg/1920px-Hydrogen_discharge_tube.jpg" width="100%"></image>
+		<!-- Of course you can insert an image that is not online, just put the path to your image. -->
+		<figcaption class="figure">
+			Write here the caption of your image<footnote>It can contain footnotes and cross references.</footnote>. See section <crossref>SEC: use this id to insert a crossreference to this section</crossref>. This image is the purple glow of Hydrogen in its plasma state, taken from <a href="https://en.wikipedia.org/wiki/Hydrogen">Wikipedia</a>.
+		</figcaption>
+	</figure>
+	
+	Here you continue your paragraph after having discussed figure <crossref>FIG: my first figure</crossref>.
+	</p>
+	
+	<!----------------------------------------------------------------->
+	
+	<div id="footnotes_list">
+		<h2 class="unnumbered">Footnotes</h2> <!-- Feel free to change this title, remove it or even add more elements. -->
+		<!-- Here you will find the list of footnotes -->
+	</div>
+	
+	<script src="https://sengerm.github.io/html-academic-publishing/css_and_scripts/script.js"></script> <!-- This will load the script directly from the online repo, so you don't need to download it but you need internet connection. -->
+</body>
+
+</html>
