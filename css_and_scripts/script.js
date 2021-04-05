@@ -1,16 +1,11 @@
 const ERROR_IS_HERE_STR = ' <span style="color:red;font-size:140%;font-weight: bold;background-color: yellow;">← ERROR is here</span>';
 
-const document_content = document.getElementById("document_content")
-if (document_content == null) {
-	throw 'ERROR: HTML-SD requires a <div id="document_content"> object in which you put your document. This object could not be found in your HTML document.';
-}
-
 try {
 	document.getElementById("document_title").innerHTML = document.title;
 } catch {}
 
 // Parse <figure> tags -------------------------------------------------
-var figures = document_content.getElementsByTagName("figure");
+var figures = document.getElementsByTagName("figure");
 var figures_reference_texts = {};
 var figures_reference_popup_texts = {};
 for(var i = 0; i < figures.length; i++) {
@@ -27,7 +22,7 @@ for(var i = 0; i < figures.length; i++) {
 	figures_reference_popup_texts[figures[i].id] = caption.innerHTML;
 }
 // Parse <equation> tags -----------------------------------------------
-var equations = document_content.getElementsByTagName("equation");
+var equations = document.getElementsByTagName("equation");
 var equations_reference_texts = {};
 var equations_reference_popup_texts = {};
 for(var i = 0; i < equations.length; i++) {
@@ -63,7 +58,7 @@ function get_all_numbered_h(elements) {
 	}
 	return arr;
 }
-var numbered_headings = get_all_numbered_h(document_content);
+var numbered_headings = get_all_numbered_h(document);
 var headings_reference_texts = {};
 var headings_reference_popup_texts = {};
 var current_section_numbering = [0];
@@ -94,7 +89,7 @@ for (var i=0; i<numbered_headings.length; i++) {
 	numbered_headings[i].id = current_id; // If the heading had no id, this will set it. Otherwise it does nothing.
 }
 // Parse footnotes -----------------------------------------------------
-var footnotes = document_content.getElementsByTagName("footnote");
+var footnotes = document.getElementsByTagName("footnote");
 var footnotes_reference_texts = {};
 var footnotes_reference_popup_texts = {};
 if (footnotes.length != 0) {
@@ -170,7 +165,7 @@ if (document.getElementById("table-of-contents") != null) {
 	document.getElementById("table-of-contents").appendChild(result);
 }
 // Parse <crossref> tags -----------------------------------------------
-var crossref = document_content.getElementsByTagName("crossref");
+var crossref = document.getElementsByTagName("crossref");
 const texts_for_cross_references_by_id = Object.assign({}, 
 	figures_reference_texts, 
 	equations_reference_texts, 

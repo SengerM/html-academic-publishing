@@ -4,21 +4,33 @@ I want to replace the PDF format, which is tied to the concept of a paper-printe
 
 You can see how this "PDF replacement attempt" looks like in [this link](https://sengerm.github.io/html-academic-publishing/).
 
+As of 5-April-2021 I tested this in the following browsers:
+
+- Firefox in Linux: Works perfect.
+- Chrome in Windows: Works perfect.
+- Edge in Windows: Works perfect.
+- Chrome in Android (mobile): Works fine but equations render small.
+- Firefox in Android (mobile): Works fine but equations render small.
+
 # HTML-SD specificaitons
 
 Throughout this file I will refer to "HTML scientific documents" as HTML-SD".
 
 ## Document structure
 
-As this is HTML, the main structure must follow that of an HTML document. See [here](https://www.w3schools.com/html/html_intro.asp) for example. Within the `<body>`, HTML-SD requires to insert a `<div id="document_content">` where the content of the document will be (sections, figures, equations, text, etc.). Stuff outside this tag will be rendered but not used by HTML-SD. E.g. a section or a figure outside the `<div id="document_content">` will not be numbered, referenced, etc.
+As this is HTML, the main structure must follow that of an HTML document. See [here](https://www.w3schools.com/html/html_intro.asp) for example. Within the `<body>` you just write the stuff.
 
 ## Document title
 
-In an HTML document the title is specified by the tag `<title>` within the `<head>` (see [here](https://www.w3schools.com/html/html_intro.asp)). This title is usually not rendered in the page. In scientific documents we always have a title to show. To avoid duplication of information, HTML-SD will use this title and place it in the `<div id="document_title"></div>` element. You can place this wherever you want, but usually you will put this in the beginning, just after `<div id="document_content">`.
+In an HTML document the title is specified by the tag `<title>` within the `<head>` (see [here](https://www.w3schools.com/html/html_intro.asp)). This title is usually not rendered in the page. In scientific documents we always have a title to show. To avoid duplication of information, HTML-SD will use this title and place it in the `<div id="document_title"></div>` element. You can place this wherever you want, but usually you will put this in the beginning, just after `<body>`.
+
+## Authors
+
+**Not yet implemented**.
 
 ## Sections and subsections
 
-Scientific documents are always sturctured following sections, subsections, subsubsections and so on. In HTML this is done using the `<h1>` ... `<h6>` tags, see [here](https://www.w3schools.com/html/html_headings.asp). In HTML-SD all `<h_>` tags inside the `<div id="document_content">` will be automatically numbered (unless otherwise specified with `<h1 class="unnumbered">`), listed in the table of contents, available for cross referencing, etc.
+Scientific documents are always sturctured following sections, subsections, subsubsections and so on. In HTML this is done using the `<h1>` ... `<h6>` tags, see [here](https://www.w3schools.com/html/html_headings.asp). In HTML-SD all `<h_>` tags will be automatically numbered unless otherwise specified with `<h1 class="unnumbered">`, listed in the table of contents, available for cross referencing, etc.
 
 ### Table of contents
 
