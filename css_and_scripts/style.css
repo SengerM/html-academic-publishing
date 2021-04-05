@@ -1,7 +1,7 @@
 /* Basic and general stuff -------------------------------------------*/
 *{scroll-behavior: smooth !important;}
 body {
-	background-color: #faf2e4;
+	background-color: #ffffff;
 	margin: 5% 5%;
 	font-family: sans-serif;
 	text-align: justify;
@@ -84,6 +84,7 @@ iframe.plotly {
 }
 .equation_number {
 	display: table-column;
+	font-family: serif;
 }
 /* Popup cross references  ------------------------------------------ */
 .popup_cross_reference {position:relative; }
@@ -136,4 +137,25 @@ iframe.plotly {
 	0% {background-color: inherit;}
 	50% {background-color: #ffaaaa;}
 	100% {background-color: inherit;}
+}
+/* Authors ---------------------------------------------------------- */
+#authors_names_container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	font-size: 120%;
+}
+author {
+	margin: 10px;
+}
+#authors_affiliations_container {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	font-size: 90%;
+	flex-direction: column;
+}
+.author_affiliation {
+	text-align: center;
 }
