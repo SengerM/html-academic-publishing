@@ -153,9 +153,18 @@ author {
 	width: 100%;
 	display: flex;
 	align-items: center;
-	font-size: 90%;
+	font-size: 70%;
 	flex-direction: column;
 }
 .author_affiliation {
 	text-align: center;
+}
+/* Abstract --------------------------------------------------------- */
+abstract {
+	width: 75%;
+	display: flex;
+	align-items: left;
+	font-size: 70%;
+	flex-direction: column;
+	margin: auto;
 }
