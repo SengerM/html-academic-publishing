@@ -111,7 +111,7 @@ if (footnotes.length != 0) {
 		footnotes_list.appendChild(current_footnote_entry);
 		current_footnote_entry.setAttribute('id', current_footnote_id + '_list_element');
 		elements_for_cross_references[current_footnote_entry.id] = {};
-		elements_for_cross_references[current_footnote_entry.id]['display_text'] = `<sup>(${i+1})</sup>`;
+		elements_for_cross_references[current_footnote_entry.id]['display_text'] = `<sup>[${i+1}]</sup>`;
 		footnotes[i].setAttribute('id', current_footnote_id);
 		footnotes[i].innerHTML = '<crossref>' + current_footnote_entry.id + '</crossref>';
 		current_footnote_entry.innerHTML = `<a href=#${footnotes[i].id} class="footnote_key_link">` + elements_for_cross_references[current_footnote_entry.id]['display_text'] + '</a> ' + current_footnote_content;
@@ -126,30 +126,33 @@ if (references.length > 0) {
 	if (references_list == null) {
 		throw `ERROR: Please create an element with tag <div> and id "references_list" where you want the references list to be displayed. For example <div id="references_list"></div>.`;
 	}
+	var cited_references_in_this_order = [];
+	var crossref_elements = document.getElementsByTagName("crossref");
+	for (i=0; i<crossref_elements.length; i++) {
+		const ref_to_this_id = crossref_elements[i].innerHTML;
+		if (document.getElementById(ref_to_this_id) == null)
+			continue; // This error will be reported later on when the <crossref> tags are parsed.
+		if (document.getElementById(ref_to_this_id).tagName.toLowerCase() == 'reference' && !(cited_references_in_this_order.indexOf(ref_to_this_id)>-1))
+			cited_references_in_this_order.push(ref_to_this_id);
+	}
+}
+for (var i=0; i<cited_references_in_this_order.length; i++) {
+	var current_id = cited_references_in_this_order[i];
+	var current_reference_element = document.getElementById(current_id);
+	if (current_reference_element == null)
+		continue; // This error will be reported later on when the <crossref> tags are parsed.
+	elements_for_cross_references[current_id] = {};
+	elements_for_cross_references[current_id]['display_text'] = `[${i+1}]`;
+	elements_for_cross_references[current_id]['popup_text'] = current_reference_element.innerHTML;
+	current_reference_element.innerHTML = elements_for_cross_references[current_id]['display_text'] + ' ' + current_reference_element.innerHTML;
+	references_list.appendChild(current_reference_element);
 }
 for (var i=0; i<references.length; i++) {
-	if (!references[i].hasAttribute('id')) {
-		const thisreftext = references[i].innerHTML;
-		references[i].innerHTML = references[i].innerHTML + ERROR_IS_HERE_STR;
-		references[i].scrollIntoView();
-		throw `ERROR: There is a <reference> element that has no id assigned. All <reference> elements must have a unique id, please fix this. The content of this reference object is ${thisreftext}`;
+	if (cited_references_in_this_order.indexOf(references[i].id) < 0) { // if references[i].id not in cited_references_in_this_order:
+		references[i].remove();
+		continue;
 	}
-	if (references[i].id in elements_for_cross_references) {
-		references[i].innerHTML = references[i].innerHTML + ERROR_IS_HERE_STR;
-		references[i].scrollIntoView();
-		throw `ERROR: The id "${references[i].id}" is used more than once in your document, please fix this.`;
-	}
-	elements_for_cross_references[references[i].id] = {};
-	elements_for_cross_references[references[i].id]['display_text'] = `[${i+1}]`;
-	elements_for_cross_references[references[i].id]['popup_text'] = references[i].innerHTML;
 }
-for (var i=0; i<references.length; i++) {
-	if (references[i].parentNode.id != 'references_list') {
-		references_list.appendChild(references[i]);
-	}
-	references[i].innerHTML = elements_for_cross_references[references[i].id]['display_text'] + ' ' + references[i].innerHTML;
-}
-
 // Automatic table of contents -----------------------------------------
 //     This was taken from https://stackoverflow.com/a/17430494/8849755                                 
 //     Here there is a working example http://jsfiddle.net/funkyeah/s8m2t/3/                            
@@ -227,4 +230,3 @@ for(var i = 0; i < crossref.length; i++) {
 	}
 	crossref[i].innerHTML = reference_str;
 }
-

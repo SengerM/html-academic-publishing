@@ -146,7 +146,7 @@
 	
 	<figure class="figure" id="figure with Newton in full width">
 		<image src="media/Inkscape.svg" width="100%" style="max-height: 70vh"></image>
-		<figcaption class="figure">This image was created with <a href="https://inkscape.org/">Inkscape</a> and inserted directly into this HTML file in <code>svg</code> format. So you are seeing a vector image, with all the cool things this implies. This image was configured to fit the width of the document, so if you change the width of the window in which you are reading this it should also change the width of this image. This is a cross reference inside a caption: see figure <crossref>measured delay average</crossref>. <footnote>This footnote is in the caption of a figure.</footnote><footnote>This is another footnote inside the caption of a figure.</footnote></figcaption>
+		<figcaption class="figure">This image was created with <a href="https://inkscape.org/">Inkscape</a> and inserted directly into this HTML file in <code>svg</code> format. So you are seeing a vector image, with all the cool things this implies. This image was configured to fit the width of the document, so if you change the width of the window in which you are reading this it should also change the width of this image. This is a cross reference inside a caption: see figure <crossref>measured delay average</crossref><footnote>This footnote is in the caption of a figure.</footnote><footnote>This is another footnote inside the caption of a figure.</footnote>. We can also insert a reference to a bibliography element here <crossref>paper Bell</crossref>.</figcaption>
 	</figure>
 	
 	<p>We can also specify a fixed size for our image. The next one should not change as you modify the size of the window:</p>
@@ -199,6 +199,7 @@
 	
 	<h1>Bibliography and citations</h1>
 	<p>To insert bibliography first create a <code>&lt;reference></code> element, for example <code>&lt;reference id="book Jackson Classical Electrodynamics">Jackson, J. D. (1999). Classical electrodynamics.&lt;/reference></code> and then just create a <code>&lt;crossref></code> to this element. For example <crossref>paper EPR</crossref>. You can provide further details by using the <code>add_text</code> property, for example <code>&lt;crossref add_text="sec. 4.5">book Jackson Classical Electrodynamics&lt;/crossref></code> will produce this: <crossref add_text="sec. 4.5">book Jackson Classical Electrodynamics</crossref> (not yet implemented this!).</p>
+	<p>Here I cite again <crossref>paper EPR</crossref>.</p>
 	
 	<h1>Still-to-do list</h1>
 	<p>Though this is already looking good, there is still much work to do:</p>
@@ -222,7 +223,7 @@
 	</div>
 	
 	<div id="footnotes_list">
-		<h2 class="unnumbered">Footnotes</h2>
+		<h1 class="unnumbered">Footnotes</h2>
 	</div>
 		
 	<script src="./css_and_scripts/script.js"></script>
