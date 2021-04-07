@@ -159,7 +159,7 @@ if (footnotes.length != 0) {
 		footnotes_list.appendChild(current_footnote_entry);
 		current_footnote_entry.setAttribute('id', current_footnote_id + '_list_element');
 		elements_for_cross_references[current_footnote_entry.id] = {};
-		elements_for_cross_references[current_footnote_entry.id]['display_text'] = `<sup>[${i+1}]</sup>`;
+		elements_for_cross_references[current_footnote_entry.id]['display_text'] = `<sup>(${i+1})</sup>`;
 		footnotes[i].setAttribute('id', current_footnote_id);
 		footnotes[i].innerHTML = '<crossref>' + current_footnote_entry.id + '</crossref>';
 		current_footnote_entry.innerHTML = `<a href=#${footnotes[i].id} class="footnote_key_link">` + elements_for_cross_references[current_footnote_entry.id]['display_text'] + '</a> ' + current_footnote_content;
@@ -168,10 +168,36 @@ if (footnotes.length != 0) {
 	document.getElementById("footnotes_list").appendChild(footnotes_list);
 }
 // Parse <reference> tags ----------------------------------------------
-//~ var references = document.getElementsByTagName('reference');
-//~ var references_reference_texts = {}; // Sorry for the ugly name.
-//~ var references_reference_popup_texts = {}; // Sorry for the ugly name.
-//~ if 
+var references = document.getElementsByTagName('reference');
+if (references.length > 0) {
+	var references_list = document.getElementById('references_list');
+	if (references_list == null) {
+		throw `ERROR: Please create an element with tag <div> and id "references_list" where you want the references list to be displayed. For example <div id="references_list"></div>.`;
+	}
+}
+for (var i=0; i<references.length; i++) {
+	if (!references[i].hasAttribute('id')) {
+		const thisreftext = references[i].innerHTML;
+		references[i].innerHTML = references[i].innerHTML + ERROR_IS_HERE_STR;
+		references[i].scrollIntoView();
+		throw `ERROR: There is a <reference> element that has no id assigned. All <reference> elements must have a unique id, please fix this. The content of this reference object is ${thisreftext}`;
+	}
+	if (references[i].id in elements_for_cross_references) {
+		references[i].innerHTML = references[i].innerHTML + ERROR_IS_HERE_STR;
+		references[i].scrollIntoView();
+		throw `ERROR: The id "${references[i].id}" is used more than once in your document, please fix this.`;
+	}
+	elements_for_cross_references[references[i].id] = {};
+	elements_for_cross_references[references[i].id]['display_text'] = `[${i+1}]`;
+	elements_for_cross_references[references[i].id]['popup_text'] = references[i].innerHTML;
+}
+for (var i=0; i<references.length; i++) {
+	if (references[i].parentNode.id != 'references_list') {
+		references_list.appendChild(references[i]);
+	}
+	references[i].innerHTML = elements_for_cross_references[references[i].id]['display_text'] + ' ' + references[i].innerHTML;
+}
+
 // Automatic table of contents -----------------------------------------
 //     This was taken from https://stackoverflow.com/a/17430494/8849755                                 
 //     Here there is a working example http://jsfiddle.net/funkyeah/s8m2t/3/                            

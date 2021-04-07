@@ -145,7 +145,7 @@
 	<p>The figure below is inserted in such a way that its width matches the width of the window. You can now change the width of the window you are using to read this document and the size of the image will also change accordingly.</p>
 	
 	<figure class="figure" id="figure with Newton in full width">
-		<image src="media/Inkscape.svg" width="100%"></image>
+		<image src="media/Inkscape.svg" width="100%" style="max-height: 70vh"></image>
 		<figcaption class="figure">This image was created with <a href="https://inkscape.org/">Inkscape</a> and inserted directly into this HTML file in <code>svg</code> format. So you are seeing a vector image, with all the cool things this implies. This image was configured to fit the width of the document, so if you change the width of the window in which you are reading this it should also change the width of this image. This is a cross reference inside a caption: see figure <crossref>measured delay average</crossref>. <footnote>This footnote is in the caption of a figure.</footnote><footnote>This is another footnote inside the caption of a figure.</footnote></figcaption>
 	</figure>
 	
@@ -197,11 +197,13 @@
 	<p>You can add footnotes by using the <code>&lt;footnote></code> tag like this: <code>&lt;footnote>foot note content&lt;/footnote></code>. For example here you have a footnote<footnote>This is a footnote. We can have an equation $e^{i\pi}+1=0$.</footnote>.</p>
 	<p>Of course footnotes can have crossrefs within them<footnote>Many times footnotes make references to equations, like equation <crossref>Dirac equation</crossref> for example.</footnote><footnote>You can also place many consecutive footnotes one after the other.</footnote>.</p>
 	
+	<h1>Bibliography and citations</h1>
+	<p>To insert bibliography first create a <code>&lt;reference></code> element, for example <code>&lt;reference id="book Jackson Classical Electrodynamics">Jackson, J. D. (1999). Classical electrodynamics.&lt;/reference></code> and then just create a <code>&lt;crossref></code> to this element. For example <crossref>paper EPR</crossref>. You can provide further details by using the <code>add_text</code> property, for example <code>&lt;crossref add_text="sec. 4.5">book Jackson Classical Electrodynamics&lt;/crossref></code> will produce this: <crossref add_text="sec. 4.5">book Jackson Classical Electrodynamics</crossref> (not yet implemented this!).</p>
+	
 	<h1>Still-to-do list</h1>
 	<p>Though this is already looking good, there is still much work to do:</p>
 	<ul>
 		<li>Implement bibliography and references.</li>
-		<li>Implement "authors" handling.</li>
 		<li>Implement a translator Latex → this. This would be the glory.</li>
 		<li>Probably many things more.</li>
 	</ul>
@@ -211,6 +213,13 @@
 	<p>You can find a template in <a href="https://github.com/SengerM/html-academic-publishing/blob/main/template.html">this link</a> that you can download and start playing with. To edit it you open <code>template.html</code> with your favourite text editor, to view it you open <code>template.html</code> with your favourite web browser. Hit <code>F5</code> (refresh) to update the changes as you modify the template.</p>
 	<h2>Documentation and reference</h2>
 	<p>You can also download the source code of this file from <a href="https://github.com/SengerM/html-academic-publishing">this Github repo</a> and use this document as a template/reference.  You don't need to modify anything within the <code>css_and_scripts</code> directory. You are free to modify them if you want, of course.</p>
+	
+	<div id="references_list">
+		<h1 class="unnumbered">References</h1>
+		<reference id="book Jackson Classical Electrodynamics">Jackson, J. D. (1999). Classical electrodynamics.</reference>
+		<reference id="paper EPR">Einstein, A., B. Podolsky, and N. Rosen. “Can Quantum-Mechanical Description of Physical Reality Be Considered Complete?” Physical Review 47, no. 10 (May 15, 1935): 777–80. https://doi.org/10.1103/PhysRev.47.777.</reference>
+		<reference id="paper Bell">Bell, John Stewart. “On the Einstein Podolsky Rosen Paradox” 1, no. 3 (1964): 6.</reference>
+	</div>
 	
 	<div id="footnotes_list">
 		<h2 class="unnumbered">Footnotes</h2>
