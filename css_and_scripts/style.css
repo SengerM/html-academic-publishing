@@ -176,4 +176,9 @@ abstract {
 }
 #references_list reference {
 	margin-top: 10px;
+	display: flex;
+	justify-content: flex-start;
+}
+#references_list .reference_text_element__ {
+	margin-left: 10px;
 }
