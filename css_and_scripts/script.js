@@ -51,27 +51,30 @@ if (authors.length > 0) {
 		current_affiliation_element.innerHTML = `<sup>${i+1}</sup>&nbsp;${affiliations_list[i]}`;
 	}
 }
+
+var elements_for_cross_references = {}; // This is a dictinary of the form
+// elements_for_cross_references[id] = {
+//     display_text: '1.1.1',
+//     popup_text: '1.1.1 The best section',
+// }
 // Parse <figure> tags -------------------------------------------------
 var figures = document.getElementsByTagName("figure");
-var figures_reference_texts = {};
-var figures_reference_popup_texts = {};
 for(var i = 0; i < figures.length; i++) {
 	var caption = figures[i].getElementsByTagName("figcaption")[0];
 	caption.innerHTML = `<b>Figure ${i+1}. </b>` + caption.innerHTML;
 	if (!figures[i].hasAttribute('id'))
 		continue;
-	if (figures[i].id in figures_reference_texts) {
+	if (figures[i].id in elements_for_cross_references) {
 		caption.innerHTML = caption.innerHTML + ERROR_IS_HERE_STR;
 		figures[i].scrollIntoView();
-		throw `ERROR: The id "${figures[i].id}" is used in more than one figure in the document. ids cannot repeat, please fix this.`;
+		throw `ERROR: The id "${figures[i].id}" is used in more than one element in the document. ids cannot repeat, please fix this.`;
 	}
-	figures_reference_texts[figures[i].id] = `${i+1}`; // This text will be placed where there is a reference to this figure.
-	figures_reference_popup_texts[figures[i].id] = caption.innerHTML;
+	elements_for_cross_references[figures[i].id] = {};
+	elements_for_cross_references[figures[i].id]['display_text'] = `${i+1}`; // This text will be placed where there is a reference to this figure.
+	elements_for_cross_references[figures[i].id]['popup_text'] = caption.innerHTML;
 }
 // Parse <equation> tags -----------------------------------------------
 var equations = document.getElementsByTagName("equation");
-var equations_reference_texts = {};
-var equations_reference_popup_texts = {};
 for(var i = 0; i < equations.length; i++) {
 	var equation_number_display_str = `(${i+1})`;
 	const numbered_equation_container = document.createElement('div');
@@ -85,13 +88,14 @@ for(var i = 0; i < equations.length; i++) {
 	equations[i].className = "equation_content";
 	if (!equations[i].hasAttribute('id'))
 		continue;
-	if (equations[i].id in equations_reference_texts) {
+	if (equations[i].id in elements_for_cross_references) {
 		equation_number.innerHTML = ERROR_IS_HERE_STR;
 		equations[i].scrollIntoView();
-		throw `ERROR: The id "${equations[i].id}" is used in more than one equation in the document. ids cannot repeat, please fix this.`
+		throw `ERROR: The id "${equations[i].id}" is used in more than one element in the document. ids cannot repeat, please fix this.`
 	}
-	equations_reference_texts[equations[i].id] = equation_number_display_str; // This text will be placed where there is a reference to this equation.
-	equations_reference_popup_texts[equations[i].id] =  equations[i].innerHTML.replaceAll('$$','$');// This will appear in the popup window when the mouse hovers over the reference.
+	elements_for_cross_references[equations[i].id] = {}
+	elements_for_cross_references[equations[i].id]['display_text'] = equation_number_display_str; // This text will be placed where there is a reference to this equation.
+	elements_for_cross_references[equations[i].id]['popup_text'] =  equations[i].innerHTML.replaceAll('$$','$');// This will appear in the popup window when the mouse hovers over the reference.
 }
 // Parse <h_> tags -----------------------------------------------------
 function get_all_numbered_h(elements) {
@@ -106,8 +110,6 @@ function get_all_numbered_h(elements) {
 	return arr;
 }
 var numbered_headings = get_all_numbered_h(document);
-var headings_reference_texts = {};
-var headings_reference_popup_texts = {};
 var current_section_numbering = [0];
 for (var i=0; i<numbered_headings.length; i++) {
 	var current_indentation_level = parseInt(numbered_headings[i].tagName.toLowerCase().replace('h', ''));
@@ -126,19 +128,18 @@ for (var i=0; i<numbered_headings.length; i++) {
 	// Here we have the "2.4.3..." numbering for the current section stored in "current_section_numbering".
 	var current_id = numbered_headings[i].hasAttribute('id') ? numbered_headings[i].id : numbered_headings[i].innerHTML;
 	numbered_headings[i].innerHTML = current_section_numbering.join('.') + '. ' + numbered_headings[i].innerHTML;
-	if (current_id in headings_reference_texts) {
+	if (current_id in elements_for_cross_references) {
 		numbered_headings[i].innerHTML = numbered_headings[i].innerHTML + ERROR_IS_HERE_STR;
 		numbered_headings[i].scrollIntoView();
-		throw `ERROR: The id/name "${current_id}" is used in more than one heading in the document. If you manually defined this id please change one of them as they cannot repeat, if you have more than one section with the same name please assign them different ids to the section in order to use the same title.`;
+		throw `ERROR: The id/name "${current_id}" is used in more than one heading/object in the document. If you manually defined this id please change one of them as they cannot repeat, if you have more than one section with the same name please assign them different ids to the section in order to use the same title.`;
 	}
-	headings_reference_texts[current_id] = current_section_numbering.join('.');
-	headings_reference_popup_texts[current_id] = numbered_headings[i].innerHTML;
+	elements_for_cross_references[current_id] = {};
+	elements_for_cross_references[current_id]['display_text'] = current_section_numbering.join('.');
+	elements_for_cross_references[current_id]['popup_text'] = numbered_headings[i].innerHTML;
 	numbered_headings[i].id = current_id; // If the heading had no id, this will set it. Otherwise it does nothing.
 }
 // Parse footnotes -----------------------------------------------------
 var footnotes = document.getElementsByTagName("footnote");
-var footnotes_reference_texts = {};
-var footnotes_reference_popup_texts = {};
 if (footnotes.length != 0) {
 	if (document.getElementById("footnotes_list") == null) {
 		footnotes[0].innerHTML = '[' + footnotes[0].innerHTML + '] <b>You inserted at least this footnote but there is nowhere the <code>&lt;div id="footnotes_list">&lt;/div></code>, please add it somewhere in your HTML doucment where you want the footnotes list to be displayed, for example at the end close to <code>&lt;/body></code>.</b>' + ERROR_IS_HERE_STR;
@@ -157,14 +158,20 @@ if (footnotes.length != 0) {
 		var current_footnote_entry = document.createElement('li');
 		footnotes_list.appendChild(current_footnote_entry);
 		current_footnote_entry.setAttribute('id', current_footnote_id + '_list_element');
-		footnotes_reference_texts[current_footnote_entry.id] = `<sup>[${i+1}]</sup>`;
+		elements_for_cross_references[current_footnote_entry.id] = {};
+		elements_for_cross_references[current_footnote_entry.id]['display_text'] = `<sup>[${i+1}]</sup>`;
 		footnotes[i].setAttribute('id', current_footnote_id);
 		footnotes[i].innerHTML = '<crossref>' + current_footnote_entry.id + '</crossref>';
-		current_footnote_entry.innerHTML = `<a href=#${footnotes[i].id} class="footnote_key_link">` + footnotes_reference_texts[current_footnote_entry.id] + '</a> ' + current_footnote_content;
-		footnotes_reference_popup_texts[current_footnote_entry.id] = current_footnote_content;
+		current_footnote_entry.innerHTML = `<a href=#${footnotes[i].id} class="footnote_key_link">` + elements_for_cross_references[current_footnote_entry.id]['display_text'] + '</a> ' + current_footnote_content;
+		elements_for_cross_references[current_footnote_entry.id]['popup_text'] = current_footnote_content;
 	}
 	document.getElementById("footnotes_list").appendChild(footnotes_list);
 }
+// Parse <reference> tags ----------------------------------------------
+//~ var references = document.getElementsByTagName('reference');
+//~ var references_reference_texts = {}; // Sorry for the ugly name.
+//~ var references_reference_popup_texts = {}; // Sorry for the ugly name.
+//~ if 
 // Automatic table of contents -----------------------------------------
 //     This was taken from https://stackoverflow.com/a/17430494/8849755                                 
 //     Here there is a working example http://jsfiddle.net/funkyeah/s8m2t/3/                            
@@ -213,31 +220,19 @@ if (document.getElementById("table-of-contents") != null) {
 }
 // Parse <crossref> tags -----------------------------------------------
 var crossref = document.getElementsByTagName("crossref");
-const texts_for_cross_references_by_id = Object.assign({}, 
-	figures_reference_texts, 
-	equations_reference_texts, 
-	headings_reference_texts,
-	footnotes_reference_texts
-); // This is a dictionary of the form dict[id] = "text_to_be_shown_in_the_reference".
-const texts_for_popup_windows_by_id = Object.assign({}, 
-	equations_reference_popup_texts, 
-	headings_reference_popup_texts, 
-	figures_reference_popup_texts,
-	footnotes_reference_popup_texts
-);
 for(var i = 0; i < crossref.length; i++) {
 	var ref_to_this_id = crossref[i].innerHTML;
 	var reference_str;
-	if (ref_to_this_id in texts_for_cross_references_by_id) {
-		reference_str = `<a class="cross-reference-link" href="#${ref_to_this_id}">${texts_for_cross_references_by_id[ref_to_this_id]}</a>`;
-		if (ref_to_this_id in texts_for_popup_windows_by_id) {
-			var popup_text = texts_for_popup_windows_by_id[ref_to_this_id];
+	if (ref_to_this_id in elements_for_cross_references) {
+		reference_str = `<a class="cross-reference-link" href="#${ref_to_this_id}">${elements_for_cross_references[ref_to_this_id]["display_text"]}</a>`;
+		if ('popup_text' in elements_for_cross_references[ref_to_this_id]) {
+			var popup_text = elements_for_cross_references[ref_to_this_id]['popup_text'];
 			if (popup_text.includes('<crossref>')) {
 				// Before inserting the text we have to replace all the possible crossrefs by their respective text:
 				popup_text = popup_text.replaceAll('<crossref>','').replaceAll('</crossref>','');
-				for (var id in texts_for_popup_windows_by_id) {
+				for (var id in elements_for_cross_references) {
 					if (popup_text.includes(id)) {
-						popup_text = popup_text.replace(id, texts_for_cross_references_by_id[id]);
+						popup_text = popup_text.replace(id, elements_for_cross_references[id]['display_text']);
 					}
 				}
 			}
