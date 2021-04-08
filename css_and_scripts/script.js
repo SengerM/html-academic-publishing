@@ -48,6 +48,9 @@ for(var i = 0; i < equations.length; i++) {
 	elements_for_cross_references[equations[i].id] = {}
 	elements_for_cross_references[equations[i].id]['display_text'] = equation_number_display_str; // This text will be placed where there is a reference to this equation.
 	elements_for_cross_references[equations[i].id]['popup_text'] =  equations[i].innerHTML.replaceAll('$$','$');// This will appear in the popup window when the mouse hovers over the reference.
+	var current_id = equations[i].id;
+	equations[i].id = '';
+	numbered_equation_container.id = current_id;
 }
 // Parse <h_> tags -----------------------------------------------------
 function get_all_numbered_h(elements) {
