@@ -115,19 +115,21 @@ iframe.plotly {
 	100% { opacity: 1 }
 }
 /* Footnotes list --------------------------------------------------- */
-#footnotes_list {
-	font-size: 90%;
-}
 #footnotes_list a.footnote_key_link:link {
 	text-decoration: none;
 }
-#footnotes_list ul {
-	list-style-type: none;
-	margin: 10px;
-	padding: 0;
+#footnotes_list {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
 }
-#footnotes_list ul li {
-	margin: 0 0 5px 0;
+#footnotes_list .footnote_entry {
+	margin-top: 10px;
+	display: flex;
+	justify-content: flex-start;
+}
+#footnotes_list .footnote_text_element__ {
+	margin-left: 10px;
 }
 /* Reference click highlight animation ------------------------------ */
 :target {

@@ -97,7 +97,7 @@ if (footnotes.length != 0) {
 		footnotes[0].innerHTML = '[' + footnotes[0].innerHTML + '] <b>You inserted at least this footnote but there is nowhere the <code>&lt;div id="footnotes_list">&lt;/div></code>, please add it somewhere in your HTML doucment where you want the footnotes list to be displayed, for example at the end close to <code>&lt;/body></code>.</b>' + ERROR_IS_HERE_STR;
 		throw 'ERROR: You inserted footnotes in your document but there is nowhere to put the list of footnotes. Please add "<div id="footnotes_list></div>" somewhere in your document.';
 	}
-	var footnotes_list = document.createElement("ul");
+	var footnotes_list = document.createElement("div");
 	footnotes_list.setAttribute('id', 'footnotes_list');
 	for (var i=0; i<footnotes.length; i++) {
 		var current_footnote_id = `footnote_${i+1}`;
@@ -107,14 +107,22 @@ if (footnotes.length != 0) {
 			footnotes[i].scrollIntoView();
 			throw `ERROR: Found a footnote that contains a footnote inside it. This is not allowed, sorry. The footnote content is "${current_footnote_content}"`;
 		}
-		var current_footnote_entry = document.createElement('li');
+		var current_footnote_entry = document.createElement('div');
+		current_footnote_entry.setAttribute('class', 'footnote_entry');
 		footnotes_list.appendChild(current_footnote_entry);
 		current_footnote_entry.setAttribute('id', current_footnote_id + '_list_element');
 		elements_for_cross_references[current_footnote_entry.id] = {};
 		elements_for_cross_references[current_footnote_entry.id]['display_text'] = `<sup>[${i+1}]</sup>`;
 		footnotes[i].setAttribute('id', current_footnote_id);
 		footnotes[i].innerHTML = '<crossref>' + current_footnote_entry.id + '</crossref>';
-		current_footnote_entry.innerHTML = `<a href=#${footnotes[i].id} class="footnote_key_link">` + elements_for_cross_references[current_footnote_entry.id]['display_text'] + '</a> ' + current_footnote_content;
+		var current_footnote_number_element = document.createElement('div');
+		current_footnote_number_element.setAttribute('class', 'footnote_number_element__');
+		current_footnote_number_element.innerHTML = `<a href=#${footnotes[i].id} class="footnote_key_link">` + elements_for_cross_references[current_footnote_entry.id]['display_text'] + '</a> ';
+		current_footnote_entry.appendChild(current_footnote_number_element);
+		var current_footnote_text_element = document.createElement('div');
+		current_footnote_text_element.setAttribute('class', 'footnote_text_element__');
+		current_footnote_text_element.innerHTML = current_footnote_content;
+		current_footnote_entry.appendChild(current_footnote_text_element);
 		elements_for_cross_references[current_footnote_entry.id]['popup_text'] = current_footnote_content;
 	}
 	document.getElementById("footnotes_list").appendChild(footnotes_list);
@@ -144,7 +152,6 @@ for (var i=0; i<cited_references_in_this_order.length; i++) {
 	elements_for_cross_references[current_id] = {};
 	elements_for_cross_references[current_id]['display_text'] = `[${i+1}]`;
 	elements_for_cross_references[current_id]['popup_text'] = current_reference_element.innerHTML;
-	//~ current_reference_element.innerHTML = elements_for_cross_references[current_id]['display_text'] + ' ' + current_reference_element.innerHTML;
 	var reference_number_element = document.createElement('div');
 	reference_number_element.setAttribute('class', 'reference_number_element__');
 	reference_number_element.innerHTML = elements_for_cross_references[current_id]['display_text'];
