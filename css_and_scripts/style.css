@@ -133,11 +133,11 @@ iframe.plotly {
 }
 /* Reference click highlight animation ------------------------------ */
 :target {
-	animation: link_highlight_fade_out 1s linear 0s 2 normal forwards;
+	animation: link_highlight_fade_out 6s linear 0s 1 normal forwards;
 }
 @keyframes link_highlight_fade_out {
 	0% {background-color: inherit;}
-	50% {background-color: #ffaaaa;}
+	10% {background-color: #ffaaaa;}
 	100% {background-color: inherit;}
 }
 /* Authors ---------------------------------------------------------- */
