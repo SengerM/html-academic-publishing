@@ -135,6 +135,29 @@ To insert footnotes use the non-standard `<footnote>` tag, for example `<footnot
 
 ## Bibliography
 
-**Not yet implemented**
+To insert bibliography follow these steps:
 
-I still don't decide which is the best way to implement this, but it is definitely important for scientific documents. 
+1. Insert your bibliography elements within `<reference>` tags and assign each of them a unique ID, like this:
+```html
+<reference id="book Jackson Classical Electrodynamics">Jackson, J. D. (1999). Classical electrodynamics.</reference>
+<reference id="paper EPR">Einstein, A., B. Podolsky, and N. Rosen. “Can Quantum-Mechanical Description of Physical Reality Be Considered Complete?” Physical Review 47, no. 10 (May 15, 1935): 777–80. <a href="https://doi.org/10.1103/PhysRev.47.777">https://doi.org/10.1103/PhysRev.47.777</a>.</reference>
+<reference id="paper Bell">Bell, John Stewart. “On the Einstein Podolsky Rosen Paradox” 1, no. 3 (1964): 6.</reference>
+```
+This can be done in any part of the document, however it is recommended to put them all together. Note that whatever text you put within the `<reference>` and `</reference>` tags is what will be displayed. Simple and easy.
+2. Create a `<div id="references_list">` element wherever you want your bibliography list to be displayed. Usually close to the end, but you choose. 
+3. Cite your elements as if they were just a cross reference using `<crossref>`, for example 
+```html
+See reference <crossref>paper EPR</crossref> for more details.
+```
+
+The list of bibliography will be assembled automatically, this means that elements will appear in the order you cited them and elements that are not cited are not shown.
+
+Note that you can put everything together like this:
+```html
+<div id="references_list">
+	<h1 class="unnumbered">References</h1>
+	<reference id="book Jackson Classical Electrodynamics">Jackson, J. D. (1999). Classical electrodynamics.</reference>
+	<reference id="paper EPR">Einstein, A., B. Podolsky, and N. Rosen. “Can Quantum-Mechanical Description of Physical Reality Be Considered Complete?” Physical Review 47, no. 10 (May 15, 1935): 777–80. <a href="https://doi.org/10.1103/PhysRev.47.777">https://doi.org/10.1103/PhysRev.47.777</a>.</reference>
+	<reference id="paper Bell">Bell, John Stewart. “On the Einstein Podolsky Rosen Paradox” 1, no. 3 (1964): 6.</reference>
+</div>
+```
