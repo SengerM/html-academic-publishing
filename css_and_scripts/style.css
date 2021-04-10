@@ -53,13 +53,19 @@ a.cross-reference-link:link {
 	width: 75%;
 	margin: 0 auto;
 }
-/* Figures ---------------------------------------------------------- */
-figure.figure {
-	text-align: center; 
+/* Floats ----------------------------------------------------------- */
+float {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 33px;
+	gap: 22px;
 }
-figcaption.figure {
+float floatcaption {
 	color: #0066cc;
-	text-align: justify; 
+	text-align: justify;
+	width: 80%;
+	font-size: 90%;
 }
 iframe.plotly {
 	width: 100%;
@@ -69,8 +75,12 @@ iframe.plotly {
 	margin: auto; /* This is to center the content */
 }
 /* Table of contents ------------------------------------------------ */
-#table-of-contents ul {list-style-type: none;}
-#table-of-contents-ol a:link {text-decoration: none;}
+#table-of-contents ul {
+	list-style-type: none;
+}
+#table-of-contents-ol a:link {
+	text-decoration: none;
+}
 /* Equations -------------------------------------------------------- */
 .numbered_equation_container {
 	width: 100%;

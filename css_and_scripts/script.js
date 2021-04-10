@@ -9,21 +9,39 @@ var elements_for_cross_references = {}; // This is a dictinary of the form
 //     display_text: '1.1.1',
 //     popup_text: '1.1.1 The best section',
 // }
-// Parse <figure> tags -------------------------------------------------
-var figures = document.getElementsByTagName("figure");
-for(var i = 0; i < figures.length; i++) {
-	var caption = figures[i].getElementsByTagName("figcaption")[0];
-	caption.innerHTML = `<b>Figure ${i+1}. </b>` + caption.innerHTML;
-	if (!figures[i].hasAttribute('id'))
-		continue;
-	if (figures[i].id in elements_for_cross_references) {
-		caption.innerHTML = caption.innerHTML + ERROR_IS_HERE_STR;
-		figures[i].scrollIntoView();
-		throw `ERROR: The id "${figures[i].id}" is used in more than one element in the document. ids cannot repeat, please fix this.`;
+// Parse <float> tags -------------------------------------------------
+var floats = document.getElementsByTagName("float");
+var float_counters_by_float_class = {};
+for(var i = 0; i < floats.length; i++) {
+	var caption = floats[i].getElementsByTagName("floatcaption");
+	if (caption.length == 0) {
+		floats[i].innerHTML = floats[i].innerHTML + 'This float has no floatcaption!' + ERROR_IS_HERE_STR;
+		floats[i].scrollIntoView();
+		throw `ERROR: You inserted a <float> without a <floatcaption>, this is not allowed because I don't know what to do. The problem is in the <float> number ${i+1} starting from the top of the document. Otherwise, see the rendered HTML to find out where the problem is.`;
 	}
-	elements_for_cross_references[figures[i].id] = {};
-	elements_for_cross_references[figures[i].id]['display_text'] = `${i+1}`; // This text will be placed where there is a reference to this figure.
-	elements_for_cross_references[figures[i].id]['popup_text'] = caption.innerHTML;
+	if (caption.length > 1) {
+		floats[i].innerHTML = floats[i].innerHTML + 'This float has more than one floatcaption!' + ERROR_IS_HERE_STR;
+		floats[i].scrollIntoView();
+		throw `ERROR: You inserted a <float> with more than one <floatcaption>, this is not allowed because I don't know what to do. The problem is in the <float> number ${i+1} starting from the top of the document. Otherwise, see the rendered HTML to find out where the problem is.`;
+	}
+	caption = caption[0];
+	var current_float_class = floats[i].getAttribute('class')
+	if (current_float_class == null)
+		continue;
+	if (! (current_float_class in float_counters_by_float_class))
+		float_counters_by_float_class[current_float_class] = 0; // Initialize a new counter for this class.
+	float_counters_by_float_class[current_float_class] += 1;
+	caption.innerHTML = `<b>${current_float_class} ${float_counters_by_float_class[current_float_class]}&nbsp;&nbsp;&nbsp;</b>` + caption.innerHTML;
+	if (!floats[i].hasAttribute('id'))
+		continue;
+	if (floats[i].id in elements_for_cross_references) {
+		caption.innerHTML = caption.innerHTML + ERROR_IS_HERE_STR;
+		floats[i].scrollIntoView();
+		throw `ERROR: The id "${floats[i].id}" is used in more than one element in the document. ids cannot repeat, please fix this.`;
+	}
+	elements_for_cross_references[floats[i].id] = {};
+	elements_for_cross_references[floats[i].id]['display_text'] = `${float_counters_by_float_class[current_float_class]}`; // This text will be placed where there is a reference to this figure.
+	elements_for_cross_references[floats[i].id]['popup_text'] = caption.innerHTML;
 }
 // Parse <equation> tags -----------------------------------------------
 var equations = document.getElementsByTagName("equation");

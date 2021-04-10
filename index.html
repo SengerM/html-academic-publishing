@@ -140,45 +140,80 @@
 	
 	</p>
 	
-	<h1>Figures</h1>
-	<p>Of course HTML can handle figures. In HTML Scientific Document I have implemented a machinery that automatically numbers the captions and allows to make cross references to them. Below some examples</p>
 	
-	<p>The figure below is inserted in such a way that its width matches the width of the window. You can now change the width of the window you are using to read this document and the size of the image will also change accordingly.</p>
+	<h1>Floats</h1>
+	<p>In Latex we have a powerful and useful resource which are the <a href="https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Custom_floats">floats</a>. A figure and a table are examples of floats. To obtain a float here we use the <code>&lt;float></code> tag. Within <code>&lt;float></code> and <code>&lt;/float></code> you put whatever content you want and (mandatory) a caption using <code>&lt;floatcaption>This is the caption&lt;/floatcaption></code><footnote>I wanted to use <code>&lt;caption></code> instead of <code>&lt;floatcaption></code> which is more intuitive and easier but there is some weird behavior with it in HTML and unfortunately it is not possible to use.</footnote>. To assign the "type of float" (figure, table, video, whatever you want) you have to specify its <code>class</code> attribute, for example <code>&lt;float class="Figure">Put here your image and caption&lt;/float></code> is a Figure and <code>&lt;float class="Table">Put here your table and caption&lt;/float></code> is a Table.</p>
 	
-	<figure class="figure" id="figure with Newton in full width">
-		<image src="media/Inkscape.svg" width="100%" style="max-height: 70vh"></image>
-		<figcaption class="figure">This image was created with <a href="https://inkscape.org/">Inkscape</a> and inserted directly into this HTML file in <code>svg</code> format. So you are seeing a vector image, with all the cool things this implies. This image was configured to fit the width of the document, so if you change the width of the window in which you are reading this it should also change the width of this image. This is a cross reference inside a caption: see figure <crossref>measured delay average</crossref><footnote>This footnote is in the caption of a figure.</footnote><footnote>This is another footnote inside the caption of a figure.</footnote>.</figcaption>
-	</figure>
+	<h2>Custom floats</h2>
+	<p>As said before the <code>class</code> attribute of a <code>float</code> element specifies the type of float it is, e.g. a figure or a table. Nothing stops you from creating your own types of floats. For example you can create the floats of type <code>Video</code> or <code>Code</code> or whatever you want. To do this just insert a float of the class you want and it is automatically created. Simple and easy<footnote>In fact the usual float types <code>Figure</code> and <code>Table</code> are not specifically defined here, they are created on the fly just as any other type you may want to use.</footnote>. Each type of float will have its own counter for numerating them, and in the caption they will be labeled according to their <code>class</code> attribute.</p>
+	<p>Please note that the <code>class</code> attribute of a <code>float</code> element is case sensitive, i.e. <code>&lt;float class="Figure"></code> is different than <code>&lt;float class="figure"></code></p>
 	
-	<p>We can also specify a fixed size for our image. The next one should not change as you modify the size of the window:</p>
+	<h2>Floats examples</h2>
+	<p>Below I left some examples of <code>&lt;float></code> usage.</p>
 	
-	<figure class="figure">
-		<image src="media/Inkscape.svg" height=333></image>
-		<figcaption class="figure">In this example I have specified the height of the image and this automatically fixes the width. If you change the size of the window this image should remain fixed.</figcaption>
-	</figure>
+	<float class="Figure" id="figure with Newton in full width">
+		<image src="media/Inkscape.svg" width="100%" style="max-height: 44vh"></image>
+		<floatcaption>This is a <code>float</code> of class <code>Figure</code>. Note that the class is the word used to identify this type of float and automatically asign a number to it, and it is case sensitive. So a <code>figure</code> will be different than a <code>Figure</code>.</floatcaption>
+	</float>
 	
-	<h2>Interactive plots</h2>
+	<p>Some random text, bla bla bla.</p>
+	
+	<float>
+		<image src="media/Inkscape.svg" width="100%" style="max-height: 44vh"></image>
+		<floatcaption>This is a <code>float</code> of without class. Basically it contains something (e.g. an image) with a caption that is not numbered. It cannot have a <code>crossref</code> pointing to it. I don't know why would someone use this, but it is possible.</floatcaption>
+	</float>
+	
+	<p>More random text.</p>
+	
+	<float class="Figure" id="another figure I like">
+		<image 
+			src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" 
+			style="max-height: 44vh; max-width: 100%;"
+		></image>
+		<floatcaption>The image in this figure has undefined width and height, only the <code>max-height</code> and <code>max-width</code> properties were defined. As a consequence it automatically changes its size depending on the viewport (window) size until one of the maximum width or height is achieved. This is really useful because it should not fail in a mobile.</floatcaption>
+	</float>
+	
+	<p>In figure <crossref>foto del obelisco de Buenos Aires</crossref> you can see a view of Buenos Aires, the capital city of Argentina.</p>
+	
+	<float class="Figure" id="foto del obelisco de Buenos Aires">
+		<image 
+			src="https://blog.friendlyrentals.com/uploads/2018/05/PrImg_3573.jpg" 
+			width=555
+		></image>
+		<floatcaption>This image has the width fixed (and thus also its height). This image will not change as a function of the window size. In a mobile it may overflow.</floatcaption>
+	</float>
 	
 	<p>A PDF cannot handle a plot made with <a href="https://plotly.com/">plotly</a> as the one in figure <crossref>FIG: interactive plot</crossref>. This plot is interactive, you can zoom, pan, enable/disable traces, etc. This has proven to be very useful to me when showing my results to other scientists as you don't need to produce many versions of the same plot with different zooming conditions.</p>
 	
-	<figure class="figure" id="FIG: interactive plot">
+	<float class="Figure" id="FIG: interactive plot">
 		<iframe class="plotly" src="media/Reconstruction error mean.html" style="width: 555px ! important;"></iframe>
-		<figcaption class="figure">This plot is interactive, it was produced using the nice Python package <a href="https://plotly.com/">plotly</a>.</figcaption>
-	</figure>
+		<floatcaption>This plot is interactive, it was produced using the nice Python package <a href="https://plotly.com/">plotly</a>.</floatcaption>
+	</float>
 	
 	<p>Of course we can make this plots to fill the full width of the window so they change as we reshape the window. See for example the plot in figure <crossref>measured delay average</crossref>. If you change the width of this window the plot will automatically adapt itself. Cool!</p>
 	
-	<figure class="figure" id="measured delay average">
-		<figcaption class="figure">Note that you can place the caption above the figure, not only below. Just place the <code>figcaption</code> tag where you want the caption to be.</figcaption>
+	<float class="Figure" id="measured delay average">
+		<floatcaption>Note that you can place the caption above the figure, not only below. Just place the <code>figcaption</code> tag where you want the caption to be.</floatcaption>
 		<iframe class="plotly" src="media/Measured delay average vs set delay.html" style="min-width: 444px;"></iframe>
-	</figure>
+	</float>
 	
+	<p>Another advantage of these "interactive plots" is that the font size in the legend/labels matches the font size of the document, so if you zoom in or out, or open this in a mobile, the text will render properly. Try to <code>ctrl+wheel</code><footnote>Or whatever command you use in your browser to change the zoom.</footnote> to change the zoom of this window and see how the text and markers in these plots are modified.</p>
 	
-	<p>Another advantage of these "interactive plots" is that the text in the legend/labels zooms accordingly to the zoom of the window. Try to <code>ctrl+wheel</code><footnote>Or whatever command you use in your browser to change the zoom.</footnote> to change the zoom of this window and see how the text and markers in these plots is modified.</p>
+	<p>The <code>float</code> objects can be of any class that is good for your purpose. For example see video <crossref>Adios Nonino Astor Piazzolla</crossref>.</p>
+	
+	<float class="Video" id="Adios Nonino Astor Piazzolla">
+		<iframe 
+			src="https://www.youtube.com/embed/Vt0lQdyEmXk"
+			frameborder="0"
+			style="height: 50vh;"
+			width="80%"
+		></iframe>
+		<floatcaption>Adiós Nonino by Ástor Piazzolla, interpreted by Ayelén di Montezemolo.</floatcaption>
+	</float>
 	
 	<h1>Cross referencing</h1>
 	
-	<p>To insert a cross reference in an HTML Scientific Document you have to use the <code>&lt;.crossref></code> tag. Within this tag you have to put the <code>id</code> of the object you want to refer to. For example before we wrote <code>&lt;equation id="my first equation">$$\intop_0^1f(x)dx=\pi$$&lt;/equation></code> so now we can write <code>&lt;crossref>my first equation&lt;/crossref></code> to obtain this reference: <crossref>my first equation</crossref>.</p>
+	<p>To insert a cross reference in an HTML Scientific Document you have to use the <code>&lt;crossref></code> tag. Within this tag you have to put the <code>id</code> of the object you want to refer to. For example before we wrote <code>&lt;equation id="my first equation">$$\intop_0^1f(x)dx=\pi$$&lt;/equation></code> so now we can write <code>&lt;crossref>my first equation&lt;/crossref></code> to obtain this reference: <crossref>my first equation</crossref>.</p>
 	
 	<p>We can use this to make reference to
 		<ul>
