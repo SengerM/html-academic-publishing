@@ -60,17 +60,17 @@ If you want a table of contents, just insert `<div id="table-of-contents"></div>
 </div>
 ```
 
-## Figures and tables
+## Floats
 
-To keep everything as close as possible to the standard, figures and tables are entered in the same way as in HTML. So for figures you would do [this](https://www.w3schools.com/tags/tag_figcaption.asp) and for tables [this](https://www.w3schools.com/tags/tag_caption.asp). Note that figures and tables will be automatically numbered by HTML-SD and if an `id` is provided made available for cross referencing. The `id` is specified not in the caption but in the `<figure>` or `<table>` tags, e.g. 
+A [float in Latex](https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions) is a container for "stuff" that contains the stuff itself and a caption with a description. Examples of floats are figures and tables. Here we keep this concept and floats are inserted using `<float>` and `</float>`, like this:
 
 ```html
-<figure id="plot of x^2">
-	<img src="plot.png">
-	<figcaption>This is the plot of the function $x^2$</figcaption>
-</figure>
+<float class="Figure" id="use this id to insert cross references to this float">
+	<!-- Put here your media, e.g. image, table, video, whatever you want -->
+	<floatcaption>Describe your float here.</floatcaption>
+</float>
 ```
-Now this figure can be referenced via its `id` in another part of the document. 
+These floats will automatically be grouped according to their `class` and numbered. You can create any type of float you want, not only figures or tables. To do this, just insert your float and it is created on the fly. For example `<float class="Video">`. 
 
 ## Math
 
