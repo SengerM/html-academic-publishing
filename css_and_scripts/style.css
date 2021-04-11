@@ -201,9 +201,9 @@ code.block {
   display: block;
   white-space: pre;
   -webkit-overflow-scrolling: touch;
-  overflow-x: scroll;
-  overflow-y: scroll;
-  max-width: 99%;
+  overflow-x: auto;
+  overflow-y: auto;
+  width: 99%;
   min-width: 100px;
   max-height: 90vh;
   padding: 0;

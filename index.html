@@ -266,9 +266,19 @@
 	
 	<h1>Code</h1>
 	
-	<p>To insert code we use the standard tag <code>code</code>. For inline code like <code>this one</code> just write <code>&lt;code>this one&lt;/code></code>. For non-inline code we set the class to <code>block</code>, see code <crossref>Code of the FPGA</crossref> for example.</p>
+	<p>To insert code we use the standard tag <code>code</code>. For inline code like <code>this one</code> just write <code>&lt;code>this one&lt;/code></code>. For non-inline code we set the class to <code>block</code>, see code <crossref>Code: block code syntax</crossref> for example.</p>
+	
+	<float class="Code" id="Code: block code syntax">
+		<floatcaption>Example of block code.</floatcaption>
+		<code class="block">&lt;code class="block">
+	Put here your code
+&lt;/code></code>
+	</float>
+	
+	<p>By using the syntax shown in code <crossref>Code: block code syntax</crossref> we get, for example, the code <crossref>Code of the FPGA</crossref></p>
 	
 	<float class="Code" id="Code of the FPGA">
+		<floatcaption>This is my code for the sequencer in the FPGA for testing the TDC.</floatcaption>
 		<code class="block">`timescale 1ns/1ps
 
 module sequencer_for_TDC_V1_SW_28_10_19 (
@@ -379,7 +389,6 @@ module sequencer_for_TDC_V1_SW_28_10_19 (
 		end
 	endmodule
 		</code>
-		<floatcaption>This is my code for the sequencer in the FPGA for testing the TDC.</floatcaption>
 	</float>
 	
 	<h1>How can I write my own HTML Scientific Document?</h1>
