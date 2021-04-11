@@ -18,15 +18,6 @@ h1, h2, h3, h4, h5, h6, h7 {
 	margin-top: 30px;
 	color: #1a1a56;
 }
-code {
-	background: #f4f4f4;
-	border: 1px solid #ddd;
-	color: #666;
-	font-family: monospace;
-	font-size: 15px;
-	line-height: 1.6;
-	margin-bottom: 1.6em;
-}
 a:link {
 	color: inherit;
 }
@@ -193,4 +184,28 @@ abstract {
 }
 #references_list .reference_text_element__ {
 	margin-left: 10px;
+}
+/* Code ------------------------------------------------------------- */
+code {
+	background: #f4f4f4;
+	border: 1px solid #ddd;
+	color: #666;
+	font-family: monospace;
+	font-size: 15px;
+	line-height: 1.6;
+	margin-bottom: 1.6em;
+	tab-size: 4;
+	-moz-tab-size: 4;
+}
+code.block {
+  display: block;
+  white-space: pre;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  max-width: 99%;
+  min-width: 100px;
+  max-height: 90vh;
+  padding: 0;
+  margin: 0;
 }

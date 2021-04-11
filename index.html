@@ -51,9 +51,11 @@
 	</div>
 	
 	<h1 id="introduction section">Introduction to HTML Scientific Document</h1>
+	
 	<p>"HTML Scientific Document" is an evolution to scientific documents in PDF format.</p>
 	
 	<h2>Why to replace the PDF format?</h2>
+	
 	<p>PDF is nowadays the most extended format for sharing scientific documents. A PDF document basically represents a bunch of paper sheets. This limits what your document can contain<footnote>Basically you can only put static text and images, that's all.</footnote>. From my point of view:</p>
 	<ul>
 		<li>Strong points of PDF:
@@ -73,82 +75,95 @@
 	</ul>
 	
 	<h2>What can replace the PDF format?</h2>
+	
 	<p>HTML, the technology behind websites, is as universal as PDFs but much more flexible<footnote>With HTML you can create anything you can imagine, for example <a href="https://www.youtube.com/">YouTube</a>.</footnote>. For me it looks as the perfect candidate for this jump as the hard part (implementing the machinery) is already solved.</p>
 	
 	<h3>Latex vs HTML</h3>
+	
 	<p>In physics, math and other related fields of science it is very common to write documents using Latex. Latex is very nice and powerful, it produces amazing PDF files. But this is preciselly the problem I see: It produces PDFs. If you write in Latex it is because in the end you want a PDF.</p>
 	<p>HTML, as Latex, is a markup language but, in contrast, it is much more widespread due to its masive usage in websites. The comunity of HTML users is infinitely bigger than the comunity of Latex users. Nowadays there is nothing Latex can do that HTML cannot do (for example beautiful equations). Even more, you don't need to install anything in order to create/view an HTML document because you already have a text editor and a web browser in all your devices.</p>
 	<p>In view of this it looks very reasonable for me to choose HTML as the basis for "the next generation of scientific documents" rather than Latex or anything else.</p>
 	
 	
 	<h2>Still want a PDF?</h2>
+	
 	<p>You still want a PDF? Open this document with your favourite web broser, hit <code>ctrl+print</code> and save it as a PDF file<footnote>Firefox can do this, probably all other "famous" browsers can too. You may have to set up the zoom, margins, background, etc. such that it looks fine as in the browser. But believe me, it is trivial to get a good looking PDF from this.</footnote>. There are probably other ways of getting a PDF from an HTML file.</p>
 	
 	
 	<h1>HTML Scientific Document</h1>
+	
 	<p>Here I will describe my current approach which produces a document as the one you are reading right now. Still not perfect but, from my point of view, already better than a PDF.</p>
 	
 	<h2>The structure of the documents</h2>
+	
 	<p>This is based in HTML so anything that applies to HTML also applies to this. The structure of an HTML-SD must follow the <a href="https://www.w3schools.com/html/html_intro.asp">structure of an HTML document</a>. As an example you can take the source code for this document, just select "view source" with your favourite web browser or download this file (using <code>ctrl+s</code> for example) and open it with a text editor.</p>
 	
 	<h2>Sections and sub-sections</h2>
+	
 	<p>Scientific documents are structured in sections, sub-sections, sub-sub-sections and so on. To accomplish this in HTML you can use the <code>&lt;h1></code>, <code>&lt;h2></code>,... tags. The scripting engine of HTML-SD that I have linked to this HTML file will automatically number the sections and also produce a table of contents as we are used to in Latex.</p>
 	
 	<h5>A very indented section</h5>
+	
 	<p>This is an <code>&lt;h5></code> without any of the previous <code>&lt;h3></code> and <code>&lt;h4></code> before. You can see that the numbering is still correct.</p>
 	
 	<h3>Unnumbered sections</h3>
+	
 	<p>To insert unnumbered sections<footnote>Unnumbered sections are not listed in the table of contents and cannot be referenced using <code>&lt;crossref></code>.</footnote> just set the <code>class</code> attribute to <code>"unnumbered"</code>, like this: <code>&lt;h4 class="unnumbered">This is an unnumbered section&lt;/h4></code>. As a result you will obtain this:</p>
+	
 	<h4 class="unnumbered">This is an unnumbered section</h4>
+	
 	<p>This section will not be listed in the table of contents, it is just aesthetic. You can do this with any type of heading tag.</p>
 	
 	<h3>Sections with the same name</h3>
+	
 	<p>You can have sectioins with the same name, but if you do that you must make them different by assigning different <code>id</code>s to each of them. Here there is an example:</p>
+	
 	<h4>Two sections with the same name</h4>
+	
 	<p>This section has the same name as the next section, but they are differenciated with the <code>id</code> attribute<footnote>The <code>id</code> attribute is not rendered in an HTML document so you will not see it in your web browser.</footnote>.</p>
+	
 	<h4 id="I want two sections with the same title">Two sections with the same name</h4>
+	
 	<p>Two sections with the same name requre at least one of them with a different id. Otherwise they are the same section and we don't know which of them to refer to when there is a cross reference.</p>
 	
 	<h1>Mathematic equations</h1>
+	
 	<p>You can just write your equations using Latex code, which is very nice for equations. You can add inline equations $x^2+x+1=0$ using <code>$</code> and you can add "displayed" equations 
-			
 			<equation id="my first equation">$$\intop_0^1f(x)dx=\pi$$</equation>
-
 		using <code>$$</code>. The previous equation is numberedv because I wroted it in between <code>&lt;equation></code> and <code>&lt;/equation></code> like this: <code>&lt;equation id="my first equation">$$\intop_0^1f(x)dx=\pi$$&lt;/equation></code>. Not that it has an <code>id</code> assigned so we can later on insert a cross reference to it. The following equation is numbered but has no <code>id</code> so we will not be able to insert a cross reference to it:
-			
 			<equation>$$E=mc^2$$</equation>
-		
 		Here we have another important equation in Physics
-		
 			<equation id="Dirac equation">$$\left( i \gamma^\mu \partial_\mu - m \right) \psi = 0$$</equation>
-		
 		that later on I will cite.
 	</p>
 	
-	<h3>Very long equations</h3>	
-		If you wrote in Latex before you probably know that there are always problems with very long equations and this is a pain because you never know beforehand when an equation is "very long". Here this problem does not exist! Consider the following "very long equation":
-			
+	<h3>Very long equations</h3>
+	
+	<p>If you wrote in Latex before you probably know that there are always problems with very long equations and this is a pain because you never know beforehand when an equation is "very long". Here this problem does not exist! Consider the following "very long equation":
+		
 			<equation id="very long equation">$$\frac{dF}{dx}\frac{dx}{dy}\frac{dy}{d\xi}=\intop_{\mathbb{R}}f(\zeta)e^{-\zeta}\cos(w^{2}-\zeta)\ d\zeta+\frac{3x^{3}+(\nabla\times\boldsymbol{E})\cdot\boldsymbol{B}}{\vec{r}\cdot\vec{E}}+8\pi\hbar+\log\cos\tan\sin\pi$$</equation>
 			
-		Now reduce the width of the window in which you are reading this and see what happens when this equation becomes "very long". You can simply scrool horizontally to see it complete, or just change the zoom-width of the window<footnote>If this were a PDF produced with Latex, this equation would probably be problematic and you would have to insert <code>newline</code> by hand and check that it renders correctly.</footnote>.
-	</p>
+		Now reduce the width of the window in which you are reading this and see what happens when this equation becomes "very long". You can simply scrool horizontally to see it complete, or just change the zoom-width of the window<footnote>If this were a PDF produced with Latex, this equation would probably be problematic and you would have to insert <code>newline</code> by hand and check that it renders correctly.</footnote>.</p>
 	
 	<h3>Latex command deffinitions</h3>
+	
 	<p>It is also possible to define custom Latex commands for the equations. Suppose you are working with quantum mechanics and you are using the <a href="https://en.wikipedia.org/wiki/Bra%E2%80%93ket_notation">bracket notation</a>. You can define the <code>\KET</code> command as you would do in Latex inserting <code>\def\KET#1{\left|#1\right\rangle }</code> and then you can use it to write, for example, the Schrödinger equation via <code>\hat{\mathscr{H}}\KET{\psi}=i\frac{\partial}{\partial t}\KET{\psi}</code>. The result is:
 		$\def\KET#1{\left|#1\right\rangle }$
 		$$ \hat{\mathscr{H}}\KET{\psi}=i\frac{\partial}{\partial t}\KET{\psi} $$
-	
 	</p>
 	
 	
 	<h1>Floats</h1>
+	
 	<p>In Latex we have a powerful and useful resource which are the <a href="https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Custom_floats">floats</a>. A figure and a table are examples of floats. To obtain a float here we use the <code>&lt;float></code> tag. Within <code>&lt;float></code> and <code>&lt;/float></code> you put whatever content you want and (mandatory) a caption using <code>&lt;floatcaption>This is the caption&lt;/floatcaption></code><footnote>I wanted to use <code>&lt;caption></code> instead of <code>&lt;floatcaption></code> which is more intuitive and easier but there is some weird behavior with it in HTML and unfortunately it is not possible to use.</footnote>. To assign the "type of float" (figure, table, video, whatever you want) you have to specify its <code>class</code> attribute, for example <code>&lt;float class="Figure">Put here your image and caption&lt;/float></code> is a Figure and <code>&lt;float class="Table">Put here your table and caption&lt;/float></code> is a Table.</p>
 	
 	<h2>Custom floats</h2>
+	
 	<p>As said before the <code>class</code> attribute of a <code>float</code> element specifies the type of float it is, e.g. a figure or a table. Nothing stops you from creating your own types of floats. For example you can create the floats of type <code>Video</code> or <code>Code</code> or whatever you want. To do this just insert a float of the class you want and it is automatically created. Simple and easy<footnote>In fact the usual float types <code>Figure</code> and <code>Table</code> are not specifically defined here, they are created on the fly just as any other type you may want to use.</footnote>. Each type of float will have its own counter for numerating them, and in the caption they will be labeled according to their <code>class</code> attribute.</p>
 	<p>Please note that the <code>class</code> attribute of a <code>float</code> element is case sensitive, i.e. <code>&lt;float class="Figure"></code> is different than <code>&lt;float class="figure"></code></p>
 	
 	<h2>Floats examples</h2>
+	
 	<p>Below I left some examples of <code>&lt;float></code> usage.</p>
 	
 	<float class="Figure" id="figure with Newton in full width">
@@ -231,24 +246,150 @@
 	<p>Note that in this case the name of the section is used as its <code>id</code> so if you change the name you will broke the reference.</p>
 	
 	<h1>Footnotes</h1>
+	
 	<p>You can add footnotes by using the <code>&lt;footnote></code> tag like this: <code>&lt;footnote>foot note content&lt;/footnote></code>. For example here you have a footnote<footnote>This is a footnote. We can have an equation $e^{i\pi}+1=0$.</footnote>.</p>
 	<p>Of course footnotes can have crossrefs within them<footnote>Many times footnotes make references to equations, like equation <crossref>Dirac equation</crossref> for example.</footnote><footnote>You can also place many consecutive footnotes one after the other.</footnote>.</p>
 	
 	<h1>Bibliography and citations</h1>
+	
 	<p>To insert bibliography first create a <code>&lt;reference></code> element, for example <code>&lt;reference id="book Jackson Classical Electrodynamics">Jackson, J. D. (1999). Classical electrodynamics.&lt;/reference></code> and then just create a <code>&lt;crossref></code> to this element. For example <crossref>paper EPR</crossref>. You can provide further details by using the <code>add_text</code> property, for example <code>&lt;crossref add_text="sec. 4.5">book Jackson Classical Electrodynamics&lt;/crossref></code> will produce this: <crossref add_text="sec. 4.5">book Jackson Classical Electrodynamics</crossref> (not yet implemented this!).</p>
 	<p>Here I cite again <crossref>paper EPR</crossref>.</p>
 	
 	<h1>Still-to-do list</h1>
+	
 	<p>Though this is already looking good, there is still much work to do:</p>
 	<ul>
-		<li>Implement a translator Latex → this. This would be the glory.</li>
+		<li>Implement acronyms.</li>
+		<li>Implement a translator Latex → this.</li>
 		<li>Probably many things more.</li>
 	</ul>
 	
+	<h1>Code</h1>
+	
+	<p>To insert code we use the standard tag <code>code</code>. For inline code like <code>this one</code> just write <code>&lt;code>this one&lt;/code></code>. For non-inline code we set the class to <code>block</code>, see code <crossref>Code of the FPGA</crossref> for example.</p>
+	
+	<float class="Code" id="Code of the FPGA">
+		<code class="block">`timescale 1ns/1ps
+
+module sequencer_for_TDC_V1_SW_28_10_19 (
+	//-------------------------------------------------------------------//
+	// This is the sequencer module to interface with the test structure //
+	// that I am calling "TDC_V1_SW_28_10_19" which is the one produced  //
+	// by S. Widerkehr that contains 4 TDC test structures.              //
+	//-------------------------------------------------------------------//
+	input clk,
+	input reset,
+
+	input run_sequencer, // Setting this to 1 starts the sequencer.
+	input [7:0]t_start_coarse,
+	input [7:0]t_stop_coarse,
+
+	output ready_flag, // 1 means that the sequencer is ready to start a new run, 0 means it is not.
+	output reg measure_flag, // This is what Beat called "measure".
+	output reg write, // This tells the RAM memory when to write.
+	output reg[15:0]data, // This sends the data to the RAM memory.
+
+	// TDC_V1_SW_28_10_19 test structure ---//
+	output reg [3:0]SEL,                    //
+	output reg PSTART,                      //
+	output reg PSTOP,                       //
+	output reg RES,                         //
+	input [6:0]DOUT,                        //
+	input [20:0]SAFF                        //
+	// -------------------------------------//
+);
+	// State machine states --------------------------------------//
+	localparam SM_IDLE = 5'd0;                                    //
+	localparam SM_WAIT_FOR_RUN_SIGNAL = 5'd1;                     //
+	localparam SM_START_MEASURE_SEQUENCE = 5'd2;                  //
+	localparam SM_MEASURE_SEQUENCE = 5'd3;                        //
+	localparam SM_READOUT_SEQUENCE = 5'd4;                        //
+	reg [4:0]current_state;                                       //
+	reg [4:0]previous_state;                                      //
+	wire state_did_not_change = previous_state == current_state;  //
+	// -----------------------------------------------------------//
+	
+	reg [9:0]current_state_time_count; // This counts the number of clock cycles that the state machine has been in the "current_state" state. Each time the state changes, this will be reseted to 0.
+	
+	assign ready_flag = (current_state == SM_WAIT_FOR_RUN_SIGNAL);
+	
+	always @(posedge clk or posedge reset) begin
+		if (reset) begin
+			current_state <= SM_IDLE;
+			previous_state <= SM_IDLE;
+			current_state_time_count <= 9'd0;
+			SEL <= 4'b0000;
+			PSTART <= 1'b0;
+			PSTOP <= 1'b0;
+			RES <= 1'b1;
+			measure_flag <= 1'b0;
+			write <= 1'b0; end
+		else begin // if NOT reset
+			if (state_did_not_change) begin
+				current_state_time_count <= current_state_time_count + 9'd1; end
+			else begin
+				previous_state <= current_state;
+				current_state_time_count <= 9'd0; end
+			case (current_state) // State machine machinery ---
+				SM_IDLE: begin
+					SEL <= 4'b0000;
+					PSTART <= 1'b0;
+					PSTOP <= 1'b0;
+					RES <= 1'b1;
+					current_state <= SM_WAIT_FOR_RUN_SIGNAL; end
+				SM_WAIT_FOR_RUN_SIGNAL: begin
+					if (run_sequencer) current_state <= SM_START_MEASURE_SEQUENCE; end
+				SM_START_MEASURE_SEQUENCE: begin
+					measure_flag <= 1'b1;
+					RES <= 0; // Remove the "reset" signal from the test structure.
+					current_state <= SM_MEASURE_SEQUENCE; end
+				SM_MEASURE_SEQUENCE: begin: measure_sequence
+					if (current_state_time_count[7:0] == t_start_coarse)
+						PSTART <= 1;
+					if (current_state_time_count[7:0] >= t_stop_coarse) begin
+						PSTOP <= 1;
+						if (current_state_time_count[7:0] == t_stop_coarse + 2) begin // Finish the measure sequence. I am waiting some time (i.e. t_stop_coarse + something) so any transient in the test structure finishes. The sime scale in the test structure is in the order of pico seconds so a few number of clock cycles here (order nano second) should be enough.
+							current_state <= SM_READOUT_SEQUENCE;
+							measure_flag <= 1'b0; end/*if*/ end end/*measure_sequence*/
+				SM_READOUT_SEQUENCE: begin: readout_mechanism
+					reg [2:0]write_counter; // This counter is used to write the many bytes from each TDC into the memory.
+					if (SEL == 4'b0000) begin
+						SEL <= 4'b0001;
+						write_counter <= 3'b000; end
+					else begin
+						write_counter <= write_counter + 3'd1;
+						case (write_counter)
+							0: data[15:0] <= {DOUT[6:0], 4'd0, SAFF[20:16]}; // This will be written to the memory in the base board module.
+							1: write <= 1'b1; // This will tell the memory block in the base board to write the data.
+							2: write <= 1'b0; // Disable writing.
+							3: data[15:0] <= SAFF[15:0]; // Select the remaining data.
+							4: write <= 1'b1; // Write to the memory.
+							5: write <= 1'b0;
+							6: begin
+								SEL <= {SEL<<1}; // Move to the next TDC structure.
+								write_counter <= 3'd0; // Reset the write counter so for the next TDC structure we repeat the cycle again.
+								if (SEL == 4'b1000) // If we are in the last test structure...
+									current_state <= SM_IDLE; // When the last TDC was read, we have finished.
+								end
+							endcase
+						end
+					end
+				endcase
+			end
+		end
+	endmodule
+		</code>
+		<floatcaption>This is my code for the sequencer in the FPGA for testing the TDC.</floatcaption>
+	</float>
+	
 	<h1>How can I write my own HTML Scientific Document?</h1>
+	
 	<h2>Template</h2>
+	
 	<p>You can find a template in <a href="https://github.com/SengerM/html-academic-publishing/blob/main/template.html">this link</a> that you can download and start playing with. To edit it you open <code>template.html</code> with your favourite text editor, to view it you open <code>template.html</code> with your favourite web browser. Hit <code>F5</code> (refresh) to update the changes as you modify the template.</p>
+	
 	<h2>Documentation and reference</h2>
+	
 	<p>You can also download the source code of this file from <a href="https://github.com/SengerM/html-academic-publishing">this Github repo</a> and use this document as a template/reference.  You don't need to modify anything within the <code>css_and_scripts</code> directory. You are free to modify them if you want, of course.</p>
 	
 	<div id="references_list">
