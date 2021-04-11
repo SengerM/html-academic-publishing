@@ -31,7 +31,7 @@ for(var i = 0; i < floats.length; i++) {
 	if (! (current_float_class in float_counters_by_float_class))
 		float_counters_by_float_class[current_float_class] = 0; // Initialize a new counter for this class.
 	float_counters_by_float_class[current_float_class] += 1;
-	caption.innerHTML = `<b>${current_float_class} ${float_counters_by_float_class[current_float_class]}&nbsp;&nbsp;&nbsp;</b>` + caption.innerHTML;
+	caption.innerHTML = `<b>${current_float_class} ${float_counters_by_float_class[current_float_class]}.&nbsp;&nbsp;</b>` + caption.innerHTML;
 	if (!floats[i].hasAttribute('id'))
 		continue;
 	if (floats[i].id in elements_for_cross_references) {
@@ -40,7 +40,7 @@ for(var i = 0; i < floats.length; i++) {
 		throw `ERROR: The id "${floats[i].id}" is used in more than one element in the document. ids cannot repeat, please fix this.`;
 	}
 	elements_for_cross_references[floats[i].id] = {};
-	elements_for_cross_references[floats[i].id]['display_text'] = `${float_counters_by_float_class[current_float_class]}`; // This text will be placed where there is a reference to this figure.
+	elements_for_cross_references[floats[i].id]['display_text'] = `${current_float_class} ${float_counters_by_float_class[current_float_class]}`; // This text will be placed where there is a reference to this figure.
 	elements_for_cross_references[floats[i].id]['popup_text'] = caption.innerHTML;
 }
 // Parse <equation> tags -----------------------------------------------
