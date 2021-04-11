@@ -40,7 +40,7 @@ for(var i = 0; i < floats.length; i++) {
 		throw `ERROR: The id "${floats[i].id}" is used in more than one element in the document. ids cannot repeat, please fix this.`;
 	}
 	elements_for_cross_references[floats[i].id] = {};
-	elements_for_cross_references[floats[i].id]['display_text'] = `${current_float_class} ${float_counters_by_float_class[current_float_class]}`; // This text will be placed where there is a reference to this figure.
+	elements_for_cross_references[floats[i].id]['display_text'] = `${current_float_class}&nbsp;${float_counters_by_float_class[current_float_class]}`; // This text will be placed where there is a reference to this figure.
 	elements_for_cross_references[floats[i].id]['popup_text'] = caption.innerHTML;
 }
 // Parse <equation> tags -----------------------------------------------
@@ -64,7 +64,7 @@ for(var i = 0; i < equations.length; i++) {
 		throw `ERROR: The id "${equations[i].id}" is used in more than one element in the document. ids cannot repeat, please fix this.`
 	}
 	elements_for_cross_references[equations[i].id] = {}
-	elements_for_cross_references[equations[i].id]['display_text'] = equation_number_display_str; // This text will be placed where there is a reference to this equation.
+	elements_for_cross_references[equations[i].id]['display_text'] = 'Eq.' + '&nbsp;' + equation_number_display_str; // This text will be placed where there is a reference to this equation.
 	elements_for_cross_references[equations[i].id]['popup_text'] =  equations[i].innerHTML.replaceAll('$$','$');// This will appear in the popup window when the mouse hovers over the reference.
 	var current_id = equations[i].id;
 	equations[i].id = '';
@@ -107,7 +107,7 @@ for (var i=0; i<numbered_headings.length; i++) {
 		throw `ERROR: The id/name "${current_id}" is used in more than one heading/object in the document. If you manually defined this id please change one of them as they cannot repeat, if you have more than one section with the same name please assign them different ids to the section in order to use the same title.`;
 	}
 	elements_for_cross_references[current_id] = {};
-	elements_for_cross_references[current_id]['display_text'] = current_section_numbering.join('.');
+	elements_for_cross_references[current_id]['display_text'] = 'Section' + '&nbsp;' + current_section_numbering.join('.');
 	elements_for_cross_references[current_id]['popup_text'] = numbered_headings[i].innerHTML;
 	numbered_headings[i].id = current_id; // If the heading had no id, this will set it. Otherwise it does nothing.
 }
