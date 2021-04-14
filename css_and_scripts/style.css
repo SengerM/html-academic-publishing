@@ -51,6 +51,7 @@ float {
 	align-items: center;
 	margin: 22px;
 	gap: 22px;
+	overflow-x: auto;
 }
 float floatcaption {
 	color: #0066cc;
