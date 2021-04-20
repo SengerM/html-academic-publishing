@@ -164,30 +164,30 @@ if (references.length > 0) {
 		if (document.getElementById(ref_to_this_id).tagName.toLowerCase() == 'reference' && !(cited_references_in_this_order.indexOf(ref_to_this_id)>-1))
 			cited_references_in_this_order.push(ref_to_this_id);
 	}
-}
-for (var i=0; i<cited_references_in_this_order.length; i++) {
-	var current_id = cited_references_in_this_order[i];
-	var current_reference_element = document.getElementById(current_id);
-	if (current_reference_element == null)
-		continue; // This error will be reported later on when the <crossref> tags are parsed.
-	elements_for_cross_references[current_id] = {};
-	elements_for_cross_references[current_id]['display_text'] = `[${i+1}]`;
-	elements_for_cross_references[current_id]['popup_text'] = current_reference_element.innerHTML;
-	var reference_number_element = document.createElement('div');
-	reference_number_element.setAttribute('class', 'reference_number_element__');
-	reference_number_element.innerHTML = elements_for_cross_references[current_id]['display_text'];
-	var reference_text_element = document.createElement('div');
-	reference_text_element.setAttribute('class', 'reference_text_element__');
-	reference_text_element.innerHTML = current_reference_element.innerHTML;
-	current_reference_element.innerHTML = '';
-	current_reference_element.appendChild(reference_number_element);
-	current_reference_element.appendChild(reference_text_element);
-	references_list.appendChild(current_reference_element);
-}
-for (var i=0; i<references.length; i++) {
-	if (cited_references_in_this_order.indexOf(references[i].id) < 0) { // if references[i].id not in cited_references_in_this_order:
-		references[i].remove();
-		i -= 1;
+	for (var i=0; i<cited_references_in_this_order.length; i++) {
+		var current_id = cited_references_in_this_order[i];
+		var current_reference_element = document.getElementById(current_id);
+		if (current_reference_element == null)
+			continue; // This error will be reported later on when the <crossref> tags are parsed.
+		elements_for_cross_references[current_id] = {};
+		elements_for_cross_references[current_id]['display_text'] = `[${i+1}]`;
+		elements_for_cross_references[current_id]['popup_text'] = current_reference_element.innerHTML;
+		var reference_number_element = document.createElement('div');
+		reference_number_element.setAttribute('class', 'reference_number_element__');
+		reference_number_element.innerHTML = elements_for_cross_references[current_id]['display_text'];
+		var reference_text_element = document.createElement('div');
+		reference_text_element.setAttribute('class', 'reference_text_element__');
+		reference_text_element.innerHTML = current_reference_element.innerHTML;
+		current_reference_element.innerHTML = '';
+		current_reference_element.appendChild(reference_number_element);
+		current_reference_element.appendChild(reference_text_element);
+		references_list.appendChild(current_reference_element);
+	}
+	for (var i=0; i<references.length; i++) {
+		if (cited_references_in_this_order.indexOf(references[i].id) < 0) { // if references[i].id not in cited_references_in_this_order:
+			references[i].remove();
+			i -= 1;
+		}
 	}
 }
 // Automatic table of contents -----------------------------------------
