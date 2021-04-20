@@ -298,8 +298,15 @@
 	
 	<h1>Footnotes</h1>
 	
-	<p>You can add footnotes by using the <code>footnote</code> tag like this: <code>&lt;footnote>footnote content&lt;/footnote></code>, which whill produce this:<footnote>footnote content</footnote>. This is another example of footnote<footnote>This is a footnote. We can have an equation $e^{i\pi}+1=0$.</footnote>.</p>
-	<p>Of course footnotes can have crossrefs within them<footnote>Many times footnotes make references to equations, like equation <crossref>Dirac equation</crossref> for example.</footnote><footnote>You can also place many consecutive footnotes one after the other.</footnote>.</p>
+	<p>You can add footnotes by using the <code>footnote</code> tag like this: <code>&lt;footnote>footnote content&lt;/footnote></code>, which whill produce this:<footnote>footnote content</footnote>. This is another example of footnote<footnote>This is a footnote. We can have an equation $e^{i\pi}+1=0$.</footnote>. Of course footnotes can have crossrefs within them<footnote>Many times footnotes make references to equations, like equation <crossref>Dirac equation</crossref> for example.</footnote><footnote>You can also place many consecutive footnotes one after the other.</footnote>.</p>
+	<p>If you add footnotes in your document, you must add somewhere the place where you want your footnotes to be listed and shown. In <crossref>Code: footnote</crossref> there is an example of how to do it. Note that the <code>&lt;h1 class="unnumbered">Footnotes&lt;/h2></code> element is just aesthetic, you can change it or delete it.</p>
+	
+	<float class="Code" id="Code: footnote">
+		<floatcaption>Example for creating the list of footnotes. You MUST have this somewhere in your document if you have inserted footnotes.</floatcaption>
+		<code class="block">&lt;div id="footnotes_list">
+	&lt;h1 class="unnumbered">Footnotes&lt;/h2>
+&lt;/div></code>
+	</float>
 	
 	<h1 id="Section: bibliography">Bibliography and citations</h1>
 	
