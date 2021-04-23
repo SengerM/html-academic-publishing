@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- This fixes the problem of small font (some texts and also the math) in mobile devices, see https://stackoverflow.com/a/35564095/8849755 -->
 	<link rel="stylesheet" href="./css_and_scripts/style.css">
 	<!-- Math support https://www.mathjax.org/#gettingstarted -->
-	<script>
+    <script>
 	MathJax = {
 	  tex: {
 		inlineMath: [['$', '$'], ['\\(', '\\)']]
@@ -89,6 +89,34 @@
 	
 	<p>You still want a PDF? Open this document with your favourite web broser, hit <code>ctrl+print</code> and save it as a PDF file<footnote>Firefox can do this, probably all other "famous" browsers can too. You may have to set up the zoom, margins, background, etc. such that it looks fine as in the browser. But believe me, it is trivial to get a good looking PDF from this.</footnote>. There are probably other ways of getting a PDF from an HTML file.</p>
 	
+	<h1>Documentation and reference</h1>
+	
+	<h2>Template</h2>
+	
+	<p>You can use the document you are reading right now as a template. It has everything you need in it. To get the source code visit <a href="https://github.com/SengerM/html-academic-publishing/blob/main/index.html">this link</a> or just open this file with a text editor<footnote>If you are in a web browser: "File&nbsp;→&nbsp;Save&nbsp;page&nbsp;as" and then open it with your favourite text editor.</footnote>.</p>
+	
+	<h2>Github repo</h2>
+	
+	<p>You can also download the source code of this file and the CSS and JavaScript that produces this output from <a href="https://github.com/SengerM/html-academic-publishing">this Github repo</a>.</p>
+	
+	<h2>Examples</h2>
+	
+	<p>There are currently a few examples:
+	<ul>
+		<li><a href="examples/1964_Bell/Bell_1964_On the Einstein Podolsky Rosen paradox.html">On the Einstein Podolsky Rosen paradox, Bell, 1964</a>.</li>
+		<li><a href="examples/1928_Dirac/1928_Dirac_The_Quantum_Theory_of_the_Electron.html">The Quantum Theory of the Electron, Dirac, 1928</a>.</li>
+	</ul>
+	</p>
+	
+	<h2>Still-to-do list</h2>
+	
+	<p>Though this is already looking good, there is still much work to do:</p>
+	<ul>
+		<li>Implement acronyms.</li>
+		<li>Improve <code>code</code> of class <code>block</code> to get syntax highlighting, lines numbering, etc.</li>
+		<li>Implement a translator Latex → this.</li>
+		<li>Provide offline support for math equations.</li>
+	</ul>
 	
 	<h1>HTML Scientific Document</h1>
 	
@@ -459,30 +487,6 @@ module sequencer_for_TDC_V1_SW_28_10_19 (
 I like this code
 This code is not inside a float element so you cannot insert a crossref to refer to this code, but you can still insert code in this way and it will be displayed cool
 Lalala</code></p>
-	
-	<h1>Documentation and reference</h1>
-	
-	<h2>Template</h2>
-	
-	<p>You can use the document you are reading right now as a template. It has everything you need in it. To get the source code visit <a href="https://github.com/SengerM/html-academic-publishing/blob/main/index.html">this link</a> or just open this file with a text editor<footnote>If you are in a web browser: "File&nbsp;→&nbsp;Save&nbsp;page&nbsp;as" and then open it with your favourite text editor.</footnote>.</p>
-	
-	<h2>Github repo</h2>
-	
-	<p>You can also download the source code of this file and the CSS and JavaScript that produces this output from <a href="https://github.com/SengerM/html-academic-publishing">this Github repo</a>.</p>
-	
-	<h2>Examples</h2>
-	
-	<p>There is currently one example, see file <a href="examples/1964_Bell/Bell_1964_On the Einstein Podolsky Rosen paradox.html">examples/1964_Bell/Bell_1964_On the Einstein Podolsky Rosen paradox.html</a>.</p>
-	
-	<h2>Still-to-do list</h2>
-	
-	<p>Though this is already looking good, there is still much work to do:</p>
-	<ul>
-		<li>Implement acronyms.</li>
-		<li>Improve <code>code</code> of class <code>block</code> to get syntax highlighting, lines numbering, etc.</li>
-		<li>Implement a translator Latex → this.</li>
-		<li>Provide offline support for math equations.</li>
-	</ul>
 	
 	<div id="references_list">
 		<h1 class="unnumbered">References</h1>
