@@ -154,7 +154,7 @@ iframe.plotly {
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
-	font-size: 120%;
+	font-size: 130%;
 }
 author {
 	margin: 10px;
@@ -163,7 +163,7 @@ author {
 	width: 100%;
 	display: flex;
 	align-items: center;
-	font-size: 70%;
+	font-size: 80%;
 	flex-direction: column;
 }
 .author_affiliation {
@@ -174,7 +174,7 @@ abstract {
 	width: 75%;
 	display: flex;
 	align-items: left;
-	font-size: 70%;
+	font-size: 90%;
 	flex-direction: column;
 	margin: auto;
 }
