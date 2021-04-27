@@ -95,7 +95,7 @@ iframe.plotly {
 	font-family: serif;
 }
 /* Popup cross references  ------------------------------------------ */
-.popup_cross_reference {position:relative; }
+.popup_cross_reference {position:relative;}
 .popup_cross_reference span {display: none;}
 .popup_cross_reference_hover {position:relative;}
 .popup_cross_reference_hover span {

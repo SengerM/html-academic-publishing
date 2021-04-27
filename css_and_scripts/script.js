@@ -256,8 +256,10 @@ for(var i = 0; i < crossref.length; i++) {
 			}
 			if (popup_text.includes('<footnote>')) {
 				// Let's give a nice format to footnotes within in popups.
-				popup_text = popup_text.replaceAll('<footnote>','<sup>[').replaceAll('</footnote>',']</sup>')
+				popup_text = popup_text.replaceAll('<footnote>','<sup>[').replaceAll('</footnote>',']</sup>');
 			}
+			if (popup_text.includes('<siglas>')) // If there are siglas we also need to leave only the short name, not the object itself.
+				popup_text = popup_text.replaceAll('<siglas>','').replaceAll('</siglas>','');
 			reference_str = `<span class="popup_cross_reference" onMouseOver="javascript:this.className='popup_cross_reference_hover'" onMouseOut="javascript:this.className='popup_cross_reference'">` + reference_str + `<span>${popup_text}</span></span>`;
 		}
 	} else {
@@ -266,4 +268,38 @@ for(var i = 0; i < crossref.length; i++) {
 		throw `ERROR: You are trying to do a <crossref> to the id "${ref_to_this_id}" was not defined anywhere. Look for it in your HTML code and fix this problem.`;
 	}
 	crossref[i].innerHTML = reference_str;
+}
+// Siglas --------------------------------------------------------------
+var siglas_np = {
+	// This is just a namespace for constant definitions.
+	display_error: function(msg) {
+		return '<span style="color:red;font-size:140%;font-weight: bold;background-color: yellow;">' + '← ERROR IS HERE. ' + msg + '</span>';
+	}
+};
+
+var siglas_definitions = {};
+var sigla_was_already_used = {};
+const siglas = document.getElementsByTagName('siglas')
+for (i=0; i<siglas.length; i++) { // First parse all the definitions into a dictionary.
+	if (siglas[i].className == 'definition') {
+		siglas_definitions[siglas[i].getAttribute('short')] = siglas[i];
+		sigla_was_already_used[siglas[i].getAttribute('short')] = false;
+	}
+}
+
+for (i=0; i<siglas.length; i++) { // Now start processing each usage of each sigla.
+	if (siglas[i].className == 'definition')
+		continue;
+	if (! (siglas[i].innerHTML in siglas_definitions)) {
+		siglas[i].innerHTML = siglas[i].innerHTML + siglas_np.display_error(`The &lt;siglas> called "${siglas[i].innerHTML}" was not defined anywhere. If you use "&lt;siglas>${siglas[i].innerHTML}&lt;/siglas>" you must somewhere define "&lt;siglas class="definition" short="${siglas[i].innerHTML}" first="whatever">&lt;/siglas>".`);
+		siglas[i].scrollIntoView();
+		throw `ERROR: You inserted a <siglas>whatever</siglas> without a <siglas class="definition" short="whatever" first="first usage of whatever"></siglas>, this is not allowed because I don't know what to do with your siglas.`;
+	}
+	if (sigla_was_already_used[siglas[i].innerHTML] == false) {
+		sigla_was_already_used[siglas[i].innerHTML] = true;
+		siglas[i].innerHTML = siglas_definitions[siglas[i].innerHTML].getAttribute('first');
+	} else {
+		siglas[i].innerHTML = `<span class="popup_cross_reference" onMouseOver="javascript:this.className='popup_cross_reference_hover'" onMouseOut="javascript:this.className='popup_cross_reference'">` + siglas_definitions[siglas[i].innerHTML].getAttribute('short') + `<span>` + siglas_definitions[siglas[i].innerHTML].getAttribute('first') + `</span></span>`;
+	}
+	
 }
