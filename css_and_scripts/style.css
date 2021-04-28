@@ -67,6 +67,8 @@ float floatcaption {
 }
 iframe.plotly {
 	width: 100%;
+	min-width: 555px; 
+	max-width: 999px;
 	height: 480px;
 	border: 0;
 	display: block; /* This is to center the content */
