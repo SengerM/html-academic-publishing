@@ -1,4 +1,4 @@
-var presentation_display_blocks = document.getElementsByClassName("presentation_display_block");
+var presentation_display_blocks = document.getElementsByTagName("presentation_display_block");
 var last_shown_presentation_display_block = 0;
 for (var i=0; i<presentation_display_blocks.length; i++) {
 	presentation_display_blocks[i].id = `presentation_display_block_${i}`;
