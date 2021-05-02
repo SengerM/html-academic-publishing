@@ -118,7 +118,9 @@ iframe.plotly {
     right: 0px;
     top: 0px;
     animation: popups_fade_in 0.1s linear;
-    font-size: 90%;
+    font-size: 1rem;
+    font-family: sans-serif;
+    font-weight: normal;
 }
 @keyframes popups_fade_in {
 	0% { opacity: 0 }
