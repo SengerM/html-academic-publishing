@@ -1,20 +1,17 @@
-.slide_block_hidden {
+.presentation_display_block_hidden {
 	display: none;
-	transition: visibility 0s linear 0s, opacity 300ms;
 }
-#show_all_button, #show_next_button {
+#buttons_at_the_bottom_container button {
 	background-color: white; 
 	color: black; 
 	border: 2px solid #66b3ff;
 	transition-duration: 0.4s;
 	margin: 10px;
 }
-
-#show_all_button:hover, #show_next_button:hover {
+#buttons_at_the_bottom_container button:hover {
 	background-color: #66b3ff;
 	color: white;
 }
-
 #buttons_at_the_bottom_container {
 	display: flex;
 	justify-content: center;
