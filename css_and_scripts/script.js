@@ -245,15 +245,16 @@ for(var i = 0; i < crossref.length; i++) {
 		reference_str = `<a class="cross-reference-link" href="#${ref_to_this_id}">${elements_for_cross_references[ref_to_this_id]["display_text"]}</a>`;
 		if ('popup_text' in elements_for_cross_references[ref_to_this_id]) {
 			var popup_text = elements_for_cross_references[ref_to_this_id]['popup_text'];
-			if (popup_text.includes('<crossref>')) {
-				// Before inserting the text we have to replace all the possible crossrefs by their respective text:
-				popup_text = popup_text.replaceAll('<crossref>','').replaceAll('</crossref>','');
-				for (var id in elements_for_cross_references) {
-					if (popup_text.includes(id)) {
-						popup_text = popup_text.replace(id, elements_for_cross_references[id]['display_text']);
-					}
-				}
+			// If the popup text contains <crossref> elements, we want to hardcode the reference text. We don't want an infinite loop of popup messages to be displayed. This is what I do next:
+			var element = document.createElement('div');
+			element.innerHTML = popup_text;
+			var crossrefs_within_this_popup = element.getElementsByTagName('crossref');
+			for (var k=0; k<crossrefs_within_this_popup.length; k++) {
+				var div_to_replace_the_crossref = document.createElement('invisible_tag');
+				div_to_replace_the_crossref.innerHTML = elements_for_cross_references[crossrefs_within_this_popup[k].innerHTML]['display_text'];
+				element.replaceChild(div_to_replace_the_crossref, crossrefs_within_this_popup[k]);
 			}
+			popup_text = element.innerHTML;
 			if (popup_text.includes('<footnote>')) {
 				// Let's give a nice format to footnotes within in popups.
 				popup_text = popup_text.replaceAll('<footnote>','<sup>[').replaceAll('</footnote>',']</sup>');
