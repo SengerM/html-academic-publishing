@@ -1,5 +1,7 @@
 .presentation_display_block_hidden {
-	display: none;
+	position: absolute; 
+	top: -9999px; 
+	left: -9999px;
 }
 #buttons_at_the_bottom_container button {
 	background-color: white; 
