@@ -42,8 +42,8 @@ async function showAllSlideBlocks() {
 	}
 	while (last_shown_presentation_display_block < presentation_display_blocks.length-1) {
 		showNextSlideBlock();
-		await sleep(1111/presentation_display_blocks.length);
+		await sleep(777/presentation_display_blocks.length);
 	}
-	await sleep(777);
+	await sleep(555);
 	presentation_display_blocks[current_presentation_display_block].scrollIntoView();
 }
