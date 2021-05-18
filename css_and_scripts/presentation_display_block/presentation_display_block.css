@@ -18,3 +18,25 @@
 	display: flex;
 	justify-content: center;
 }
+body:not(.loaded) #buttons_at_the_bottom_container {
+	display: none;
+}
+#presentation_display_blocks_loading_msg:before {
+	content: "Loading...";
+}
+body.loaded #presentation_display_blocks_loading_msg {
+	display: none;
+}
+#presentation_display_blocks_loading_msg {
+	text-align: center;
+	animation: loading_animation 1s infinite;
+	color: #66b3ff;
+	border-style: solid none none none;
+	border-width: 1px;
+	border-color: #66b3ff;
+}
+@keyframes loading_animation {
+	0% {opacity: 0;}
+	50% {opacity: 100;}
+	100% {opacity: 0;}
+}

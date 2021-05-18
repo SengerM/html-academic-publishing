@@ -4,6 +4,11 @@ for (var i=0; i<presentation_display_blocks.length; i++) {
 	presentation_display_blocks[i].id = `presentation_display_block_${i}`;
 	if (i>0)
 		presentation_display_blocks[i].classList.add("presentation_display_block_hidden");
+	else {
+		var loading_msg = document.createElement('div');
+		loading_msg.id = 'presentation_display_blocks_loading_msg';
+		presentation_display_blocks[i].parentNode.insertBefore(loading_msg, presentation_display_blocks[i].nextSibling);
+	}
 }
 
 var show_next_button = document.createElement('button');
@@ -42,8 +47,12 @@ async function showAllSlideBlocks() {
 	}
 	while (last_shown_presentation_display_block < presentation_display_blocks.length-1) {
 		showNextSlideBlock();
-		await sleep(777/presentation_display_blocks.length);
+		//~ await sleep(777/presentation_display_blocks.length);
 	}
-	await sleep(555);
-	presentation_display_blocks[current_presentation_display_block].scrollIntoView();
+	//~ await sleep(555);
+	//~ presentation_display_blocks[current_presentation_display_block].scrollIntoView();
 }
+
+setTimeout(function() {
+	document.body.classList.add("loaded");
+}, 1000);
