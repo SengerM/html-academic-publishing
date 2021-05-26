@@ -135,7 +135,7 @@ if (footnotes.length != 0) {
 		elements_for_cross_references[current_footnote_entry.id] = {};
 		elements_for_cross_references[current_footnote_entry.id]['display_text'] = `<sup>[${i+1}]</sup>`;
 		footnotes[i].setAttribute('id', current_footnote_id);
-		footnotes[i].innerHTML = '<crossref>' + current_footnote_entry.id + '</crossref>';
+		footnotes[i].innerHTML = '<crossref toid="' + current_footnote_entry.id + '"></crossref>';
 		var current_footnote_number_element = document.createElement('div');
 		current_footnote_number_element.setAttribute('class', 'footnote_number_element__');
 		current_footnote_number_element.innerHTML = `<a href=#${footnotes[i].id} class="footnote_key_link">` + elements_for_cross_references[current_footnote_entry.id]['display_text'] + '</a> ';
@@ -158,7 +158,7 @@ if (references.length > 0) {
 	var cited_references_in_this_order = [];
 	var crossref_elements = document.getElementsByTagName("crossref");
 	for (i=0; i<crossref_elements.length; i++) {
-		const ref_to_this_id = crossref_elements[i].innerHTML;
+		const ref_to_this_id = crossref_elements[i].getAttribute('toid');
 		if (document.getElementById(ref_to_this_id) == null)
 			continue; // This error will be reported later on when the <crossref> tags are parsed.
 		if (document.getElementById(ref_to_this_id).tagName.toLowerCase() == 'reference' && !(cited_references_in_this_order.indexOf(ref_to_this_id)>-1))
@@ -239,7 +239,7 @@ if (document.getElementById("table-of-contents") != null) {
 // Parse <crossref> tags -----------------------------------------------
 var crossref = document.getElementsByTagName("crossref");
 for(var i = 0; i < crossref.length; i++) {
-	var ref_to_this_id = crossref[i].innerHTML;
+	var ref_to_this_id = crossref[i].getAttribute('toid');
 	var reference_str;
 	if (ref_to_this_id in elements_for_cross_references) {
 		reference_str = `<a class="cross-reference-link" href="#${ref_to_this_id}">${elements_for_cross_references[ref_to_this_id]["display_text"]}</a>`;

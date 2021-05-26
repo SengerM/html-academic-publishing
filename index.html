@@ -135,7 +135,7 @@
 	
 	<h1>Sections and sub-sections</h1>
 	
-	<p>Scientific documents are structured in sections, sub-sections, sub-sub-sections and so on. To accomplish this in HTML you can use the <code>h1</code>, <code>h2</code>,... tags. The scripting engine of HTML-SD that is linked to this HTML file will automatically number the sections and also produce a table of contents as we are used to in Latex. See <crossref>Code: sections and subsections example</crossref> for an example.</p>
+	<p>Scientific documents are structured in sections, sub-sections, sub-sub-sections and so on. To accomplish this in HTML you can use the <code>h1</code>, <code>h2</code>,... tags. The scripting engine of HTML-SD that is linked to this HTML file will automatically number the sections and also produce a table of contents as we are used to in Latex. See <crossref toid="Code: sections and subsections example"></crossref> for an example.</p>
 	
 	<float class="Code" id="Code: sections and subsections example">
 		<floatcaption>Example of how to create sections and sub-sections.</floatcaption>
@@ -147,7 +147,7 @@
 	
 	<h2>Unnumbered sections</h2>
 	
-	<p>To insert unnumbered sections<footnote>Unnumbered sections are not listed in the table of contents and cannot be referenced using <code>&lt;crossref></code>.</footnote> just set the <code>class</code> attribute to <code>"unnumbered"</code>. An example is shown in <crossref>Code: unumbered sections example</crossref>.
+	<p>To insert unnumbered sections<footnote>Unnumbered sections are not listed in the table of contents and cannot be referenced using <code>&lt;crossref></code>.</footnote> just set the <code>class</code> attribute to <code>"unnumbered"</code>. An example is shown in <crossref toid="Code: unumbered sections example"></crossref>.
 	
 	<float class="Code" id="Code: unumbered sections example">
 		<floatcaption>Unnumbered sections example.</floatcaption>
@@ -162,7 +162,7 @@
 	
 	<h3>Sections with the same name</h3>
 	
-	<p>You can have sectioins with the same name, but if you do that you must make them different by assigning different <code>id</code>s to each of them. <crossref>Code: sections with the same name</crossref> shows an example. 
+	<p>You can have sectioins with the same name, but if you do that you must make them different by assigning different <code>id</code>s to each of them. <crossref toid="Code: sections with the same name"></crossref> shows an example. 
 	
 	<float class="Code" id="Code: sections with the same name">
 		<floatcaption>Example of inserting multiple sections with the same name</floatcaption>
@@ -171,15 +171,15 @@
 &lt;h1 id="third section with the same name">Numbered sections with the same name&lt;/h1></code>
 	</float>
 	
-	By doing this we obtain, for example, <crossref>Two sections with the same name</crossref> and <crossref>I want two sections with the same title</crossref>.</p>
+	By doing this we obtain, for example, <crossref toid="Two sections with the same name"></crossref> and <crossref toid="I want two sections with the same title"></crossref>.</p>
 	
 	<h3>Two sections with the same name</h3>
 	
-	<p>This section has the same name as <crossref>I want two sections with the same title</crossref>, but they are different by the <code>id</code> attribute<footnote>The <code>id</code> attribute is not rendered in an HTML document so you will not see it in your web browser.</footnote>.</p>
+	<p>This section has the same name as <crossref toid="I want two sections with the same title"></crossref>, but they are different by the <code>id</code> attribute<footnote>The <code>id</code> attribute is not rendered in an HTML document so you will not see it in your web browser.</footnote>.</p>
 	
 	<h3 id="I want two sections with the same title">Two sections with the same name</h3>
 	
-	<p>This section has the same name as <crossref>Two sections with the same name</crossref>.Two sections with the same name require at least one of them with a different id. Otherwise they are the same section and we don't know which of them to refer to when there is a cross reference.</p>
+	<p>This section has the same name as <crossref toid="Two sections with the same name"></crossref>.Two sections with the same name require at least one of them with a different id. Otherwise they are the same section and we don't know which of them to refer to when there is a cross reference.</p>
 	
 	<h1>Mathematic equations</h1>
 	
@@ -187,7 +187,7 @@
 	
 	<h2>Numbered equations</h2>
 	
-	<p> To insert a numbered equation use the <code>equation</code> tag as shown in <crossref>Code: numbered equation example</crossref>.
+	<p> To insert a numbered equation use the <code>equation</code> tag as shown in <crossref toid="Code: numbered equation example"></crossref>.
 	
 	<float class="Code" id="Code: numbered equation example">
 		<floatcaption>Numbered equation example.</floatcaption>
@@ -219,7 +219,7 @@
 	
 	<h1>Floats</h1>
 	
-	<p>In Latex we have a powerful and useful resource which are the <a href="https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Custom_floats">floats</a>. A figure and a table are examples of floats. To obtain a float here we use the <code>float</code> tag. Within <code>&lt;float></code> and <code>&lt;/float></code> you put whatever content you want and (mandatory) a caption using <code>floatcaption</code><footnote>I wanted to use <code>caption</code> instead of <code>floatcaption</code>, which is more intuitive and easier, but there is some weird behavior with it in HTML and unfortunately it is not possible to use for this.</footnote>. To assign the "type of float" (figure, table, video, whatever you want) you have to specify its <code>class</code> attribute. Whatever you assign to the <code>class</code> attribute will be used to create/increase a counter for such class of floats and will be displayed in the captions and cross references. See <crossref>Code: example of float</crossref> for an example.</p>
+	<p>In Latex we have a powerful and useful resource which are the <a href="https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Custom_floats">floats</a>. A figure and a table are examples of floats. To obtain a float here we use the <code>float</code> tag. Within <code>&lt;float></code> and <code>&lt;/float></code> you put whatever content you want and (mandatory) a caption using <code>floatcaption</code><footnote>I wanted to use <code>caption</code> instead of <code>floatcaption</code>, which is more intuitive and easier, but there is some weird behavior with it in HTML and unfortunately it is not possible to use for this.</footnote>. To assign the "type of float" (figure, table, video, whatever you want) you have to specify its <code>class</code> attribute. Whatever you assign to the <code>class</code> attribute will be used to create/increase a counter for such class of floats and will be displayed in the captions and cross references. See <crossref toid="Code: example of float"></crossref> for an example.</p>
 	
 	<float class="Code" id="Code: example of float">
 		<floatcaption>Example of usage of <code>float</code>.</floatcaption>
@@ -236,7 +236,7 @@
 	
 	<h2>Floats examples</h2>
 	
-	<p>Below I left some examples of <code>float</code>s. All the codes, such as <crossref>Code: example of float</crossref>, are floats of class <code>Code</code>.</p>
+	<p>Below I left some examples of <code>float</code>s. All the codes, such as <crossref toid="Code: example of float"></crossref>, are floats of class <code>Code</code>.</p>
 	
 	<float class="Figure" id="figure with Newton in full width">
 		<image src="media/Inkscape.svg" width="100%" style="max-height: 44vh"></image>
@@ -260,7 +260,7 @@
 		<floatcaption>The image in this figure has undefined width and height, only the <code>max-height</code> and <code>max-width</code> properties were defined. As a consequence it automatically changes its size depending on the viewport (window) size until one of the maximum width or height is achieved. This is really useful because it should not fail in a mobile.</floatcaption>
 	</float>
 	
-	<p>In <crossref>foto del obelisco de Buenos Aires</crossref> you can see a view of Buenos Aires, the capital city of Argentina.</p>
+	<p>In <crossref toid="foto del obelisco de Buenos Aires"></crossref> you can see a view of Buenos Aires, the capital city of Argentina.</p>
 	
 	<float class="Figure" id="foto del obelisco de Buenos Aires">
 		<image 
@@ -270,14 +270,14 @@
 		<floatcaption>This image has the width fixed (and thus also its height). This image will not change as a function of the window size. In a mobile it may overflow.</floatcaption>
 	</float>
 	
-	<p>A PDF cannot handle a plot made with <a href="https://plotly.com/">plotly</a> as the one in <crossref>FIG: interactive plot</crossref>. This plot is interactive, you can zoom, pan, enable/disable traces, etc. This has proven to be very useful to me when showing my results to other scientists as you don't need to produce many versions of the same plot with different zooming conditions.</p>
+	<p>A PDF cannot handle a plot made with <a href="https://plotly.com/">plotly</a> as the one in <crossref toid="FIG: interactive plot"></crossref>. This plot is interactive, you can zoom, pan, enable/disable traces, etc. This has proven to be very useful to me when showing my results to other scientists as you don't need to produce many versions of the same plot with different zooming conditions.</p>
 	
 	<float class="Figure" id="FIG: interactive plot">
 		<iframe class="plotly" src="media/Reconstruction error mean.html" style="width: 555px ! important;"></iframe>
 		<floatcaption>This plot is interactive, it was produced using the nice Python package <a href="https://plotly.com/">plotly</a>. Note that despite this float is a Figure, you can put whatever content you want inside. In this case we have an interactive snippet with a plot.</floatcaption>
 	</float>
 	
-	<p>Of course we can make this plots to fill the full width of the window so they change as we reshape the window. See for example the plot in <crossref>measured delay average</crossref>. If you change the width of this window the plot will automatically adapt itself. Cool!</p>
+	<p>Of course we can make this plots to fill the full width of the window so they change as we reshape the window. See for example the plot in <crossref toid="measured delay average"></crossref>. If you change the width of this window the plot will automatically adapt itself. Cool!</p>
 	
 	<float class="Figure" id="measured delay average">
 		<floatcaption>Note that you can place the caption above the figure, not only below. Just place the <code>floatcaption</code> tag where you want the caption to be.</floatcaption>
@@ -286,7 +286,7 @@
 	
 	<p>Another nice point of these "interactive plots" is that the font size in the legend/labels matches the font size of the document, so if you zoom in or out, or open this in a mobile, the text will render properly. Try to <code>ctrl+wheel</code><footnote>Or whatever command you use in your browser to change the zoom.</footnote> to change the zoom of this window and see how the text and markers in these plots are modified.</p>
 	
-	<p>The <code>float</code> objects can be of any class that is good for your purpose. For example see <crossref>Adios Nonino Astor Piazzolla</crossref> which is of class <code>Video</code>.</p>
+	<p>The <code>float</code> objects can be of any class that is good for your purpose. For example see <crossref toid="Adios Nonino Astor Piazzolla"></crossref> which is of class <code>Video</code>.</p>
 	
 	<float class="Video" id="Adios Nonino Astor Piazzolla">
 		<iframe 
@@ -300,36 +300,36 @@
 	
 	<h1 id="Section: crossrefs">Cross referencing</h1>
 	
-	<p>To insert a cross reference you have to use the <code>crossref</code> tag. Within this tag you have to put the <code>id</code> of the object you want to refer to. For example <crossref>my first equation</crossref> has <code>id="my first equation"</code>. To cite this equation we proceed as shown in <crossref>Code: crossref example</crossref>.
+	<p>To insert a cross reference you have to use the <code>crossref</code> tag. Within this tag you have to put the <code>id</code> of the object you want to refer to. For example <crossref toid="my first equation"></crossref> has <code>id="my first equation"</code>. To cite this equation we proceed as shown in <crossref toid="Code: crossref example"></crossref>.
 	
 	<float class="Code" id="Code: crossref example">
 		<floatcaption><code>crossref</code> usage example.</floatcaption>
-		<code class="block">&lt;p>The solution $f(x)$ to &lt;crossref>my first equation&lt;/crossref> is $f(x)=\sin(x)$.&lt;/p></code>
+		<code class="block">&lt;p>The solution $f(x)$ to &lt;crossref toid="my first equation">&lt;/crossref> is $f(x)=\sin(x)$.&lt;/p></code>
 	</float>
 	
-	The code shown in <crossref>Code: crossref example</crossref> produces this: The solution $f(x)$ to <crossref>my first equation</crossref> is $f(x)=\sin(x)$.
+	The code shown in <crossref toid="Code: crossref example"></crossref> produces this: The solution $f(x)$ to <crossref toid="my first equation"></crossref> is $f(x)=\sin(x)$.
 	</p>
 	
 	
 	<p>We can use <code>crossref</code> to make reference to
 		<ul>
-			<li>Equations, e.g. <crossref>my first equation</crossref>, <crossref>Dirac equation</crossref> and <crossref>very long equation</crossref>.</li>
-			<li>Sections, e.g. <crossref>introduction section</crossref> and <crossref>Why to replace the PDF format?</crossref>.</li>
-			<li>Floats, e.g. <crossref>Code: sections and subsections example</crossref>, <crossref>Code: numbered equation example</crossref>, <crossref>foto del obelisco de Buenos Aires</crossref> and <crossref>Adios Nonino Astor Piazzolla</crossref>.</li>
-			<li>Bibliography, e.g. <crossref>paper EPR</crossref>. (See <crossref>Section: bibliography</crossref> for more details.)</li>
+			<li>Equations, e.g. <crossref toid="my first equation"></crossref>, <crossref toid="Dirac equation"></crossref> and <crossref toid="very long equation"></crossref>.</li>
+			<li>Sections, e.g. <crossref toid="introduction section"></crossref> and <crossref toid="Why to replace the PDF format?"></crossref>.</li>
+			<li>Floats, e.g. <crossref toid="Code: sections and subsections example"></crossref>, <crossref toid="Code: numbered equation example"></crossref>, <crossref toid="foto del obelisco de Buenos Aires"></crossref> and <crossref toid="Adios Nonino Astor Piazzolla"></crossref>.</li>
+			<li>Bibliography, e.g. <crossref toid="paper EPR"></crossref>. (See <crossref toid="Section: bibliography"></crossref> for more details.)</li>
 		</ul>
 		The machinery implemented here automatically knows what type of object you are refering to and inserts the proper text, creates the link and the popup bubble on mouse hover.
 	</p>
 	
 	<h2>Cross referencing sections without the need of adding an id</h2>
 	
-	<p>Since the title of a section is almost an <code>id</code>, you can use <code>crossref</code> with sections without the need of adding a specific <code>id</code> to the section, you can just use the title of such section. For example <crossref>Cross referencing sections without the need of adding an id</crossref> has no <code>id</code> defined, it is just <code>&lt;h2>Cross referencing sections without the need of adding an id&lt;/h2></code> and despite it has no <code>id</code> I can still do <code>&lt;crossref>Cross referencing sections without the need of adding an id&lt;/crossref></code> and obtain: <crossref>Cross referencing sections without the need of adding an id</crossref>.</p>
+	<p>Since the title of a section is almost an <code>id</code>, you can use <code>crossref</code> with sections without the need of adding a specific <code>id</code> to the section, you can just use the title of such section. For example <crossref toid="Cross referencing sections without the need of adding an id"></crossref> has no <code>id</code> defined, it is just <code>&lt;h2>Cross referencing sections without the need of adding an id&lt;/h2></code> and despite it has no <code>id</code> I can still do <code>&lt;crossref>Cross referencing sections without the need of adding an id&lt;/crossref></code> and obtain: <crossref toid="Cross referencing sections without the need of adding an id"></crossref>.</p>
 	<p>Note that in this case the name of the section is used as its <code>id</code> so if you change the name you will broke the reference. So be careful!</p>
 	
 	<h1>Footnotes</h1>
 	
-	<p>You can add footnotes by using the <code>footnote</code> tag like this: <code>&lt;footnote>footnote content&lt;/footnote></code>, which whill produce this:<footnote>footnote content</footnote>. This is another example of footnote<footnote>This is a footnote. We can have an equation $e^{i\pi}+1=0$.</footnote>. Of course footnotes can have crossrefs within them<footnote>Many times footnotes make references to equations, like equation <crossref>Dirac equation</crossref> for example.</footnote><footnote>You can also place many consecutive footnotes one after the other.</footnote>.</p>
-	<p>If you add footnotes in your document, you must add somewhere the place where you want your footnotes to be listed and shown. In <crossref>Code: footnote</crossref> there is an example of how to do it. Note that the <code>&lt;h1 class="unnumbered">Footnotes&lt;/h2></code> element is just aesthetic, you can change it or delete it.</p>
+	<p>You can add footnotes by using the <code>footnote</code> tag like this: <code>&lt;footnote>footnote content&lt;/footnote></code>, which whill produce this:<footnote>footnote content</footnote>. This is another example of footnote<footnote>This is a footnote. We can have an equation $e^{i\pi}+1=0$.</footnote>. Of course footnotes can have crossrefs within them<footnote>Many times footnotes make references to equations, like equation <crossref toid="Dirac equation"></crossref> for example.</footnote><footnote>You can also place many consecutive footnotes one after the other.</footnote>.</p>
+	<p>If you add footnotes in your document, you must add somewhere the place where you want your footnotes to be listed and shown. In <crossref toid="Code: footnote"></crossref> there is an example of how to do it. Note that the <code>&lt;h1 class="unnumbered">Footnotes&lt;/h2></code> element is just aesthetic, you can change it or delete it.</p>
 	
 	<float class="Code" id="Code: footnote">
 		<floatcaption>Example for creating the list of footnotes. You MUST have this somewhere in your document if you have inserted footnotes.</floatcaption>
@@ -340,8 +340,8 @@
 	
 	<h1 id="Section: bibliography">Bibliography and citations</h1>
 	
-	<p>To insert bibliography first we create create <code>reference</code> elements and then we cite them just using <code>crossref</code> in the same way as detailed in <crossref>Section: crossrefs</crossref>. So, for example <code>&lt;reference id="book Jackson Classical Electrodynamics">Jackson, J. D. (1999). Classical electrodynamics.&lt;/reference></code> creates a bibliography entry and then we can just use <code>crossref</code> with its <code>id</code>. Before being able to use this there is one last step which is to place our list of references. For this just create a <code>div</code> element with id <code>references_list</code> anywhere in your document (usually in the end).</p>
-	<p>A complete example for creating the bibliography is shown in <crossref>Code: bibliography example</crossref>.
+	<p>To insert bibliography first we create create <code>reference</code> elements and then we cite them just using <code>crossref</code> in the same way as detailed in <crossref toid="Section: crossrefs"></crossref>. So, for example <code>&lt;reference id="book Jackson Classical Electrodynamics">Jackson, J. D. (1999). Classical electrodynamics.&lt;/reference></code> creates a bibliography entry and then we can just use <code>crossref</code> with its <code>id</code>. Before being able to use this there is one last step which is to place our list of references. For this just create a <code>div</code> element with id <code>references_list</code> anywhere in your document (usually in the end).</p>
+	<p>A complete example for creating the bibliography is shown in <crossref toid="Code: bibliography example"></crossref>.
 	
 	<float class="Code" id="Code: bibliography example">
 		<floatcaption>Example for creating bibliography and external references</floatcaption>
@@ -355,12 +355,12 @@
 &lt;/div></code>
 	</float>
 	
-	Now we can simply insert <code>crossref</code>s to the <code>reference</code> elements we have defined and obtain: <crossref>book Jackson Classical Electrodynamics</crossref>, <crossref>paper EPR</crossref> and <crossref>paper Bell</crossref>. Note that they are automatically ordered and that unused <code>reference</code> elements will be not displayed.
+	Now we can simply insert <code>crossref</code>s to the <code>reference</code> elements we have defined and obtain: <crossref toid="book Jackson Classical Electrodynamics"></crossref>, <crossref toid="paper EPR"></crossref> and <crossref toid="paper Bell"></crossref>. Note that they are automatically ordered and that unused <code>reference</code> elements will be not displayed.
 	</p>
 	
 	<h1>Code</h1>
 	
-	<p>To insert code we use the standard tag <code>code</code>. For inline code like <code>this one</code> just write <code>&lt;code>this one&lt;/code></code>. For non-inline code we set the class to <code>block</code>, see code <crossref>Code: block code syntax</crossref> for example.</p>
+	<p>To insert code we use the standard tag <code>code</code>. For inline code like <code>this one</code> just write <code>&lt;code>this one&lt;/code></code>. For non-inline code we set the class to <code>block</code>, see code <crossref toid="Code: block code syntax"></crossref> for example.</p>
 	
 	<float class="Code" id="Code: block code syntax">
 		<floatcaption>Example of block code.</floatcaption>
@@ -369,7 +369,7 @@
 &lt;/code></code>
 	</float>
 	
-	<p>By using the syntax shown in code <crossref>Code: block code syntax</crossref> we get, for example, the code <crossref>Code of the FPGA</crossref>.</p>
+	<p>By using the syntax shown in code <crossref toid="Code: block code syntax"></crossref> we get, for example, the code <crossref toid="Code of the FPGA"></crossref>.</p>
 	
 	<float class="Code" id="Code of the FPGA">
 		<floatcaption>This is my code for the sequencer in the FPGA for testing the TDC.</floatcaption>
@@ -498,7 +498,7 @@ Lalala</code></p>
 	<siglas class="definition" first="Large Hadron Collider beauty experiment (LHCb)" short="LHCb"></siglas>
 	<siglas class="definition" first="A Large Ion Collider Experiment (ALICE)" short="ALICE"></siglas>
 	
-	<p>In academia we love acronyms. I have read articles with so many acronyms that it was really hard to follow. Here we can display the acronym on mouse hover. The first time we use it is displayed complete: <siglas>LHC</siglas>. The second time we use it, it looks like this: <siglas>LHC</siglas>. The full name is displayed on mouse hover. To get this behavior you have to use the tag <code>siglas</code><footnote>If you are wondering why I opted for using the Spanish word <code>siglas</code> for this, the reason is that <code>acronym</code> is already used in HTML for a similar purpose. It's usage, however, is more cumbersome and less practical, so I decided to implement my own. Note that you can also have acronyms within footnotes: <siglas>LHC</siglas>.</footnote>, see example in <crossref>Code: Example for siglas</crossref>.</p>
+	<p>In academia we love acronyms. I have read articles with so many acronyms that it was really hard to follow. Here we can display the acronym on mouse hover. The first time we use it is displayed complete: <siglas>LHC</siglas>. The second time we use it, it looks like this: <siglas>LHC</siglas>. The full name is displayed on mouse hover. To get this behavior you have to use the tag <code>siglas</code><footnote>If you are wondering why I opted for using the Spanish word <code>siglas</code> for this, the reason is that <code>acronym</code> is already used in HTML for a similar purpose. It's usage, however, is more cumbersome and less practical, so I decided to implement my own. Note that you can also have acronyms within footnotes: <siglas>LHC</siglas>.</footnote>, see example in <crossref toid="Code: Example for siglas"></crossref>.</p>
 	
 	<float class="Code" id="Code: Example for siglas">
 	<floatcaption>Usage example for <code>siglas</code> like this one: <siglas>LHC</siglas>.</floatcaption>
