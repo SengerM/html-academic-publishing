@@ -252,7 +252,7 @@ for(var i = 0; i < crossref.length; i++) {
 			const n_crossrefs_to_override = crossrefs_within_this_popup.length;
 			for (var k=n_crossrefs_to_override-1; k>=0; k--) {
 				var div_to_replace_the_crossref = document.createElement('invisible_tag');
-				div_to_replace_the_crossref.innerHTML = elements_for_cross_references[crossrefs_within_this_popup[k].innerHTML]['display_text'];
+				div_to_replace_the_crossref.innerHTML = elements_for_cross_references[crossrefs_within_this_popup[k].getAttribute('toid')]['display_text'];
 				element.replaceChild(div_to_replace_the_crossref, crossrefs_within_this_popup[k]);
 			}
 			popup_text = element.innerHTML;
