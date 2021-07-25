@@ -1,28 +1,7 @@
 import AcademicHTML as A
-import argparse
 import TexSoup
-from pathlib import Path
 
 PARAGRAPH_ENDS_STRING = '\n\n'
-
-parser = argparse.ArgumentParser(description='Converts a Latex document into an AcademicHTML document.')
-parser.add_argument(
-	'--latex-document',
-	metavar = 'path', 
-	help = 'Path to the Latex document to be converted.',
-	required = True,
-	dest = 'latex_path',
-	type = str,
-)
-args = parser.parse_args()
-
-with open(Path(args.latex_path), 'r') as ifile:
-	latex_soup = TexSoup.TexSoup(ifile.read())
-html_soup = A.AcademicHTML(
-	title = 'Test document',
-	path_to_template = 'template.html'
-)
-html_document = html_soup.body
 
 def translate_inlinemath(content):
 	return str(content.expr)
@@ -42,7 +21,6 @@ def translate_displaymath(content):
 		return A.equation(latex_string, id)
 	else:
 		raise ValueError(f'Dont know how to translate an equation of type {content.name}.')
-	# ~ return A.equation(str(content.expr))
 
 def parse_thebibliography(content):
 	references_dict = {}
@@ -70,61 +48,100 @@ def translate_cite(content):
 def translate_ref(content):
 	return A.crossref(toid=str(content.string))
 
-TRANSLATORS = {
-	'$': translate_inlinemath,
-	'displaymath': translate_displaymath,
-	'equation': translate_displaymath,
-	'cite': translate_cite,
-	'ref': translate_ref,
-}
-
-for content in latex_soup.document.contents:
-	if isinstance(content, TexSoup.data.TexNode) and 'section' in content.name:
-		# First must finish paragraph.
-		if 'p' in locals():
-			html_document.append(p)
-			del(p)
-		html_document.append(
-			A.section(
-				name = content.contents[0], 
-				level = content.name.count('sub')+1, 
-				unnumbered = True if '*' in content.name else False,
+def translate_contents(latex_node):
+	TRANSLATORS = {
+		'$': translate_inlinemath,
+		'displaymath': translate_displaymath,
+		'equation': translate_displaymath,
+		'cite': translate_cite,
+		'ref': translate_ref,
+	}
+	html_node = A.new_tag('translated_from_latex')
+	for content in latex_node.contents:
+		if isinstance(content, TexSoup.data.TexNode) and 'section' in content.name:
+			# First must finish paragraph.
+			if 'p' in locals():
+				html_node.append(p)
+				del(p)
+			html_node.append(
+				A.section(
+					name = content.contents[0], 
+					level = content.name.count('sub')+1, 
+					unnumbered = True if '*' in content.name else False,
+				)
 			)
-		)
-		continue
-	else: # Whatever is not a section, goes inside a paragraph.
-		if 'p' not in locals(): # This would happen if we just appended a paragraph.
-			p = html_soup.new_tag('p')
-		if isinstance(content, str):
-			# In this case we are receiving a "chunk of paragraphs". It may be a bunch of sentences for the current paragraph, or it can be even a bunch of whole paragraphs that have only text.
-			append_last_paragraph_chunk_to_html_document = False
-			if content.endswith(PARAGRAPH_ENDS_STRING):
-				append_last_paragraph_chunk_to_html_document = True
-				content = content[:-len(PARAGRAPH_ENDS_STRING)]
-			n_chunks = len(content.split(PARAGRAPH_ENDS_STRING))
-			for n_chunk, paragraph_chunk in enumerate(content.split(PARAGRAPH_ENDS_STRING)):
-				p.append(paragraph_chunk)
-				if n_chunk < n_chunks-1 or append_last_paragraph_chunk_to_html_document == True:
-					html_document.append(p)
-					p = html_soup.new_tag('p')
-		else: # Manually have to decide what to do with each type of element.
-			if content.name in TRANSLATORS:
-				p.append(TRANSLATORS[content.name](content))
-			elif content.name in {'thebibliography'}:
-				continue
-			else:
-				print(f'Skipping "{content.name}":')
-				print(content)
-if 'p' in locals():
-	html_document.append(p)
-	del(p)
+			continue
+		else: # Whatever is not a section, goes inside a paragraph.
+			if 'p' not in locals(): # This would happen if we just appended a paragraph.
+				p = html_soup.new_tag('p')
+			if isinstance(content, str):
+				# In this case we are receiving a "chunk of paragraphs". It may be a bunch of sentences for the current paragraph, or it can be even a bunch of whole paragraphs that have only text.
+				append_last_paragraph_chunk_to_html_document = False
+				if content.endswith(PARAGRAPH_ENDS_STRING):
+					append_last_paragraph_chunk_to_html_document = True
+					content = content[:-len(PARAGRAPH_ENDS_STRING)]
+				n_chunks = len(content.split(PARAGRAPH_ENDS_STRING))
+				for n_chunk, paragraph_chunk in enumerate(content.split(PARAGRAPH_ENDS_STRING)):
+					p.append(paragraph_chunk)
+					if n_chunk < n_chunks-1 or append_last_paragraph_chunk_to_html_document == True:
+						html_node.append(p)
+						p = html_soup.new_tag('p')
+			else: # Manually have to decide what to do with each type of element.
+				if content.name in TRANSLATORS:
+					p.append(TRANSLATORS[content.name](content))
+				elif content.name in {'thebibliography'}:
+					continue
+				else:
+					continue
+	if 'p' in locals():
+		html_node.append(p)
+		del(p)
+	return html_node
 
-for thebibliography in latex_soup.find_all('thebibliography'):
-	references_dict = parse_thebibliography(thebibliography)
-	for key, content in references_dict.items():
-		html_soup.add_reference_item(
-			id = key,
-			content = content,
-		)
+if __name__ == '__main__':
+	import argparse
+	from pathlib import Path
+	
+	parser = argparse.ArgumentParser(description='Converts a Latex document into an AcademicHTML document.')
+	parser.add_argument(
+		'--latex-document',
+		metavar = 'path', 
+		help = 'Path to the Latex document to be converted.',
+		required = True,
+		dest = 'latex_path',
+		type = str,
+	)
+	args = parser.parse_args()
 
-html_soup.write_to_file(Path('/'.join(Path(args.latex_path).parts[:-1]))/Path('test.html'))
+	with open(Path(args.latex_path), 'r') as ifile:
+		latex_soup = TexSoup.TexSoup(ifile.read())
+	html_soup = A.AcademicHTML(
+		title = 'Test document',
+		path_to_template = 'template.html'
+	)
+	html_document = html_soup.body
+
+	for content in latex_soup.document.contents:
+		print('-----------------------')
+		if isinstance(content, TexSoup.data.TexNode):
+			print(content.name)
+		elif isinstance(content, str): # This means we have a string of text.
+			print(repr(content))
+		else:
+			raise RuntimeError('Dont know this type of content...')
+	print('##############################################################')
+
+	html_soup.body.append(translate_contents(latex_soup.document))
+
+	for thebibliography in latex_soup.find_all('thebibliography'):
+		references_dict = parse_thebibliography(thebibliography)
+		for key, content in references_dict.items():
+			html_soup.add_reference_item(
+				id = key,
+				content = content,
+			)
+	
+	for tag in html_soup.find_all('translated_from_latex'):
+		tag.unwrap()
+
+	html_soup.write_to_file(Path('/'.join(Path(args.latex_path).parts[:-1]))/Path('test.html'))
