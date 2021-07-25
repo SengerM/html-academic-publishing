@@ -3,52 +3,52 @@ import TexSoup
 
 PARAGRAPH_ENDS_STRING = '\n\n'
 
-def translate_inlinemath(content):
-	return str(content.expr)
+def translate_inlinemath(latex_node):
+	return str(latex_node.expr)
 
-def translate_displaymath(content):
-	"""Given a "content" from TexSoup with a "displaymath" object, it 
+def translate_displaymath(latex_node):
+	"""Given a "latex_node" from TexSoup with a "displaymath" object, it 
 	translates this into an <equation> tag for AcademicHTML."""
-	if not content.name in {'displaymath', 'equation'}:
-		raise ValueError(f'`content.name` must be "displaymath", received `content.name={content.name}`.')
-	if content.name == 'displaymath': # This is just a displayed equation.
-		return str(content.expr)
-	elif content.name == 'equation': # This one is more complicated, it has an ID for reference and must be numbered.
-		latex_string = ''.join([str(s) for s in content.contents if r'\label' not in str(s)])
-		for stuff in content.contents:
+	if not latex_node.name in {'displaymath', 'equation'}:
+		raise ValueError(f'`latex_node.name` must be "displaymath", received `latex_node.name={latex_node.name}`.')
+	if latex_node.name == 'displaymath': # This is just a displayed equation.
+		return str(latex_node.expr)
+	elif latex_node.name == 'equation': # This one is more complicated, it has an ID for reference and must be numbered.
+		latex_string = ''.join([str(s) for s in latex_node.contents if r'\label' not in str(s)])
+		for stuff in latex_node.contents:
 			if isinstance(stuff, TexSoup.data.TexNode) and 'label' in stuff.name:
 				id = str(stuff.string)
 		return A.equation(latex_string, id)
 	else:
-		raise ValueError(f'Dont know how to translate an equation of type {content.name}.')
+		raise ValueError(f'Dont know how to translate an equation of type {latex_node.name}.')
 
-def parse_thebibliography(content):
+def parse_thebibliography(latex_node):
 	references_dict = {}
 	current_bibitem_idx = 0
-	while current_bibitem_idx < len(content.contents):
-		while current_bibitem_idx < len(content.contents): # Look for the next bibitem object ---
-			if isinstance(content.contents[current_bibitem_idx], TexSoup.data.TexNode) and content.contents[current_bibitem_idx].name == 'bibitem':
+	while current_bibitem_idx < len(latex_node.contents):
+		while current_bibitem_idx < len(latex_node.contents): # Look for the next bibitem object ---
+			if isinstance(latex_node.contents[current_bibitem_idx], TexSoup.data.TexNode) and latex_node.contents[current_bibitem_idx].name == 'bibitem':
 				break
 			current_bibitem_idx += 1
 		thisreference_content = A.new_tag('unwrap_me')
 		i = 1
-		while current_bibitem_idx+i < len(content.contents): # Look for all the non bibitem objects ---
-			if isinstance(content.contents[current_bibitem_idx+i], TexSoup.data.TexNode) and content.contents[current_bibitem_idx+i].name == 'bibitem':
+		while current_bibitem_idx+i < len(latex_node.contents): # Look for all the non bibitem objects ---
+			if isinstance(latex_node.contents[current_bibitem_idx+i], TexSoup.data.TexNode) and latex_node.contents[current_bibitem_idx+i].name == 'bibitem':
 				break
-			thisreference_content.append(str(content.contents[current_bibitem_idx+i]))
+			thisreference_content.append(str(latex_node.contents[current_bibitem_idx+i]))
 			i += 1
-		if current_bibitem_idx < len(content.contents):
-			references_dict[str(content.contents[current_bibitem_idx].string)] = thisreference_content
+		if current_bibitem_idx < len(latex_node.contents):
+			references_dict[str(latex_node.contents[current_bibitem_idx].string)] = thisreference_content
 		current_bibitem_idx += 1
 	return references_dict
 
-def translate_cite(content):
-	return A.crossref(toid=str(content.string))
+def translate_cite(latex_node):
+	return A.crossref(toid=str(latex_node.string))
 
-def translate_ref(content):
-	return A.crossref(toid=str(content.string))
+def translate_ref(latex_node):
+	return A.crossref(toid=str(latex_node.string))
 
-def translate_contents(latex_node):
+def translate_contents(latex_node, main_call = False):
 	TRANSLATORS = {
 		'$': translate_inlinemath,
 		'displaymath': translate_displaymath,
