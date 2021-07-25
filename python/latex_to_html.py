@@ -4,6 +4,8 @@ import TexSoup
 PARAGRAPH_ENDS_STRING = '\n\n'
 
 def translate_inlinemath(latex_node):
+	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == '$':
+		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"$"}`')
 	return str(latex_node.expr)
 
 def translate_displaymath(latex_node):
@@ -45,12 +47,18 @@ def parse_thebibliography(latex_node):
 	return references_dict
 
 def translate_cite(latex_node):
+	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'cite':
+		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"cite"}`')
 	return A.crossref(toid=str(latex_node.string))
 
 def translate_ref(latex_node):
+	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'ref':
+		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"ref"}`')
 	return A.crossref(toid=str(latex_node.string))
 
 def translate_url(latex_node):
+	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'url':
+		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"url"}`')
 	tag = A.new_tag('a')
 	tag['href'] = str(latex_node.string)
 	tag.string = str(latex_node.string)
@@ -60,6 +68,8 @@ def translate_string(latex_string):
 	return str(latex_string).replace('~',u'\xa0')
 
 def translate_figure(latex_node):
+	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'figure':
+		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"figure"}`')
 	image_tag = A.new_tag(
 		'image', 
 		src = latex_node.includegraphics.string, 
@@ -77,6 +87,38 @@ def translate_figure(latex_node):
 		id = str(latex_node.caption.label.string),
 	)
 
+def translate_item(latex_node):
+	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'item':
+		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"item"}`')
+	tag = A.new_tag('li')
+	for i in latex_node.contents:
+		tag.append(translate_node(i))
+	return tag
+
+def translate_itemize(latex_node):
+	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'itemize':
+		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"itemize"}`')
+	html_tag = A.new_tag('ul')
+	for item_node in latex_node.contents:
+		html_tag.append(translate_node(item_node))
+	return html_tag
+
+def translate_enumerate(latex_node):
+	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'enumerate':
+		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"enumerate"}`')
+	html_tag = A.new_tag('ol')
+	for item_node in latex_node.contents:
+		html_tag.append(translate_node(item_node))
+	return html_tag
+
+def translate_footnote(latex_node):
+	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'footnote':
+		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"footnote"}`')
+	dummy_tag = A.new_tag('translated_from_latex')
+	for content in latex_node.contents:
+		dummy_tag.append(translate_node(content))
+	return A.footnote(dummy_tag)
+
 def translate_node(latex_node):
 	TRANSLATORS = {
 		'$': translate_inlinemath,
@@ -86,6 +128,10 @@ def translate_node(latex_node):
 		'ref': translate_ref,
 		'url': translate_url,
 		'figure': translate_figure,
+		'itemize': translate_itemize,
+		'enumerate': translate_enumerate,
+		'item': translate_item,
+		'footnote': translate_footnote,
 	}
 	html_node = A.new_tag('translated_from_latex')
 	if isinstance(latex_node, str): # This means that we received one of this annoying "only text" nodes that are of type string.
