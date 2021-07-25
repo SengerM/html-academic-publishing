@@ -144,7 +144,7 @@ class AcademicHTML(BeautifulSoup):
 			tag.unwrap()
 		# Write it to a file ---
 		with open(fname, 'w') as file:
-			file.write(str(self.prettify()))
+			file.write(str(self.prettify(formatter='html5')))
 	
 if __name__ == '__main__':
 	soup = AcademicHTML(
