@@ -23,6 +23,8 @@ def translate_displaymath(latex_node):
 		raise ValueError(f'Dont know how to translate an equation of type {latex_node.name}.')
 
 def parse_thebibliography(latex_node):
+	if not isinstance(latex_node, TexSoup.data.TexNode) or not latex_node.name == 'thebibliography':
+		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"thebibliography"}`')
 	references_dict = {}
 	current_bibitem_idx = 0
 	while current_bibitem_idx < len(latex_node.contents):
@@ -30,12 +32,12 @@ def parse_thebibliography(latex_node):
 			if isinstance(latex_node.contents[current_bibitem_idx], TexSoup.data.TexNode) and latex_node.contents[current_bibitem_idx].name == 'bibitem':
 				break
 			current_bibitem_idx += 1
-		thisreference_content = A.new_tag('unwrap_me')
+		thisreference_content = A.new_tag('translated_from_latex')
 		i = 1
 		while current_bibitem_idx+i < len(latex_node.contents): # Look for all the non bibitem objects ---
 			if isinstance(latex_node.contents[current_bibitem_idx+i], TexSoup.data.TexNode) and latex_node.contents[current_bibitem_idx+i].name == 'bibitem':
 				break
-			thisreference_content.append(str(latex_node.contents[current_bibitem_idx+i]))
+			thisreference_content.append(translate_node(latex_node.contents[current_bibitem_idx+i]))
 			i += 1
 		if current_bibitem_idx < len(latex_node.contents):
 			references_dict[str(latex_node.contents[current_bibitem_idx].string)] = thisreference_content
@@ -48,16 +50,39 @@ def translate_cite(latex_node):
 def translate_ref(latex_node):
 	return A.crossref(toid=str(latex_node.string))
 
-def translate_contents(latex_node, main_call = False):
+def translate_url(latex_node):
+	tag = A.new_tag('a')
+	tag['href'] = str(latex_node.string)
+	tag.string = str(latex_node.string)
+	return tag
+
+def translate_node(latex_node):
 	TRANSLATORS = {
 		'$': translate_inlinemath,
 		'displaymath': translate_displaymath,
 		'equation': translate_displaymath,
 		'cite': translate_cite,
 		'ref': translate_ref,
+		'url': translate_url,
 	}
 	html_node = A.new_tag('translated_from_latex')
-	for content in latex_node.contents:
+	if isinstance(latex_node, str): # This means that we received one of this annoying "only text" nodes that are of type string.
+		html_node.append(str(latex_node))
+	else: # `latex_node` is a node indeed...
+		if latex_node.name in TRANSLATORS:
+			html_node.append(TRANSLATORS[latex_node.name](latex_node))
+		else:
+			print(f'Dont know how to translate "{latex_node.name}".')
+			tag = A.new_tag('b')
+			tag.append(f'ERROR: Did not know how to translate "{latex_node.name}" from Latex to HTML, just letting you know.')
+			html_node.append(tag)
+	return html_node
+
+def translate_document(latex_document):
+	if not isinstance(latex_document, TexSoup.data.TexNode) or not latex_document.name=='document':
+		raise ValueError(f'<latex_document> must be the "document" node parsed by TexSoup.')
+	html_node = A.new_tag('translated_from_latex')
+	for content in latex_document.contents:
 		if isinstance(content, TexSoup.data.TexNode) and 'section' in content.name:
 			# First must finish paragraph.
 			if 'p' in locals():
@@ -73,7 +98,7 @@ def translate_contents(latex_node, main_call = False):
 			continue
 		else: # Whatever is not a section, goes inside a paragraph.
 			if 'p' not in locals(): # This would happen if we just appended a paragraph.
-				p = html_soup.new_tag('p')
+				p = A.new_tag('p')
 			if isinstance(content, str):
 				# In this case we are receiving a "chunk of paragraphs". It may be a bunch of sentences for the current paragraph, or it can be even a bunch of whole paragraphs that have only text.
 				append_last_paragraph_chunk_to_html_document = False
@@ -85,14 +110,13 @@ def translate_contents(latex_node, main_call = False):
 					p.append(paragraph_chunk)
 					if n_chunk < n_chunks-1 or append_last_paragraph_chunk_to_html_document == True:
 						html_node.append(p)
-						p = html_soup.new_tag('p')
-			else: # Manually have to decide what to do with each type of element.
-				if content.name in TRANSLATORS:
-					p.append(TRANSLATORS[content.name](content))
-				elif content.name in {'thebibliography'}:
+						p = A.new_tag('p')
+			else:
+				if content.name in {'thebibliography'}:
 					continue
 				else:
-					continue
+					# Delegate the task...
+					p.append(translate_node(content))
 	if 'p' in locals():
 		html_node.append(p)
 		del(p)
@@ -131,8 +155,8 @@ if __name__ == '__main__':
 			raise RuntimeError('Dont know this type of content...')
 	print('##############################################################')
 
-	html_soup.body.append(translate_contents(latex_soup.document))
-
+	html_soup.body.append(translate_document(latex_soup.document))
+	
 	for thebibliography in latex_soup.find_all('thebibliography'):
 		references_dict = parse_thebibliography(thebibliography)
 		for key, content in references_dict.items():
