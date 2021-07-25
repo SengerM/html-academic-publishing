@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>DOCUMENT TITLE</title>
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- This fixes the problem of small font (some texts and also the math) in mobile devices, see https://stackoverflow.com/a/35564095/8849755 -->
+	<!-- Math support https://www.mathjax.org/#gettingstarted -->
+    <script>
+	MathJax = {
+	  tex: {
+		inlineMath: [['$', '$'], ['\\(', '\\)']]
+	  },
+	  svg: {
+		fontCache: 'global'
+	  }
+	};
+	</script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+	
+	<!-- Below is the definitions of my macros that I use in Lyx -->
+	$$
+	\def\MODULE#1{\left|\,#1\,\right|}%
+	\def\PARENTHESES#1{\left(#1\right)}%
+	\def\SQBRACKETS#1{\left[#1\right]}%
+	\def\BRACES#1{\left\{  #1\right\}  }%
+	\def\LBRACE#1{\left\{  #1\right.}%
+	\def\RBRACE#1{\left.#1\right\}  }%
+	\def\LSQBRACKET#1{\left[#1\right.}%
+	\def\RSQBRACKET#1{\left.#1\right]}%
+	\def\LPARENTHESIS#1{\left(#1\right.}%
+	\def\RPARENTHESIS#1{\left.#1\right)}%
+	\def\ANGLEBRACKETS#1{\left\langle #1\right\rangle }%
+	\def\SPACELONG{\hspace{10mm}}%
+	\def\SPACEMEDIUM{\hspace{5mm}}%
+	\def\DEF{\overset{{\scriptscriptstyle \text{def}}}{=}}%
+	\def\UPBRACE#1#2{\overset{{\scriptstyle #2}}{\overbrace{#1}}}%
+	\def\UNDERBRACE#1#2{\underset{{\scriptstyle #2}}{\underbrace{#1}}}%
+	\def\REALES{\mathbb{R}}%
+	\def\IMAGINARIOS{\mathbb{I}}%
+	\def\NATURALES{\mathbb{N}}%
+	\def\ENTEROS{\mathbb{Z}}%
+	\def\COMPLEJOS{\mathbb{C}}%
+	\def\RACIONALES{\mathbb{Q}}%
+	\def\DIFERENTIAL{\,\text{d}}%
+	\def\PRIME{{\vphantom{A}}^{\prime}}%
+	\def\ORDER#1{\mathcal{O}\PARENTHESES{#1}}%
+	\def\DIRACDELTA#1{\delta_{D}\PARENTHESES{#1}}%
+	\def\HEAVYSIDETHETA#1{\Theta_{H}\PARENTHESES{#1}}%
+	\def\ATAN{\text{atan}}%
+	\def\INDICATORFUNCTION#1{\mathbf{1}\BRACES{#1} }%
+	\def\VECTOR#1{\boldsymbol{#1}}%
+	\def\VERSOR#1{\hat{\VECTOR{#1}}}%
+	\def\IDENTITY{\mathds{1}}%
+	\def\CURL{\VECTOR{\nabla}\times}%
+	\def\GRADIENT{\VECTOR{\nabla}}%
+	\def\DIVERGENCE{\VECTOR{\nabla}\cdot}%
+	\def\LAPLACIAN{\nabla^{2}}%
+	\def\REALPART#1{\text{Re}\left(#1\right)}%
+	\def\IMAGPART#1{\text{Im}\left(#1\right)}%
+	\def\TENDSTO#1{\underset{{\scriptscriptstyle #1}}{\longrightarrow}}%
+	\def\EVALUATEDAT#1#2#3{\left\lceil #1\right\rfloor _{#2}^{#3}}%
+	\def\unit#1{\text{#1}}
+	\def\TERA#1{\text{ T}\unit{#1}}%
+	\def\GIGA#1{\text{ G}\unit{#1}}%
+	\def\MEGA#1{\text{ M}\unit{#1}}%
+	\def\KILO#1{\text{ k}\unit{#1}}%
+	\def\UNIT#1{\,\unit{#1}}%
+	\def\CENTI#1{\text{ c}\unit{#1}}%
+	\def\MILI#1{\text{ m}\unit{#1}}%
+	\def\MICRO#1{\text{ }\mu\unit{#1}}%
+	\def\NANO#1{\text{ n}\unit{#1}}%
+	\def\PICO#1{\text{ p}\unit{#1}}%
+	\def\FEMTO#1{\text{ f}\unit{#1}}%
+	\def\TIMESTENTOTHE#1{\times10^{#1}}%
+	\def\PROB#1{\mathbb{P}\left(#1\right)}%
+	\def\MEAN#1{\mathbb{E}\PARENTHESES{#1}}%
+	\def\VARIANCE#1{\mathbb{V}\PARENTHESES{#1}}%
+	\def\COLOR#1#2{{\color{#2}{\,#1\,}}}%
+	\def\RED#1{\textcolor{red}{#1}}%
+	\def\BLUE#1{\COLOR{#1}{blue!80!white}}%
+	\def\GREEN#1{\textcolor{green!70!black}{#1}}%
+	\def\GRAY#1{\COLOR{#1}{black!30}}%
+	\def\GRAY#1{\COLOR{#1}{blue!35!white}}%
+	\def\GUNDERBRACE#1#2{\GRAY{\UNDERBRACE{\COLOR{#1}{black}}{#2}}}%
+	\def\GUPBRACE#1#2{\GRAY{\UPBRACE{\COLOR{#1}{black}}{#2}}}%
+	\def\REDCANCEL#1{\RED{\cancel{{\normalcolor #1}}}}%
+	\def\BLUECANCEL#1{{\color{blue}\cancel{{\normalcolor #1}}}}%
+	\def\GREENCANCEL#1{\GREEN{\cancel{{\normalcolor #1}}}}%
+	\def\BLUECANCELTO#1#2{\BLUE{\cancelto{#2}{{\normalcolor #1}}}}%
+	$$
+	
+</head>
+
+<body>
+
+	<div id="document_title"></div>
+
+</body>
+
+</html>
