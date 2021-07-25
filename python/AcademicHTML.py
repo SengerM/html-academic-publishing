@@ -62,6 +62,8 @@ def new_float(float_class: str, content, caption, id=None):
 	caption_tag = BeautifulSoup(features='lxml').new_tag('floatcaption')
 	caption_tag.append(caption)
 	float_tag.append(caption_tag)
+	if isinstance(id, str):
+		float_tag['id'] = id
 	return float_tag
 
 def crossref(toid: str):
