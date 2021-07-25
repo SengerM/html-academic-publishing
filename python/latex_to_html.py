@@ -56,6 +56,27 @@ def translate_url(latex_node):
 	tag.string = str(latex_node.string)
 	return tag
 
+def translate_string(latex_string):
+	return str(latex_string).replace('~',u'\xa0')
+
+def translate_figure(latex_node):
+	image_tag = A.new_tag(
+		'image', 
+		src = latex_node.includegraphics.string, 
+		style = 'max-width: 100%;',
+	)
+	caption_tag = A.new_tag('translated_from_latex')
+	for caption_content in  latex_node.caption.contents:
+		if isinstance(caption_content, TexSoup.data.TexNode) and caption_content.name == 'label':
+			continue
+		caption_tag.append(translate_node(caption_content))
+	return A.new_float(
+		float_class = 'Figure',
+		content = image_tag,
+		caption = caption_tag,
+		id = str(latex_node.caption.label.string),
+	)
+
 def translate_node(latex_node):
 	TRANSLATORS = {
 		'$': translate_inlinemath,
@@ -64,10 +85,11 @@ def translate_node(latex_node):
 		'cite': translate_cite,
 		'ref': translate_ref,
 		'url': translate_url,
+		'figure': translate_figure,
 	}
 	html_node = A.new_tag('translated_from_latex')
 	if isinstance(latex_node, str): # This means that we received one of this annoying "only text" nodes that are of type string.
-		html_node.append(str(latex_node))
+		html_node.append(translate_string(latex_node))
 	else: # `latex_node` is a node indeed...
 		if latex_node.name in TRANSLATORS:
 			html_node.append(TRANSLATORS[latex_node.name](latex_node))
@@ -107,7 +129,7 @@ def translate_document(latex_document):
 					content = content[:-len(PARAGRAPH_ENDS_STRING)]
 				n_chunks = len(content.split(PARAGRAPH_ENDS_STRING))
 				for n_chunk, paragraph_chunk in enumerate(content.split(PARAGRAPH_ENDS_STRING)):
-					p.append(paragraph_chunk)
+					p.append(translate_string(paragraph_chunk))
 					if n_chunk < n_chunks-1 or append_last_paragraph_chunk_to_html_document == True:
 						html_node.append(p)
 						p = A.new_tag('p')
@@ -144,16 +166,6 @@ if __name__ == '__main__':
 		path_to_template = 'template.html'
 	)
 	html_document = html_soup.body
-
-	for content in latex_soup.document.contents:
-		print('-----------------------')
-		if isinstance(content, TexSoup.data.TexNode):
-			print(content.name)
-		elif isinstance(content, str): # This means we have a string of text.
-			print(repr(content))
-		else:
-			raise RuntimeError('Dont know this type of content...')
-	print('##############################################################')
 
 	html_soup.body.append(translate_document(latex_soup.document))
 	
