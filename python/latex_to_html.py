@@ -153,6 +153,11 @@ def translate_emph(latex_node):
 		em_tag.append(translate_node(content))
 	return em_tag
 
+def translate_href(latex_node):
+	a = A.new_tag('a', href=latex_node.args[0].string)
+	a.append(latex_node.args[1].string)
+	return a
+
 def translate_node(latex_node):
 	TRANSLATORS = {
 		'$': translate_inlinemath,
@@ -167,6 +172,7 @@ def translate_node(latex_node):
 		'item': translate_item,
 		'footnote': translate_footnote,
 		'emph': translate_emph,
+		'href': translate_href,
 	}
 	html_node = new_dummy_tag()
 	if isinstance(latex_node, str): # This means that we received one of this annoying "only text" nodes that are of type string.
