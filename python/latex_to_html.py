@@ -229,8 +229,10 @@ if __name__ == '__main__':
 		type = str,
 	)
 	args = parser.parse_args()
+	
+	ifile_path = Path(args.latex_path)
 
-	with open(Path(args.latex_path), 'r') as ifile:
+	with open(ifile_path, 'r') as ifile:
 		latex_soup = TexSoup.TexSoup(ifile.read())
 	html_soup = A.AcademicHTML(
 		title = 'Test document',
@@ -250,4 +252,4 @@ if __name__ == '__main__':
 	for tag in html_soup.find_all(new_dummy_tag().name):
 		tag.unwrap()
 
-	html_soup.write_to_file(Path('/'.join(Path(args.latex_path).parts[:-1]))/Path('test.html'))
+	html_soup.write_to_file(ifile_path.with_suffix('.html'))
