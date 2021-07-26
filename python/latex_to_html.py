@@ -133,6 +133,14 @@ def translate_footnote(latex_node):
 		dummy_tag.append(translate_node(content))
 	return A.footnote(dummy_tag)
 
+def translate_emph(latex_node):
+	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'emph':
+		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"emph"}`')
+	em_tag = A.new_tag('em')
+	for content in latex_node:
+		em_tag.append(translate_node(content))
+	return em_tag
+
 def translate_node(latex_node):
 	TRANSLATORS = {
 		'$': translate_inlinemath,
@@ -146,6 +154,7 @@ def translate_node(latex_node):
 		'enumerate': translate_enumerate,
 		'item': translate_item,
 		'footnote': translate_footnote,
+		'emph': translate_emph,
 	}
 	html_node = new_dummy_tag()
 	if isinstance(latex_node, str): # This means that we received one of this annoying "only text" nodes that are of type string.
