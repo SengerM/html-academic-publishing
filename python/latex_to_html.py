@@ -1,5 +1,6 @@
 import AcademicHTML as A
 import TexSoup
+from pathlib import Path
 
 PARAGRAPH_ENDS_STRING = '\n\n'
 
@@ -82,7 +83,6 @@ def translate_figure(latex_node):
 	float_content_tag = A.new_tag('div')
 	float_content_tag['style'] = 'display: flex; width: 100%;'
 	for tag in latex_node.find_all('htmltag'):
-		print(tag)
 		args_dict = {}
 		for arg in tag.args:
 			args_dict[arg.string.split('=',1)[0]] = arg.string.split('=',1)[1].replace(r'\%','%')
@@ -225,22 +225,8 @@ def translate_document(latex_document):
 		del(p)
 	return html_node
 
-if __name__ == '__main__':
-	import argparse
-	from pathlib import Path
-	
-	parser = argparse.ArgumentParser(description='Converts a Latex document into an AcademicHTML document.')
-	parser.add_argument(
-		'--latex-document',
-		metavar = 'path', 
-		help = 'Path to the Latex document to be converted.',
-		required = True,
-		dest = 'latex_path',
-		type = str,
-	)
-	args = parser.parse_args()
-	
-	ifile_path = Path(args.latex_path)
+def script_core(latex_file: str):
+	ifile_path = Path(latex_file)
 
 	with open(ifile_path, 'r') as ifile:
 		latex_soup = TexSoup.TexSoup(ifile.read())
@@ -263,3 +249,20 @@ if __name__ == '__main__':
 		tag.unwrap()
 
 	html_soup.write_to_file(ifile_path.with_suffix('.html'))
+
+
+if __name__ == '__main__':
+	import argparse
+	
+	parser = argparse.ArgumentParser(description='Converts a Latex document into an AcademicHTML document.')
+	parser.add_argument(
+		'--latex-document',
+		metavar = 'path', 
+		help = 'Path to the Latex document to be converted.',
+		required = True,
+		dest = 'latex_path',
+		type = str,
+	)
+	args = parser.parse_args()
+	
+	script_core(args.latex_path)
