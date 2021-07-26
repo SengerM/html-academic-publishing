@@ -3,6 +3,9 @@ import TexSoup
 
 PARAGRAPH_ENDS_STRING = '\n\n'
 
+def new_dummy_tag():
+	return A.new_tag('dummy_tag')
+
 def translate_inlinemath(latex_node):
 	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == '$':
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"$"}`')
@@ -34,7 +37,7 @@ def parse_thebibliography(latex_node):
 			if isinstance(latex_node.contents[current_bibitem_idx], TexSoup.data.TexNode) and latex_node.contents[current_bibitem_idx].name == 'bibitem':
 				break
 			current_bibitem_idx += 1
-		thisreference_content = A.new_tag('translated_from_latex')
+		thisreference_content = new_dummy_tag()
 		i = 1
 		while current_bibitem_idx+i < len(latex_node.contents): # Look for all the non bibitem objects ---
 			if isinstance(latex_node.contents[current_bibitem_idx+i], TexSoup.data.TexNode) and latex_node.contents[current_bibitem_idx+i].name == 'bibitem':
@@ -50,7 +53,7 @@ def translate_cite(latex_node):
 	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'cite':
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"cite"}`')
 	# As the cite may contain many citations all together, we have to create one <crossref> for each:
-	wrapper_tag = A.new_tag('translated_from_latex')
+	wrapper_tag = new_dummy_tag()
 	for cite in latex_node[0].split(','):
 		wrapper_tag.append(A.crossref(toid=str(cite).replace(' ','')))
 	return wrapper_tag
@@ -79,7 +82,7 @@ def translate_figure(latex_node):
 		src = latex_node.includegraphics.contents[-1], # Hopefully this is the path to the image file.
 		style = 'max-width: 100%;',
 	)
-	caption_tag = A.new_tag('translated_from_latex')
+	caption_tag = new_dummy_tag()
 	for caption_content in  latex_node.caption.contents:
 		if isinstance(caption_content, TexSoup.data.TexNode) and caption_content.name == 'label':
 			continue
@@ -125,7 +128,7 @@ def translate_enumerate(latex_node):
 def translate_footnote(latex_node):
 	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'footnote':
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"footnote"}`')
-	dummy_tag = A.new_tag('translated_from_latex')
+	dummy_tag = new_dummy_tag()
 	for content in latex_node.contents:
 		dummy_tag.append(translate_node(content))
 	return A.footnote(dummy_tag)
@@ -144,7 +147,7 @@ def translate_node(latex_node):
 		'item': translate_item,
 		'footnote': translate_footnote,
 	}
-	html_node = A.new_tag('translated_from_latex')
+	html_node = new_dummy_tag()
 	if isinstance(latex_node, str): # This means that we received one of this annoying "only text" nodes that are of type string.
 		html_node.append(translate_string(latex_node))
 	else: # `latex_node` is a node indeed...
@@ -160,7 +163,7 @@ def translate_node(latex_node):
 def translate_document(latex_document):
 	if not isinstance(latex_document, TexSoup.data.TexNode) or not latex_document.name=='document':
 		raise ValueError(f'<latex_document> must be the "document" node parsed by TexSoup.')
-	html_node = A.new_tag('translated_from_latex')
+	html_node = new_dummy_tag()
 	for content in latex_document.contents:
 		if isinstance(content, TexSoup.data.TexNode) and 'section' in content.name:
 			# First must finish paragraph.
@@ -222,7 +225,6 @@ if __name__ == '__main__':
 		title = 'Test document',
 		path_to_template = 'template.html'
 	)
-	html_document = html_soup.body
 
 	html_soup.body.append(translate_document(latex_soup.document))
 	
@@ -234,7 +236,7 @@ if __name__ == '__main__':
 				content = content,
 			)
 	
-	for tag in html_soup.find_all('translated_from_latex'):
+	for tag in html_soup.find_all(new_dummy_tag().name):
 		tag.unwrap()
 
 	html_soup.write_to_file(Path('/'.join(Path(args.latex_path).parts[:-1]))/Path('test.html'))
