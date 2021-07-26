@@ -19,6 +19,7 @@ def translate_displaymath(latex_node):
 	if latex_node.name == 'displaymath': # This is just a displayed equation.
 		return str(latex_node.expr)
 	elif latex_node.name == 'equation': # This one is more complicated, it has an ID for reference and must be numbered.
+		id = None
 		latex_string = ''.join([str(s) for s in latex_node.contents if r'\label' not in str(s)])
 		for stuff in latex_node.contents:
 			if isinstance(stuff, TexSoup.data.TexNode) and 'label' in stuff.name:
@@ -56,6 +57,7 @@ def translate_cite(latex_node):
 	wrapper_tag = new_dummy_tag()
 	for cite in latex_node[0].split(','):
 		wrapper_tag.append(A.crossref(toid=str(cite).replace(' ','')))
+		wrapper_tag.append('\xa0')
 	return wrapper_tag
 
 def translate_ref(latex_node):
