@@ -42,14 +42,18 @@ def parse_thebibliography(latex_node):
 			thisreference_content.append(translate_node(latex_node.contents[current_bibitem_idx+i]))
 			i += 1
 		if current_bibitem_idx < len(latex_node.contents):
-			references_dict[str(latex_node.contents[current_bibitem_idx].string)] = thisreference_content
+			references_dict[str(latex_node.contents[current_bibitem_idx].string).replace(' ','')] = thisreference_content
 		current_bibitem_idx += 1
 	return references_dict
 
 def translate_cite(latex_node):
 	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'cite':
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"cite"}`')
-	return A.crossref(toid=str(latex_node.string))
+	# As the cite may contain many citations all together, we have to create one <crossref> for each:
+	wrapper_tag = A.new_tag('translated_from_latex')
+	for cite in latex_node[0].split(','):
+		wrapper_tag.append(A.crossref(toid=str(cite).replace(' ','')))
+	return wrapper_tag
 
 def translate_ref(latex_node):
 	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'ref':
