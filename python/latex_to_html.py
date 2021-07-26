@@ -72,7 +72,7 @@ def translate_figure(latex_node):
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"figure"}`')
 	image_tag = A.new_tag(
 		'image', 
-		src = latex_node.includegraphics.string, 
+		src = latex_node.includegraphics.contents[-1], # Hopefully this is the path to the image file.
 		style = 'max-width: 100%;',
 	)
 	caption_tag = A.new_tag('translated_from_latex')
@@ -80,11 +80,18 @@ def translate_figure(latex_node):
 		if isinstance(caption_content, TexSoup.data.TexNode) and caption_content.name == 'label':
 			continue
 		caption_tag.append(translate_node(caption_content))
+	try:
+		id = str(latex_node.caption.label.string)
+	except:
+		try:
+			id = str(latex_node.label.string)
+		except:
+			id = None
 	return A.new_float(
 		float_class = 'Figure',
 		content = image_tag,
 		caption = caption_tag,
-		id = str(latex_node.caption.label.string),
+		id = id,
 	)
 
 def translate_item(latex_node):
