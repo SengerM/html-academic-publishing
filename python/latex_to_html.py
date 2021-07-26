@@ -72,7 +72,7 @@ def translate_url(latex_node):
 	return tag
 
 def translate_string(latex_string):
-	return str(latex_string).replace('~',u'\xa0')
+	return str(latex_string).replace('~',u'\xa0').replace(r'\&','&')
 
 def translate_figure(latex_node):
 	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'figure':
