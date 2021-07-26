@@ -79,11 +79,21 @@ def translate_string(latex_string):
 def translate_figure(latex_node):
 	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'figure':
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"figure"}`')
-	image_tag = A.new_tag(
-		'image', 
-		src = latex_node.includegraphics.contents[-1], # Hopefully this is the path to the image file.
-		style = 'max-width: 100%;',
-	)
+	float_content_tag = A.new_tag('div')
+	float_content_tag['style'] = 'display: flex; width: 100%;'
+	for tag in latex_node.find_all('htmltag'):
+		print(tag)
+		args_dict = {}
+		for arg in tag.args:
+			args_dict[arg.string.split('=',1)[0]] = arg.string.split('=',1)[1].replace(r'\%','%')
+		tag_name = args_dict['tag_name']
+		args_dict.pop('tag_name')
+		float_content_tag.append(
+			A.new_tag(
+				tag_name,
+				**args_dict,
+			)
+		)
 	caption_tag = new_dummy_tag()
 	for caption_content in  latex_node.caption.contents:
 		if isinstance(caption_content, TexSoup.data.TexNode) and caption_content.name == 'label':
@@ -98,7 +108,7 @@ def translate_figure(latex_node):
 			id = None
 	return A.new_float(
 		float_class = 'Figure',
-		content = image_tag,
+		content = float_content_tag,
 		caption = caption_tag,
 		id = id,
 	)
