@@ -191,7 +191,7 @@ def translate_document(latex_document):
 			continue
 		else: # Whatever is not a section, goes inside a paragraph.
 			if 'p' not in locals(): # This would happen if we just appended a paragraph.
-				p = A.new_tag('p')
+				p = A.new_tag('div')
 			if isinstance(content, str):
 				# In this case we are receiving a "chunk of paragraphs". It may be a bunch of sentences for the current paragraph, or it can be even a bunch of whole paragraphs that have only text.
 				append_last_paragraph_chunk_to_html_document = False
@@ -203,7 +203,7 @@ def translate_document(latex_document):
 					p.append(translate_string(paragraph_chunk))
 					if n_chunk < n_chunks-1 or append_last_paragraph_chunk_to_html_document == True:
 						html_node.append(p)
-						p = A.new_tag('p')
+						p = A.new_tag('div')
 			else:
 				if content.name in {'thebibliography'}:
 					continue
