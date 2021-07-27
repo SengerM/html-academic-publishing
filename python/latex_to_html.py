@@ -229,7 +229,7 @@ def translate_document(latex_document):
 						html_node.append(p)
 						p = A.new_tag('div')
 			else:
-				if content.name in {'thebibliography', 'maketitle'}:
+				if content.name in {'thebibliography', 'maketitle', 'input', 'title'}:
 					continue
 				else:
 					# Delegate the task...
@@ -248,6 +248,8 @@ def script_core(latex_file: str):
 		title = 'Test document',
 		path_to_template = 'template.html'
 	)
+	
+	html_soup.head.title.string = latex_soup.title.string
 
 	html_soup.body.append(translate_document(latex_soup.document))
 	
