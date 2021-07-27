@@ -75,7 +75,7 @@ def translate_url(latex_node):
 	return tag
 
 def translate_string(latex_string):
-	return str(latex_string).replace('~',u'\xa0').replace(r'\&','&')
+	return str(latex_string).replace('~',u'\xa0').replace(r'\&','&').replace('``','"').replace("''",'"')
 
 def translate_figure(latex_node):
 	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'figure':
@@ -158,6 +158,9 @@ def translate_href(latex_node):
 	a.append(latex_node.args[1].string)
 	return a
 
+def translate_textbackslash(latex_node):
+	return '\\'
+
 def translate_node(latex_node):
 	TRANSLATORS = {
 		'$': translate_inlinemath,
@@ -173,6 +176,7 @@ def translate_node(latex_node):
 		'footnote': translate_footnote,
 		'emph': translate_emph,
 		'href': translate_href,
+		'textbackslash': translate_textbackslash,
 	}
 	html_node = new_dummy_tag()
 	if isinstance(latex_node, str): # This means that we received one of this annoying "only text" nodes that are of type string.
