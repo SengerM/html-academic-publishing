@@ -164,6 +164,16 @@ def translate_textbackslash(latex_node):
 def translate_author(latex_node):
 	return A.author(author_name = latex_node.string)
 
+def translate_tableofcontents(latex_node):
+	div = A.new_tag('div')
+	div['id'] = 'table-of-contents'
+	div.append(A.section(
+		name = 'Table of contents',
+		level = 2,
+		unnumbered = True,
+	))
+	return div
+
 def translate_node(latex_node):
 	TRANSLATORS = {
 		'$': translate_inlinemath,
@@ -200,19 +210,24 @@ def translate_document(latex_document):
 		raise ValueError(f'<latex_document> must be the "document" node parsed by TexSoup.')
 	html_node = new_dummy_tag()
 	for content in latex_document.contents:
-		if isinstance(content, TexSoup.data.TexNode) and 'section' in content.name:
+		if isinstance(content, TexSoup.data.TexNode) and ('section' in content.name or content.name == 'tableofcontents'):
 			# First must finish paragraph.
 			if 'p' in locals():
 				html_node.append(p)
 				del(p)
-			html_node.append(
-				A.section(
-					name = content.contents[0], 
-					level = content.name.count('sub')+1, 
-					unnumbered = True if '*' in content.name else False,
+			# Now we add whatever we received.
+			if content.name == 'section':
+				html_node.append(
+					A.section(
+						name = content.contents[0], 
+						level = content.name.count('sub')+1, 
+						unnumbered = True if '*' in content.name else False,
+					)
 				)
-			)
-			continue
+				continue
+			elif content.name == 'tableofcontents':
+				html_node.append(translate_tableofcontents(content))
+				continue
 		else: # Whatever is not a section, goes inside a paragraph.
 			if 'p' not in locals(): # This would happen if we just appended a paragraph.
 				p = A.new_tag('div')
