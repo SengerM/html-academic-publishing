@@ -174,6 +174,13 @@ def translate_tableofcontents(latex_node):
 	))
 	return div
 
+def translate_section_of_any_kind(latex_node):
+	return A.section(
+		name = latex_node.contents[0], 
+		level = latex_node.name.count('sub')+1, 
+		unnumbered = True if '*' in latex_node.name else False,
+	)
+
 def translate_node(latex_node):
 	TRANSLATORS = {
 		'$': translate_inlinemath,
@@ -217,13 +224,7 @@ def translate_document(latex_document):
 				del(p)
 			# Now we add whatever we received.
 			if content.name == 'section':
-				html_node.append(
-					A.section(
-						name = content.contents[0], 
-						level = content.name.count('sub')+1, 
-						unnumbered = True if '*' in content.name else False,
-					)
-				)
+				html_node.append(translate_section_of_any_kind(content))
 				continue
 			elif content.name == 'tableofcontents':
 				html_node.append(translate_tableofcontents(content))
