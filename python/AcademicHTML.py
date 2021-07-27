@@ -86,6 +86,16 @@ def footnote(content):
 	tag.append(content)
 	return tag
 
+def author(author_name, email=None, affiliation=None):
+	"""Creates an author using the <author> tag."""
+	tag = new_tag('author')
+	tag.append(author_name)
+	if email is not None:
+		tag['email'] = email
+	if affiliation is not None:
+		tag['affiliation'] = affiliation
+	return tag
+
 class AcademicHTML(BeautifulSoup):
 	def __init__(self, title: str, path_to_template: str):
 		with open(path_to_template, 'r') as ifile:
@@ -144,7 +154,8 @@ class AcademicHTML(BeautifulSoup):
 			tag.unwrap()
 		# Write it to a file ---
 		with open(fname, 'w') as file:
-			file.write(str(self.prettify(formatter='html5')))
+			# ~ file.write(str(self.prettify(formatter='html5')))
+			file.write(str(self))
 	
 if __name__ == '__main__':
 	soup = AcademicHTML(

@@ -161,6 +161,9 @@ def translate_href(latex_node):
 def translate_textbackslash(latex_node):
 	return '\\'
 
+def translate_author(latex_node):
+	return A.author(author_name = latex_node.string)
+
 def translate_node(latex_node):
 	TRANSLATORS = {
 		'$': translate_inlinemath,
@@ -177,6 +180,7 @@ def translate_node(latex_node):
 		'emph': translate_emph,
 		'href': translate_href,
 		'textbackslash': translate_textbackslash,
+		'author': translate_author,
 	}
 	html_node = new_dummy_tag()
 	if isinstance(latex_node, str): # This means that we received one of this annoying "only text" nodes that are of type string.
@@ -225,7 +229,7 @@ def translate_document(latex_document):
 						html_node.append(p)
 						p = A.new_tag('div')
 			else:
-				if content.name in {'thebibliography'}:
+				if content.name in {'thebibliography', 'maketitle'}:
 					continue
 				else:
 					# Delegate the task...
