@@ -1,0 +1,561 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+customHeadersFooters
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1cm
+\topmargin 2cm
+\rightmargin 1cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\listings_params "keywordstyle={\color{keyword_color}\ttfamily\bfseries},commentstyle={\color{comentarios_color}\itshape},emphstyle={\color{red}},breaklines=true,basicstyle={\ttfamily},stringstyle={\color{cadenas_color}},identifierstyle={\color{identifier_color}},backgroundcolor={\color{fondocodigo_color}},keepspaces=true,numbers=left,xleftmargin=2em,frame=leftline,rulecolor={\color{black}},numbersep=5pt,tabsize=3"
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "~/cloud/lib/lyx/macros2020.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+This is an example to convert from Lyx to AcademicHTML
+\end_layout
+
+\begin_layout Author
+Juan Carlos
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+The HTML format is really nice, but writing in pure HTML is a pain.
+ The same happens with Latex.
+ That is why things like 
+\begin_inset CommandInset href
+LatexCommand href
+name "Lyx"
+target "https://www.lyx.org/"
+literal "false"
+
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.lyx.org/
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ exist.
+ Writing complex math equations like 
+\begin_inset Formula 
+\[
+f\PARENTHESES x=\PARENTHESES{1-\xi}\cos\theta+\intop_{0}^{\infty}\frac{\DIFERENTIAL k}{2\pi}\frac{\sqrt{k-\Xi}}{\omega+\varepsilon}
+\]
+
+\end_inset
+
+is really easy in LyX.
+ It is also much more visual friendly.
+ 
+\end_layout
+
+\begin_layout Standard
+I like LyX so much for this kind of stuff that I developed this script to
+ automate the task.
+ It supports many of the most common things like footnotes
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+This is an example footnote with inline math 
+\begin_inset Formula $x^{3}$
+\end_inset
+
+ and displayed math 
+\begin_inset Formula 
+\[
+\PARENTHESES{i\cancel{\partial}-m}\psi=0\text{,}
+\]
+
+\end_inset
+
+ a reference to the bibliography
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Reference: B,Reference: A"
+literal "false"
+
+\end_inset
+
+ and also a reference to
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Figure: an image"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+, math, cross-references (see
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Figure: an image"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Figure: interactive HTML"
+
+\end_inset
+
+), listings, etc.
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+htmltag{tag_name=image}{src=media/image.svg}{style=max-width: 100
+\backslash
+%;}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+This figure contains an SVG image.
+ See
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Reference: A"
+literal "false"
+
+\end_inset
+
+.
+\begin_inset CommandInset label
+LatexCommand label
+name "Figure: an image"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Example
+\end_layout
+
+\begin_layout Standard
+This document is an example.
+ Most of the things are standard Lyx.
+ The only special and non-Lyx-standard objects are the 
+\begin_inset Quotes eld
+\end_inset
+
+
+\backslash
+htmltag
+\begin_inset Quotes erd
+\end_inset
+
+ objects to insert images, iframes, etc.
+ Currently they are only implemented within figures.
+ For example this was used in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Figure: an image"
+
+\end_inset
+
+ and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Figure: interactive HTML"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+htmltag{tag_name=iframe}{src=media/html_interactive_plot.html}{class=plotly}{styl
+e=width: 100
+\backslash
+% !important;}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+This figure shows an interactive HTML plot.
+ You can zoom in freely, activate/deactivate traces, download it as a bitmap
+ image, etc.
+\begin_inset CommandInset label
+LatexCommand label
+name "Figure: interactive HTML"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Unnumbered sections
+\end_layout
+
+\begin_layout Standard
+Both numbered and unnumbered sections are supported.
+ Also listings:
+\end_layout
+
+\begin_layout Enumerate
+Numbered listing.
+\end_layout
+
+\begin_layout Enumerate
+Also known as 
+\begin_inset Quotes eld
+\end_inset
+
+enumerate
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Indented.
+\end_layout
+
+\begin_layout Enumerate
+More.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Non indented.
+\end_layout
+
+\begin_layout Standard
+It can also be an itemize:
+\end_layout
+
+\begin_layout Itemize
+Non-numbered listing.
+\end_layout
+
+\begin_layout Itemize
+Also known as 
+\begin_inset Quotes eld
+\end_inset
+
+itemize
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Indented.
+\end_layout
+
+\begin_layout Itemize
+More.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Non indented.
+\end_layout
+
+\begin_layout Section
+Documentation
+\end_layout
+
+\begin_layout Standard
+The script can be found 
+\begin_inset CommandInset href
+LatexCommand href
+name "here"
+target "https://github.com/SengerM/html-academic-publishing/tree/main/python"
+literal "false"
+
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/SengerM/html-academic-publishing/tree/main/python
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+.
+ Things are implemented as long as I need them.
+ There is not much documentation other than this example.
+ 
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Reference: A"
+literal "false"
+
+\end_inset
+
+This is one external reference.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Reference: B"
+literal "false"
+
+\end_inset
+
+This is another reference.
+ It can have a link, e.g.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://github.com/SengerM/html-academic-publishing
+\end_layout
+
+\end_inset
+
+.
+ It can contain other stuff too, like math: 
+\begin_inset Formula $x^{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-3"
+
+\end_inset
+
+A third reference that I will not use.
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>This is an example to convert from Lyx to AcademicHTML</title>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/> <!-- This fixes the problem of small font (some texts and also the math) in mobile devices, see https://stackoverflow.com/a/35564095/8849755 -->
+<!-- Math support https://www.mathjax.org/#gettingstarted -->
+<script>
+	MathJax = {
+	  tex: {
+		inlineMath: [['$', '$'], ['\\(', '\\)']]
+	  },
+	  svg: {
+		fontCache: 'global'
+	  }
+	};
+	</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- Below is the definitions of my macros that I use in Lyx -->
+<div style="display: none;">
+	$$
+	\def\MODULE#1{\left|\,#1\,\right|}%
+	\def\PARENTHESES#1{\left(#1\right)}%
+	\def\SQBRACKETS#1{\left[#1\right]}%
+	\def\BRACES#1{\left\{  #1\right\}  }%
+	\def\LBRACE#1{\left\{  #1\right.}%
+	\def\RBRACE#1{\left.#1\right\}  }%
+	\def\LSQBRACKET#1{\left[#1\right.}%
+	\def\RSQBRACKET#1{\left.#1\right]}%
+	\def\LPARENTHESIS#1{\left(#1\right.}%
+	\def\RPARENTHESIS#1{\left.#1\right)}%
+	\def\ANGLEBRACKETS#1{\left\langle #1\right\rangle }%
+	\def\SPACELONG{\hspace{10mm}}%
+	\def\SPACEMEDIUM{\hspace{5mm}}%
+	\def\DEF{\overset{{\scriptscriptstyle \text{def}}}{=}}%
+	\def\UPBRACE#1#2{\overset{{\scriptstyle #2}}{\overbrace{#1}}}%
+	\def\UNDERBRACE#1#2{\underset{{\scriptstyle #2}}{\underbrace{#1}}}%
+	\def\REALES{\mathbb{R}}%
+	\def\IMAGINARIOS{\mathbb{I}}%
+	\def\NATURALES{\mathbb{N}}%
+	\def\ENTEROS{\mathbb{Z}}%
+	\def\COMPLEJOS{\mathbb{C}}%
+	\def\RACIONALES{\mathbb{Q}}%
+	\def\DIFERENTIAL{\,\text{d}}%
+	\def\PRIME{{\vphantom{A}}^{\prime}}%
+	\def\ORDER#1{\mathcal{O}\PARENTHESES{#1}}%
+	\def\DIRACDELTA#1{\delta_{D}\PARENTHESES{#1}}%
+	\def\HEAVYSIDETHETA#1{\Theta_{H}\PARENTHESES{#1}}%
+	\def\ATAN{\text{atan}}%
+	\def\INDICATORFUNCTION#1{\mathbf{1}\BRACES{#1} }%
+	\def\VECTOR#1{\boldsymbol{#1}}%
+	\def\VERSOR#1{\hat{\VECTOR{#1}}}%
+	\def\IDENTITY{\mathds{1}}%
+	\def\CURL{\VECTOR{\nabla}\times}%
+	\def\GRADIENT{\VECTOR{\nabla}}%
+	\def\DIVERGENCE{\VECTOR{\nabla}\cdot}%
+	\def\LAPLACIAN{\nabla^{2}}%
+	\def\REALPART#1{\text{Re}\left(#1\right)}%
+	\def\IMAGPART#1{\text{Im}\left(#1\right)}%
+	\def\TENDSTO#1{\underset{{\scriptscriptstyle #1}}{\longrightarrow}}%
+	\def\EVALUATEDAT#1#2#3{\left\lceil #1\right\rfloor _{#2}^{#3}}%
+	\def\unit#1{\text{#1}}
+	\def\TERA#1{\text{ T}\unit{#1}}%
+	\def\GIGA#1{\text{ G}\unit{#1}}%
+	\def\MEGA#1{\text{ M}\unit{#1}}%
+	\def\KILO#1{\text{ k}\unit{#1}}%
+	\def\UNIT#1{\,\unit{#1}}%
+	\def\CENTI#1{\text{ c}\unit{#1}}%
+	\def\MILI#1{\text{ m}\unit{#1}}%
+	\def\MICRO#1{\text{ }\mu\unit{#1}}%
+	\def\NANO#1{\text{ n}\unit{#1}}%
+	\def\PICO#1{\text{ p}\unit{#1}}%
+	\def\FEMTO#1{\text{ f}\unit{#1}}%
+	\def\TIMESTENTOTHE#1{\times10^{#1}}%
+	\def\PROB#1{\mathbb{P}\left(#1\right)}%
+	\def\MEAN#1{\mathbb{E}\PARENTHESES{#1}}%
+	\def\VARIANCE#1{\mathbb{V}\PARENTHESES{#1}}%
+	\def\COLOR#1#2{{\color{#2}{\,#1\,}}}%
+	\def\RED#1{\textcolor{red}{#1}}%
+	\def\BLUE#1{\COLOR{#1}{blue!80!white}}%
+	\def\GREEN#1{\textcolor{green!70!black}{#1}}%
+	\def\GRAY#1{\COLOR{#1}{black!30}}%
+	\def\GRAY#1{\COLOR{#1}{blue!35!white}}%
+	\def\GUNDERBRACE#1#2{\GRAY{\UNDERBRACE{\COLOR{#1}{black}}{#2}}}%
+	\def\GUPBRACE#1#2{\GRAY{\UPBRACE{\COLOR{#1}{black}}{#2}}}%
+	\def\REDCANCEL#1{\RED{\cancel{{\normalcolor #1}}}}%
+	\def\BLUECANCEL#1{{\color{blue}\cancel{{\normalcolor #1}}}}%
+	\def\GREENCANCEL#1{\GREEN{\cancel{{\normalcolor #1}}}}%
+	\def\BLUECANCELTO#1#2{\BLUE{\cancelto{#2}{{\normalcolor #1}}}}%
+	$$
+	</div>
+<link href="https://sengerm.github.io/html-academic-publishing/css_and_scripts/style.css" rel="stylesheet"/></head>
+<body>
+<div id="document_title"></div>
+<div><author>Juan Carlos</author></div><div id="table-of-contents"><h2 class="unnumbered">Table of contents</h2></div><h1>Introduction</h1><div>
+The HTML format is really nice, but writing in pure HTML is a pain.
+The same happens with Latex. That is why things like <a href="https://www.lyx.org/">Lyx</a><footnote><a href="https://www.lyx.org/">https://www.lyx.org/</a>.</footnote>
+exist. Writing complex math equations like 
+\[
+f\PARENTHESES x=\PARENTHESES{1-\xi}\cos\theta+\intop_{0}^{\infty}\frac{\DIFERENTIAL k}{2\pi}\frac{\sqrt{k-\Xi}}{\omega+\varepsilon}
+\]
+is really easy in LyX. It is also much more visual friendly. </div><div>I like LyX so much for this kind of stuff that I developed this script
+to automate the task. It supports many of the most common things like
+footnotes<footnote>This is an example footnote with inline math $x^{3}$ and displayed
+math 
+\[
+\PARENTHESES{i\cancel{\partial}-m}\psi=0\text{,}
+\]
+ a reference to the bibliography <crossref toid="Reference:B"></crossref> <crossref toid="Reference:A"></crossref> 
+and also a reference to <crossref toid="Figure: an image"></crossref>.</footnote>, math, cross-references (see <crossref toid="Figure: an image"></crossref> and <crossref toid="Figure: interactive HTML"></crossref>),
+listings, etc.
+<float class="Figure" id="Figure: an image"><div style="display: flex; width: 100%;"><image src="media/image.svg" style="max-width: 100%;"/></div><floatcaption>This figure contains an SVG image. See <crossref toid="Reference:A"></crossref> .</floatcaption></float></div><div>
+This document is an example. Most of the things are standard Lyx.
+The only special and non-Lyx-standard objects are the "\ htmltag"
+objects to insert images, iframes, etc. Currently they are only implemented
+within figures. For example this was used in <crossref toid="Figure: an image"></crossref>
+and <crossref toid="Figure: interactive HTML"></crossref>.</div><div><float class="Figure" id="Figure: interactive HTML"><div style="display: flex; width: 100%;"><iframe class="plotly" src="media/html_interactive_plot.html" style="width: 100% !important;"></iframe></div><floatcaption>This figure shows an interactive HTML plot. You can zoom in freely,
+activate/deactivate traces, download it as a bitmap image, etc.</floatcaption></float></div><div>
+Both numbered and unnumbered sections are supported. Also listings:
+<ol><li> Numbered listing.
+</li><li> Also known as "enumerate".
+<ol><li> Indented.
+</li><li> More.
+</li></ol></li><li> Non indented.
+</li></ol>
+It can also be an itemize:
+<ul><li> Non-numbered listing.
+</li><li> Also known as "itemize".
+<ul><li> Indented.
+</li><li> More.
+</li></ul></li><li> Non indented.
+</li></ul></div><h1>Documentation</h1><div>
+The script can be found <a href="https://github.com/SengerM/html-academic-publishing/tree/main/python">here</a><footnote><a href="https://github.com/SengerM/html-academic-publishing/tree/main/python">https://github.com/SengerM/html-academic-publishing/tree/main/python</a>.</footnote>.
+Things are implemented as long as I need them. There is not much documentation
+other than this example. 
+</div><div id="footnotes_list"><h1 class="unnumbered">Footnotes</h1></div><div id="references_list"><h1 class="unnumbered">References</h1><reference id="Reference:A"><dummy_tag><dummy_tag>This is one external reference.
+
+</dummy_tag></dummy_tag></reference><reference id="Reference:B"><dummy_tag><dummy_tag>This is another reference. It can have a link,
+e.g. </dummy_tag><dummy_tag><a href="https://github.com/SengerM/html-academic-publishing">https://github.com/SengerM/html-academic-publishing</a></dummy_tag><dummy_tag>. It
+can contain other stuff too, like math: </dummy_tag><dummy_tag>$x^{2}$</dummy_tag><dummy_tag>.
+
+</dummy_tag></dummy_tag></reference><reference id="key-3"><dummy_tag><dummy_tag>A third reference that I will not use.
+</dummy_tag></dummy_tag></reference></div><script src="https://sengerm.github.io/html-academic-publishing/css_and_scripts/script.js"></script><script src="https://sengerm.github.io/html-academic-publishing/css_and_scripts/authors.js"></script></body>
+</html>
