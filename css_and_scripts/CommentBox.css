@@ -1,0 +1,20 @@
+.CommentBox {
+	display: block;
+	background-color: #f7faff;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 3px;
+	border-color: #c7dbff;
+}
+
+.CommentBox .CommentBoxTitle {
+	display: block;
+	background-color: #e3ecfa;
+	padding: 10px;
+	font-family: serif;
+	font-style: oblique;
+}
+
+.CommentBox .CommentBoxBody {
+	margin: 10px;
+}

@@ -6,7 +6,8 @@
 	
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- This fixes the problem of small font (some texts and also the math) in mobile devices, see https://stackoverflow.com/a/35564095/8849755 -->
-	<link rel="stylesheet" href="./css_and_scripts/style.css">
+	<link rel="stylesheet" href="css_and_scripts/style.css">
+	<link rel="stylesheet" href="css_and_scripts/CommentBox.css">
 	<!-- Math support https://www.mathjax.org/#gettingstarted -->
     <script>
 	MathJax = {
@@ -517,6 +518,40 @@ Lalala</code></p>
 	</ul> 
 	The <siglas>ATLAS</siglas> detector is located close to the injection points in the <siglas>LHC</siglas> ring, and the <siglas>CMS</siglas> detector is on the opposite side of the <siglas>LHC</siglas>. Within the <siglas>LHC</siglas> we can also find the <siglas>LHCb</siglas> and <siglas>ALICE</siglas> detectors. Though they are smaller than <siglas>ATLAS</siglas> and <siglas>CMS</siglas>, they have achieved important milestones. For example <siglas>LHCb</siglas> is now in the news because they have measured some anomalies in the violation of lepton flavour universality.</p>
 	
+	<h1>Comment boxes</h1>
+	
+	<p>Sometimes there is some stuff that is a side comment, but it is too long to fit in a footnote. For those cases there is the <code>CommentBox</code> "environment" which is nothing more that standard HTML and pure CSS with a nice formatting. To use this you must include in your document the <code><a href="css_and_scripts/CommentBox.css">CommentBox.css</a></code> file in the same way you include any CSS. After this you can do:</p>
+	
+	<float class="Code" id="Code: Example of CommentBox">
+		<floatcaption>Example of <code>CommentBox</code>.</floatcaption>
+		<code class="block">&lt;div class="CommentBox">
+	&lt;div class="CommentBoxTitle">
+		Put here a nice title for this comment box
+	&lt;/div>
+	&lt;div class="CommentBoxBody">
+		&lt;p>Here you can write a long discussion about whatever you want, which is related with the main text but it is still a side note, but too long for a footnote. Note that you can put whatever you want inside this comment box, for example some math $$x^2 = \cos x$$ or a reference to some equation &lt;crossref toid="very long equation">&lt;/crossref>, a float:&lt;/p>
+		&lt;float class="Figure">
+			&lt;image style="max-width: 100%" src="https://www.planetware.com/wpimages/2019/10/switzerland-in-pictures-most-beautiful-places-matterhorn.jpg">&lt;/image>
+			&lt;floatcaption>A picture of the &lt;a href="https://en.wikipedia.org/wiki/Matterhorn">Matterhorn&lt;/a>, the most famous mountain in Switzerland.&lt;/floatcaption>
+		&lt;/float>
+	&lt;/div>
+&lt;/div></code>
+	</float>
+	
+	<p>The example in <crossref toid="Code: Example of CommentBox"></crossref> will produce this:</p>
+	
+	<div class="CommentBox">
+		<div class="CommentBoxTitle">
+			Put here a nice title for this comment box
+		</div>
+		<div class="CommentBoxBody">
+			<p>Here you can write a long discussion about whatever you want, which is related with the main text but it is still a side note, but too long for a footnote. Note that you can put whatever you want inside this comment box, for example some math $$x^2 = \cos x$$ or a reference to some equation <crossref toid="very long equation"></crossref>, a float:</p>
+			<float class="Figure">
+				<image style="max-width: 100%" src="https://www.planetware.com/wpimages/2019/10/switzerland-in-pictures-most-beautiful-places-matterhorn.jpg"></image>
+				<floatcaption>A picture of the <a href="https://en.wikipedia.org/wiki/Matterhorn">Matterhorn</a>, the most famous mountain in Switzerland.</floatcaption>
+			</float>
+		</div>
+	</div>
 	
 	<div id="references_list">
 		<h1 class="unnumbered">References</h1>
