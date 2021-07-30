@@ -8,7 +8,7 @@ def new_dummy_tag():
 	return A.new_tag('dummy_tag')
 
 def translate_inlinemath(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == '$':
+	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != '$':
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"$"}`')
 	return str(latex_node.expr)
 
@@ -30,7 +30,7 @@ def translate_displaymath(latex_node):
 		raise ValueError(f'Dont know how to translate an equation of type {latex_node.name}.')
 
 def parse_thebibliography(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) or not latex_node.name == 'thebibliography':
+	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'thebibliography':
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"thebibliography"}`')
 	references_dict = {}
 	current_bibitem_idx = 0
@@ -52,7 +52,7 @@ def parse_thebibliography(latex_node):
 	return references_dict
 
 def translate_cite(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'cite':
+	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'cite':
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"cite"}`')
 	# As the cite may contain many citations all together, we have to create one <crossref> for each:
 	wrapper_tag = new_dummy_tag()
@@ -62,12 +62,12 @@ def translate_cite(latex_node):
 	return wrapper_tag
 
 def translate_ref(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'ref':
+	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'ref':
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"ref"}`')
 	return A.crossref(toid=str(latex_node.string))
 
 def translate_url(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'url':
+	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'url':
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"url"}`')
 	tag = A.new_tag('a')
 	tag['href'] = str(latex_node.string)
@@ -78,7 +78,7 @@ def translate_string(latex_string):
 	return str(latex_string).replace('~',u'\xa0').replace(r'\&','&').replace('``','"').replace("''",'"')
 
 def translate_figure(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'figure':
+	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'figure':
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"figure"}`')
 	float_content_tag = A.new_tag('div')
 	float_content_tag['style'] = 'display: flex; width: 100%;'
@@ -96,7 +96,7 @@ def translate_figure(latex_node):
 		)
 	caption_tag = new_dummy_tag()
 	for caption_content in  latex_node.caption.contents:
-		if isinstance(caption_content, TexSoup.data.TexNode) and caption_content.name == 'label':
+		if isinstance(caption_content, TexSoup.data.TexNode) or caption_content.name != 'label':
 			continue
 		caption_tag.append(translate_node(caption_content))
 	try:
@@ -114,7 +114,7 @@ def translate_figure(latex_node):
 	)
 
 def translate_item(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'item':
+	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'item':
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"item"}`')
 	tag = A.new_tag('li')
 	for i in latex_node.contents:
@@ -122,7 +122,7 @@ def translate_item(latex_node):
 	return tag
 
 def translate_itemize(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'itemize':
+	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'itemize':
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"itemize"}`')
 	html_tag = A.new_tag('ul')
 	for item_node in latex_node.contents:
@@ -130,7 +130,7 @@ def translate_itemize(latex_node):
 	return html_tag
 
 def translate_enumerate(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'enumerate':
+	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'enumerate':
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"enumerate"}`')
 	html_tag = A.new_tag('ol')
 	for item_node in latex_node.contents:
@@ -138,7 +138,7 @@ def translate_enumerate(latex_node):
 	return html_tag
 
 def translate_footnote(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'footnote':
+	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'footnote':
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"footnote"}`')
 	dummy_tag = new_dummy_tag()
 	for content in latex_node.contents:
@@ -146,7 +146,7 @@ def translate_footnote(latex_node):
 	return A.footnote(dummy_tag)
 
 def translate_emph(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) and latex_node.name == 'emph':
+	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'emph':
 		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"emph"}`')
 	em_tag = A.new_tag('em')
 	for content in latex_node:
