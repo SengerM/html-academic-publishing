@@ -204,6 +204,14 @@ def translate_alignstar(latex_node):
 	check_node_type_rise_error_else(latex_node, 'latex_node', 'align*')
 	return '$$' + repr(latex_node) + '$$'
 
+def translate_abstract(latex_node):
+	abstract_tag = A.new_tag('abstract')
+	abstract_paragraph = A.new_tag('div') # For the moment a single paragraph is accepted. To implement multiple paragraphs something similar to "translate_document" has to be done.
+	for node in latex_node.contents:
+		abstract_paragraph.append(translate_node(node))
+	abstract_tag.append(abstract_paragraph)
+	return abstract_tag
+
 def translate_node(latex_node):
 	TRANSLATORS = {
 		'$': translate_inlinemath,
@@ -226,6 +234,7 @@ def translate_node(latex_node):
 		'BraceGroup': translate_BraceGroup,
 		'def': translate_def,
 		'align*': translate_alignstar,
+		'abstract': translate_abstract,
 	}
 	html_node = new_dummy_tag()
 	if isinstance(latex_node, str): # This means that we received one of this annoying "only text" nodes that are of type string.
