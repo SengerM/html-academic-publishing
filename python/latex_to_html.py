@@ -201,6 +201,11 @@ def translate_def(latex_node):
 	translated += repr(latex_node.parent.contents[index_in_parent+extend_parsing_idx+1])
 	return '$' + translated + '$'
 
+def translate_alignstar(latex_node):
+	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'align*':
+		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"align*"}`')
+	return '$$' + repr(latex_node) + '$$'
+
 def translate_node(latex_node):
 	TRANSLATORS = {
 		'$': translate_inlinemath,
@@ -222,6 +227,7 @@ def translate_node(latex_node):
 		'textquotedblright': translate_textquotedblleft_and_textquotedblright,
 		'BraceGroup': translate_BraceGroup,
 		'def': translate_def,
+		'align*': translate_alignstar,
 	}
 	html_node = new_dummy_tag()
 	if isinstance(latex_node, str): # This means that we received one of this annoying "only text" nodes that are of type string.
