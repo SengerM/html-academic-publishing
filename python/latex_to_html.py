@@ -213,7 +213,6 @@ def translate_abstract(latex_node):
 	return abstract_tag
 
 def translate_CommentBox(latex_node):
-	print(latex_node.contents)
 	box_tag = A.new_tag('div')
 	box_tag['class'] = 'CommentBox'
 	content_tag = A.new_tag('div')
@@ -225,8 +224,46 @@ def translate_CommentBox(latex_node):
 			box_title_tag.append(translate_node(node))
 			box_tag.append(box_title_tag)
 			continue
-		content_tag.append(translate_node(node))
+		
+		if isinstance(node, TexSoup.data.TexNode) and ('section' in node.name):
+			# First must finish paragraph.
+			if 'p' in locals():
+				content_tag.append(p)
+				del(p)
+			# Now we add whatever we received.
+			if node.name == 'section':
+				content_tag.append(translate_section_of_any_kind(node))
+				continue
+			elif node.name == 'tableofnodes':
+				content_tag.append(translate_tableofnodes(node))
+				continue
+		else: # Whatever is not a section, goes inside a paragraph.
+			if 'p' not in locals(): # This would happen if we just appended a paragraph.
+				p = A.new_tag('div')
+				p['style'] = 'margin-top: 10px; margin-bottom: 10px;'
+			if isinstance(node, str):
+				# In this case we are receiving a "chunk of paragraphs". It may be a bunch of sentences for the current paragraph, or it can be even a bunch of whole paragraphs that have only text.
+				append_last_paragraph_chunk_to_html_document = False
+				if node.endswith(PARAGRAPH_ENDS_STRING):
+					append_last_paragraph_chunk_to_html_document = True
+					node = node[:-len(PARAGRAPH_ENDS_STRING)]
+				n_chunks = len(node.split(PARAGRAPH_ENDS_STRING))
+				for n_chunk, paragraph_chunk in enumerate(node.split(PARAGRAPH_ENDS_STRING)):
+					p.append(translate_string(paragraph_chunk))
+					if n_chunk < n_chunks-1 or append_last_paragraph_chunk_to_html_document == True:
+						content_tag.append(p)
+						p = A.new_tag('div')
+			else:
+				if node.name in {'thebibliography', 'maketitle', 'input', 'title'}:
+					continue
+				else:
+					# Delegate the task...
+					p.append(translate_node(node))
+		
 	box_tag.append(content_tag)
+	
+		
+	
 	return box_tag
 
 def translate_node(latex_node):
@@ -289,6 +326,7 @@ def translate_document(latex_document):
 		else: # Whatever is not a section, goes inside a paragraph.
 			if 'p' not in locals(): # This would happen if we just appended a paragraph.
 				p = A.new_tag('div')
+				p['style'] = 'margin-top: 10px; margin-bottom: 10px;' # This is a workaround instead of using <p> (because <p> is limited in what it can contain).
 			if isinstance(content, str):
 				# In this case we are receiving a "chunk of paragraphs". It may be a bunch of sentences for the current paragraph, or it can be even a bunch of whole paragraphs that have only text.
 				append_last_paragraph_chunk_to_html_document = False
