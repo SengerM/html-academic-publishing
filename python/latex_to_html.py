@@ -212,6 +212,23 @@ def translate_abstract(latex_node):
 	abstract_tag.append(abstract_paragraph)
 	return abstract_tag
 
+def translate_CommentBox(latex_node):
+	print(latex_node.contents)
+	box_tag = A.new_tag('div')
+	box_tag['class'] = 'CommentBox'
+	content_tag = A.new_tag('div')
+	content_tag['class'] = 'CommentBoxBody'
+	for idx, node in enumerate(latex_node.contents):
+		if idx == 0: # This is the title.
+			box_title_tag = A.new_tag('div')
+			box_title_tag['class'] = 'CommentBoxTitle'
+			box_title_tag.append(translate_node(node))
+			box_tag.append(box_title_tag)
+			continue
+		content_tag.append(translate_node(node))
+	box_tag.append(content_tag)
+	return box_tag
+
 def translate_node(latex_node):
 	TRANSLATORS = {
 		'$': translate_inlinemath,
@@ -235,6 +252,7 @@ def translate_node(latex_node):
 		'def': translate_def,
 		'align*': translate_alignstar,
 		'abstract': translate_abstract,
+		'CommentBox': translate_CommentBox,
 	}
 	html_node = new_dummy_tag()
 	if isinstance(latex_node, str): # This means that we received one of this annoying "only text" nodes that are of type string.
