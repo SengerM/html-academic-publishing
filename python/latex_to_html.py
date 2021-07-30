@@ -257,9 +257,14 @@ def translate_document(latex_document):
 
 def script_core(latex_file: str):
 	ifile_path = Path(latex_file)
-
-	with open(ifile_path, 'r') as ifile:
-		latex_soup = TexSoup.TexSoup(ifile.read())
+	
+	try:
+		with open(ifile_path, 'r') as ifile:
+			latex_soup = TexSoup.TexSoup(ifile.read())
+	except UnicodeDecodeError:
+		with open(ifile_path, 'r', encoding="ISO-8859-1") as ifile:
+			latex_soup = TexSoup.TexSoup(ifile.read())
+	
 	html_soup = A.AcademicHTML(
 		title = 'Test document',
 		path_to_template = 'template.html'
