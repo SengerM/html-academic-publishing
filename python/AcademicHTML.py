@@ -124,7 +124,7 @@ class AcademicHTML(BeautifulSoup):
 		# Add CSS ---
 		css_to_append = {
 			'https://sengerm.github.io/html-academic-publishing/css_and_scripts/style.css',
-			'/home/alf/scripts_and_codes/repos/html-academic-publishing/css_and_scripts/CommentBox.css',
+			'https://sengerm.github.io/html-academic-publishing/css_and_scripts/CommentBox.css',
 		}
 		for src in css_to_append:
 			tag = self.new_tag('link', rel='stylesheet', href=src)
