@@ -4,12 +4,15 @@ from pathlib import Path
 
 PARAGRAPH_ENDS_STRING = '\n\n'
 
+def check_node_type_rise_error_else(node, variable_name: str, expected_node_name: str):
+	if not isinstance(node, TexSoup.data.TexNode) or node.name != expected_node_name:
+		raise ValueError(f'<{variable_name}> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={expected_node_name}`')
+
 def new_dummy_tag():
 	return A.new_tag('dummy_tag')
 
 def translate_inlinemath(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != '$':
-		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"$"}`')
+	check_node_type_rise_error_else(latex_node, 'latex_node', '$')
 	return str(latex_node.expr)
 
 def translate_displaymath(latex_node):
@@ -30,8 +33,7 @@ def translate_displaymath(latex_node):
 		raise ValueError(f'Dont know how to translate an equation of type {latex_node.name}.')
 
 def parse_thebibliography(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'thebibliography':
-		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"thebibliography"}`')
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'thebibliography')
 	references_dict = {}
 	current_bibitem_idx = 0
 	while current_bibitem_idx < len(latex_node.contents):
@@ -52,8 +54,7 @@ def parse_thebibliography(latex_node):
 	return references_dict
 
 def translate_cite(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'cite':
-		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"cite"}`')
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'cite')
 	# As the cite may contain many citations all together, we have to create one <crossref> for each:
 	wrapper_tag = new_dummy_tag()
 	for cite in latex_node[0].split(','):
@@ -62,13 +63,11 @@ def translate_cite(latex_node):
 	return wrapper_tag
 
 def translate_ref(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'ref':
-		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"ref"}`')
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'ref')
 	return A.crossref(toid=str(latex_node.string))
 
 def translate_url(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'url':
-		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"url"}`')
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'url')
 	tag = A.new_tag('a')
 	tag['href'] = str(latex_node.string)
 	tag.string = str(latex_node.string)
@@ -78,8 +77,7 @@ def translate_string(latex_string):
 	return str(latex_string).replace('~',u'\xa0').replace(r'\&','&').replace('``','"').replace("''",'"')
 
 def translate_figure(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'figure':
-		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"figure"}`')
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'figure')
 	float_content_tag = A.new_tag('div')
 	float_content_tag['style'] = 'display: flex; width: 100%;'
 	for tag in latex_node.find_all('htmltag'):
@@ -114,57 +112,56 @@ def translate_figure(latex_node):
 	)
 
 def translate_item(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'item':
-		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"item"}`')
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'item')
 	tag = A.new_tag('li')
 	for i in latex_node.contents:
 		tag.append(translate_node(i))
 	return tag
 
 def translate_itemize(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'itemize':
-		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"itemize"}`')
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'itemize')
 	html_tag = A.new_tag('ul')
 	for item_node in latex_node.contents:
 		html_tag.append(translate_node(item_node))
 	return html_tag
 
 def translate_enumerate(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'enumerate':
-		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"enumerate"}`')
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'enumerate')
 	html_tag = A.new_tag('ol')
 	for item_node in latex_node.contents:
 		html_tag.append(translate_node(item_node))
 	return html_tag
 
 def translate_footnote(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'footnote':
-		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"footnote"}`')
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'footnote')
 	dummy_tag = new_dummy_tag()
 	for content in latex_node.contents:
 		dummy_tag.append(translate_node(content))
 	return A.footnote(dummy_tag)
 
 def translate_emph(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'emph':
-		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"emph"}`')
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'emph')
 	em_tag = A.new_tag('em')
 	for content in latex_node:
 		em_tag.append(translate_node(content))
 	return em_tag
 
 def translate_href(latex_node):
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'href')
 	a = A.new_tag('a', href=latex_node.args[0].string)
 	a.append(latex_node.args[1].string)
 	return a
 
 def translate_textbackslash(latex_node):
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'textbackslash')
 	return '\\'
 
 def translate_author(latex_node):
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'author')
 	return A.author(author_name = latex_node.string)
 
 def translate_tableofcontents(latex_node):
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'tableofcontents')
 	div = A.new_tag('div')
 	div['id'] = 'table-of-contents'
 	div.append(A.section(
@@ -185,9 +182,11 @@ def translate_textquotedblleft_and_textquotedblright(latex_node):
 	return '"'
 
 def translate_BraceGroup(latex_node):
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'BraceGroup')
 	return str(latex_node.contents[0])
 
 def translate_def(latex_node):
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'def')
 	# Only support for equations as I use in macros.
 	translated = fr'\def\{latex_node.contents[-1]}' 
 	for idx, content in enumerate(latex_node.parent.contents):
@@ -202,8 +201,7 @@ def translate_def(latex_node):
 	return '$' + translated + '$'
 
 def translate_alignstar(latex_node):
-	if not isinstance(latex_node, TexSoup.data.TexNode) or latex_node.name != 'align*':
-		raise ValueError(f'<latex_node> must be an instance of {TexSoup.data.TexNode} and have `latex_node.name=={"align*"}`')
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'align*')
 	return '$$' + repr(latex_node) + '$$'
 
 def translate_node(latex_node):
