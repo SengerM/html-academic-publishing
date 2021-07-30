@@ -181,6 +181,21 @@ def translate_section_of_any_kind(latex_node):
 		unnumbered = True if '*' in latex_node.name else False,
 	)
 
+def translate_textquotedblleft_and_textquotedblright(latex_node):
+	return '"'
+
+def translate_BraceGroup(latex_node):
+	return str(latex_node.contents[0]) # This is either '[' or ']' in a strange way because Latex is shit.
+
+def translate_global(latex_node):
+	print(latex_node)
+	return 'NotYet'
+
+def translate_def(latex_node):
+	# Only support for equations as I use in macros.
+	print(latex_node)
+	return 'NotYet'
+
 def translate_node(latex_node):
 	TRANSLATORS = {
 		'$': translate_inlinemath,
@@ -198,6 +213,10 @@ def translate_node(latex_node):
 		'href': translate_href,
 		'textbackslash': translate_textbackslash,
 		'author': translate_author,
+		'textquotedblleft': translate_textquotedblleft_and_textquotedblright,
+		'textquotedblright': translate_textquotedblleft_and_textquotedblright,
+		'BraceGroup': translate_BraceGroup,
+		'def': translate_def,
 	}
 	html_node = new_dummy_tag()
 	if isinstance(latex_node, str): # This means that we received one of this annoying "only text" nodes that are of type string.
@@ -207,6 +226,8 @@ def translate_node(latex_node):
 			html_node.append(TRANSLATORS[latex_node.name](latex_node))
 		else:
 			print(f'Dont know how to translate "{latex_node.name}".')
+			if latex_node.name in {'global', 'long'}:
+				return ''
 			tag = A.new_tag('b')
 			tag.append(f'ERROR: Did not know how to translate "{latex_node.name}" from Latex to HTML, just letting you know.')
 			html_node.append(tag)
