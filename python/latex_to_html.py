@@ -185,16 +185,21 @@ def translate_textquotedblleft_and_textquotedblright(latex_node):
 	return '"'
 
 def translate_BraceGroup(latex_node):
-	return str(latex_node.contents[0]) # This is either '[' or ']' in a strange way because Latex is shit.
-
-def translate_global(latex_node):
-	print(latex_node)
-	return 'NotYet'
+	return str(latex_node.contents[0])
 
 def translate_def(latex_node):
 	# Only support for equations as I use in macros.
-	print(latex_node)
-	return 'NotYet'
+	translated = fr'\def\{latex_node.contents[-1]}' 
+	for idx, content in enumerate(latex_node.parent.contents):
+		if repr(latex_node) == repr(content):
+			index_in_parent = idx
+			break
+	extend_parsing_idx = 0
+	while not isinstance(latex_node.parent.contents[index_in_parent+1+extend_parsing_idx], TexSoup.data.TexNode) or not latex_node.parent.contents[index_in_parent+1+extend_parsing_idx].name == 'BraceGroup':
+		extend_parsing_idx += 1
+		translated += str(latex_node.parent.contents[index_in_parent+extend_parsing_idx])
+	translated += repr(latex_node.parent.contents[index_in_parent+extend_parsing_idx+1])
+	return '$' + translated + '$'
 
 def translate_node(latex_node):
 	TRANSLATORS = {
