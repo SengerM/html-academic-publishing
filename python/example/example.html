@@ -91,10 +91,10 @@
 	\def\BLUECANCELTO#1#2{\BLUE{\cancelto{#2}{{\normalcolor #1}}}}%
 	$$
 	</div>
-<link href="https://sengerm.github.io/html-academic-publishing/css_and_scripts/style.css" rel="stylesheet"/></head>
+<link href="https://sengerm.github.io/html-academic-publishing/css_and_scripts/CommentBox.css" rel="stylesheet"/><link href="https://sengerm.github.io/html-academic-publishing/css_and_scripts/style.css" rel="stylesheet"/></head>
 <body>
 <div id="document_title"></div>
-<div><author>Juan Carlos</author></div><div id="table-of-contents"><h2 class="unnumbered">Table of contents</h2></div><h1>Introduction</h1><div>
+<div style="margin-top: 10px; margin-bottom: 10px;"><author>Juan Carlos</author></div><div id="table-of-contents"><h2 class="unnumbered">Table of contents</h2></div><h1>Introduction</h1><div style="margin-top: 10px; margin-bottom: 10px;">
 The HTML format is really nice, but writing in pure HTML is a pain.
 The same happens with Latex. That is why things like <a href="https://www.lyx.org/">Lyx</a><footnote><a href="https://www.lyx.org/">https://www.lyx.org/</a>.</footnote>
 exist. Writing complex math equations like 
@@ -111,13 +111,13 @@ math
  a reference to the bibliography <crossref toid="Reference:B"></crossref> <crossref toid="Reference:A"></crossref> 
 and also a reference to <crossref toid="Figure: an image"></crossref>.</footnote>, math, cross-references (see <crossref toid="Figure: an image"></crossref> and <crossref toid="Figure: interactive HTML"></crossref>),
 listings, etc.
-<float class="Figure" id="Figure: an image"><div style="display: flex; width: 100%;"><image src="media/image.svg" style="max-width: 100%;"/></div><floatcaption>This figure contains an SVG image. See <crossref toid="Reference:A"></crossref> .</floatcaption></float></div><div>
+<float class="Figure" id="Figure: an image"><div style="display: flex; width: 100%;"><image src="media/image.svg" style="max-width: 100%;"/></div><floatcaption>This figure contains an SVG image. See <crossref toid="Reference:A"></crossref> .</floatcaption></float></div><div style="margin-top: 10px; margin-bottom: 10px;">
 This document is an example. Most of the things are standard Lyx.
 The only special and non-Lyx-standard objects are the "\ htmltag"
 objects to insert images, iframes, etc. Currently they are only implemented
 within figures. For example this was used in <crossref toid="Figure: an image"></crossref>
 and <crossref toid="Figure: interactive HTML"></crossref>.</div><div><float class="Figure" id="Figure: interactive HTML"><div style="display: flex; width: 100%;"><iframe class="plotly" src="media/html_interactive_plot.html" style="width: 100% !important;"></iframe></div><floatcaption>This figure shows an interactive HTML plot. You can zoom in freely,
-activate/deactivate traces, download it as a bitmap image, etc.</floatcaption></float></div><div>
+activate/deactivate traces, download it as a bitmap image, etc.</floatcaption></float></div><div style="margin-top: 10px; margin-bottom: 10px;">
 Both numbered and unnumbered sections are supported. Also listings:
 <ol><li> Numbered listing.
 </li><li> Also known as "enumerate".
@@ -131,7 +131,7 @@ It can also be an itemize:
 <ul><li> Indented.
 </li><li> More.
 </li></ul></li><li> Non indented.
-</li></ul></div><h1>Documentation</h1><div>
+</li></ul></div><h1>Documentation</h1><div style="margin-top: 10px; margin-bottom: 10px;">
 The script can be found <a href="https://github.com/SengerM/html-academic-publishing/tree/main/python">here</a><footnote><a href="https://github.com/SengerM/html-academic-publishing/tree/main/python">https://github.com/SengerM/html-academic-publishing/tree/main/python</a>.</footnote>.
 Things are implemented as long as I need them. There is not much documentation
 other than this example. 
