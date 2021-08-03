@@ -318,7 +318,7 @@ def translate_document(latex_document):
 				html_node.append(p)
 				del(p)
 			# Now we add whatever we received.
-			if content.name == 'section':
+			if 'section' in content.name:
 				html_node.append(translate_section_of_any_kind(content))
 				continue
 			elif content.name == 'tableofcontents':
