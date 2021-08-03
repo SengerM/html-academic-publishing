@@ -94,7 +94,8 @@ def translate_figure(latex_node):
 		)
 	caption_tag = new_dummy_tag()
 	for caption_content in  latex_node.caption.contents:
-		if isinstance(caption_content, TexSoup.data.TexNode) or caption_content.name != 'label':
+		if isinstance(caption_content, TexSoup.data.TexNode) and caption_content.name == 'label':
+			# The label is processed independently from the rest of the stuff.
 			continue
 		caption_tag.append(translate_node(caption_content))
 	try:
