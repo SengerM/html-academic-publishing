@@ -54,7 +54,6 @@ float {
 	align-items: center;
 	margin: 22px;
 	gap: 22px;
-	overflow-x: auto;
 }
 float * {
 	margin: 0 auto; /* https://stackoverflow.com/questions/67253973/overflow-x-auto-does-not-scroll-to-the-left/67254358#67254358 */
