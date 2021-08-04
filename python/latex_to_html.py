@@ -262,10 +262,14 @@ def translate_CommentBox(latex_node):
 					p.append(translate_node(node))
 		
 	box_tag.append(content_tag)
-	
-		
-	
 	return box_tag
+
+def translate_date(latex_node):
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'date')
+	div = A.new_tag('div', style = 'margin: 22px; text-align: center;')
+	for content in latex_node.contents:
+		div.append(translate_node(content))
+	return div
 
 def translate_node(latex_node):
 	TRANSLATORS = {
@@ -291,6 +295,7 @@ def translate_node(latex_node):
 		'align*': translate_alignstar,
 		'abstract': translate_abstract,
 		'CommentBox': translate_CommentBox,
+		'date': translate_date,
 	}
 	html_node = new_dummy_tag()
 	if isinstance(latex_node, str): # This means that we received one of this annoying "only text" nodes that are of type string.
