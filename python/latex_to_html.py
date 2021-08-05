@@ -185,7 +185,12 @@ def translate_textquotedblleft_and_textquotedblright(latex_node):
 
 def translate_BraceGroup(latex_node):
 	check_node_type_rise_error_else(latex_node, 'latex_node', 'BraceGroup')
-	return str(latex_node.contents[0])
+	idx = [str(c) for c in latex_node.parent.contents].index(str(latex_node))
+	previous_latex_node = latex_node.parent.contents[idx-1]
+	if isinstance(previous_latex_node, TexSoup.data.TexNode) and previous_latex_node.name == 'def':
+		return ''
+	else:
+		return str(latex_node.contents[0])
 
 def translate_def(latex_node):
 	check_node_type_rise_error_else(latex_node, 'latex_node', 'def')
