@@ -1,6 +1,7 @@
 import AcademicHTML as A
 import TexSoup
 from pathlib import Path
+import datetime
 
 PARAGRAPH_ENDS_STRING = '\n\n'
 
@@ -271,6 +272,10 @@ def translate_date(latex_node):
 		div.append(translate_node(content))
 	return div
 
+def translate_today(latex_node):
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'today')
+	return datetime.datetime.now().strftime('%B %-d, %Y')
+
 def translate_node(latex_node):
 	TRANSLATORS = {
 		'$': translate_inlinemath,
@@ -296,6 +301,7 @@ def translate_node(latex_node):
 		'abstract': translate_abstract,
 		'CommentBox': translate_CommentBox,
 		'date': translate_date,
+		'today': translate_today,
 	}
 	html_node = new_dummy_tag()
 	if isinstance(latex_node, str): # This means that we received one of this annoying "only text" nodes that are of type string.
