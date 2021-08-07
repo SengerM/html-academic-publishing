@@ -70,8 +70,9 @@ def translate_ref(latex_node):
 def translate_url(latex_node):
 	check_node_type_rise_error_else(latex_node, 'latex_node', 'url')
 	tag = A.new_tag('a')
-	tag['href'] = str(latex_node.string)
-	tag.string = str(latex_node.string)
+	link = str(latex_node.string).replace(r'\#','#')
+	tag['href'] = link
+	tag.string = link
 	return tag
 
 def translate_string(latex_string):
@@ -150,7 +151,8 @@ def translate_emph(latex_node):
 
 def translate_href(latex_node):
 	check_node_type_rise_error_else(latex_node, 'latex_node', 'href')
-	a = A.new_tag('a', href=latex_node.args[0].string)
+	link = latex_node.args[0].string.replace(r'\#','#')
+	a = A.new_tag('a', href=link)
 	a.append(latex_node.args[1].string)
 	return a
 
