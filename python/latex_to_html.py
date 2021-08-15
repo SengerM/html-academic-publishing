@@ -14,7 +14,7 @@ def new_dummy_tag():
 
 def translate_inlinemath(latex_node):
 	check_node_type_rise_error_else(latex_node, 'latex_node', '$')
-	return str(latex_node.expr)
+	return str(latex_node.expr).replace(r'\protect','') # I don't know much about the \protect in LaTeX but it is not needed in HTML so I just remove it. I am doing this here because I use this with LyX and it adds some of this \protect stuff in the caption of figures. I really don't know where else can it appear.
 
 def translate_displaymath(latex_node):
 	"""Given a "latex_node" from TexSoup with a "displaymath" object, it 
