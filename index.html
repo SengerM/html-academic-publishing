@@ -493,30 +493,19 @@ Lalala</code></p>
 	
 	<h1>Acronyms (siglas)</h1>
 	
-	<siglas class="definition" first="Large Hadron Collider (LHC)" short="LHC"></siglas>
-	<siglas class="definition" first="Compact Muon Solenoid (CMS)" short="CMS"></siglas>
-	<siglas class="definition" first="A Toroidal LHC ApparatuS (ATLAS)" short="ATLAS"></siglas>
-	<siglas class="definition" first="Large Hadron Collider beauty experiment (LHCb)" short="LHCb"></siglas>
-	<siglas class="definition" first="A Large Ion Collider Experiment (ALICE)" short="ALICE"></siglas>
-	
-	<p>In academia we love acronyms. I have read articles with so many acronyms that it was really hard to follow. Here we can display the acronym on mouse hover. The first time we use it is displayed complete: <siglas>LHC</siglas>. The second time we use it, it looks like this: <siglas>LHC</siglas>. The full name is displayed on mouse hover. To get this behavior you have to use the tag <code>siglas</code><footnote>If you are wondering why I opted for using the Spanish word <code>siglas</code> for this, the reason is that <code>acronym</code> is already used in HTML for a similar purpose. It's usage, however, is more cumbersome and less practical, so I decided to implement my own. Note that you can also have acronyms within footnotes: <siglas>LHC</siglas>.</footnote>, see example in <crossref toid="Code: Example for siglas"></crossref>.</p>
+	<p>In academia we love acronyms. I have read articles with so many acronyms that it was really hard to follow as at some point you forget what they mean.</p>
+	<p>To insert acronyms use the <code>siglas</code><footnote>If you are wondering why I opted for using the Spanish word <code>siglas</code> for this, the reason is that <code>acronym</code> is already used in HTML for a similar purpose. It's usage, however, is more cumbersome and less practical, so I decided to implement my own.</footnote> tag, see example in <crossref toid="Code: Example for siglas"></crossref>. An example of a document using <code>siglas</code> is shown in <crossref toid="Document: Example with siglas"></crossref>.</p>
 	
 	<float class="Code" id="Code: Example for siglas">
-	<floatcaption>Usage example for <code>siglas</code> like this one: <siglas>LHC</siglas>.</floatcaption>
+	<floatcaption>Usage example for <code>siglas</code>.</floatcaption>
 	<code class="block">&lt;siglas class="definition" first="Large Hadron Collider (LHC)" short="LHC">&lt;/siglas> &lt;!-- First we define our siglas (this can be done anywhere, there is no need to do it in the beginning of the document -->
 &lt;p>This is a paragraph. This is my first mention of the &lt;siglas>LHC&lt;/siglas>. The previous will be displayed with the "first", i.e. it will say Large Hadron Collider (LHC). The following usages, like this one &lt;siglas>LHC&lt;/siglas> will just display LHC and the full name will be displayed on mouse hover.&lt;/p></code>
 	</float>
 	
-	<p>Of course you can use <code>siglas</code> on titles:</p>
-	
-	<h2>The experiments in the <siglas>LHC</siglas></h2>
-	
-	<p>In the <siglas>LHC</siglas> we can find the two "general purpose detectors", namely 
-	<ul>
-		<li><siglas>ATLAS</siglas> and</li>
-		<li><siglas>CMS</siglas>.</li>
-	</ul> 
-	The <siglas>ATLAS</siglas> detector is located close to the injection points in the <siglas>LHC</siglas> ring, and the <siglas>CMS</siglas> detector is on the opposite side of the <siglas>LHC</siglas>. Within the <siglas>LHC</siglas> we can also find the <siglas>LHCb</siglas> and <siglas>ALICE</siglas> detectors. Though they are smaller than <siglas>ATLAS</siglas> and <siglas>CMS</siglas>, they have achieved important milestones. For example <siglas>LHCb</siglas> is now in the news because they have measured some anomalies in the violation of lepton flavour universality.</p>
+	<float class="Document" id="Document: Example with siglas">
+		<floatcaption>Example of a document using <code>siglas</code>. <a href="examples/siglas/siglas.html" target="_blank">Open document in new tab</a>. Hover your mouse pointer over any acronym to display a popup message with the meaning.</floatcaption>
+		<iframe src="examples/siglas/siglas.html" style="width: 100%; height: 55vh;"></iframe>
+	</float>
 	
 	<h1>Comment boxes</h1>
 	
