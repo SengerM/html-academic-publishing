@@ -21,6 +21,10 @@ In all cases no issues were found.
 
 You can find documentation [here](https://sengerm.github.io/html-academic-publishing/). You can also use that file as a template. Just download it and start playing. Open it with your favourite text editor and at the same time with your favourite web browser. Let the magic begin...
 
+## Installation
+
+You don't need to install anything as you already have a web browser (Firefox, Chrome, etc., whichever you want) and a text editor (Notepad, etc.). Just download any of the [examples](examples), open it with the web browser and simultaneously with the text editor, modify it in the text editor and refresh the browser to see the changes.
+
 ## LyX → HTML
 
 [LyX](https://www.lyx.org/) is a really nice software for writing scientific documents, it implements a graphical interface and writes LaTeX in the background. In the normal workflow you end up with a nice PDF file. But what if you want an HTML? LyX offers some built in options to export HTML, but they are not nice.
