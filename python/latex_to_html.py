@@ -283,6 +283,10 @@ def translate_today(latex_node):
 	check_node_type_rise_error_else(latex_node, 'latex_node', 'today')
 	return datetime.datetime.now().strftime('%B %-d, %Y')
 
+def translate_textmu(latex_node):
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'textmu')
+	return 'µ'
+
 def translate_node(latex_node):
 	TRANSLATORS = {
 		'$': translate_inlinemath,
@@ -309,6 +313,7 @@ def translate_node(latex_node):
 		'CommentBox': translate_CommentBox,
 		'date': translate_date,
 		'today': translate_today,
+		'textmu': translate_textmu,
 	}
 	html_node = new_dummy_tag()
 	if isinstance(latex_node, str): # This means that we received one of this annoying "only text" nodes that are of type string.
