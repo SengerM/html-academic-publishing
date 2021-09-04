@@ -76,7 +76,8 @@ def translate_url(latex_node):
 	return tag
 
 def translate_string(latex_string):
-	return str(latex_string).replace('~',u'\xa0').replace(r'\&','&').replace('``','"').replace("''",'"')
+	return_string = str(latex_string).replace('~',u'\xa0').replace(r'\&','&').replace('``','"').replace("''",'"')
+	return return_string
 
 def translate_figure(latex_node):
 	check_node_type_rise_error_else(latex_node, 'latex_node', 'figure')
