@@ -1,6 +1,6 @@
 # HTML scientific documents
 
-I want to replace the PDF format, which is tied to the concept of a paper-printed document, with something more flexible and interactive.
+I want to replace the PDF format, which is tied to the concept of a paper-printed document, with something more flexible and interactive. This "package" (or "set of JavaScripts + CSS" or "HTML environment definition", however you want to call this) is currently an experiment towards this replacement of the PDF format. It is already quite nice, though not perfect yet.
 
 ![After all, why not? why shouldn't we write documents in HTML?](media/after_all_why_not.svg)
 
@@ -26,9 +26,9 @@ In all cases no issues were found ✅.
 
 You can find documentation [here](https://sengerm.github.io/html-academic-publishing/).
 
-## Installation
+## Installation and quick start
 
-You don't need to install anything as you already have a web browser (Firefox, Chrome, etc., whichever you want) and a text editor (Notepad, etc.). Just download any of the [examples](examples), open it with the web browser and simultaneously with the text editor, modify it in the text editor and refresh the browser to see the changes. You can also use [the documentation file](index.html) as a template, it contains at least one example of every thing you can do with this.
+You don't need to install anything as you already have a web browser (Firefox, Chrome, etc., whichever you want) and a text editor (Notepad, etc.). Just download any of the [examples](examples), open it with the web browser and simultaneously with the text editor, modify it in the text editor and refresh the browser to see the changes. You can also use [the documentation file](index.html) as a template (it looks like [this](https://sengerm.github.io/html-academic-publishing/) in the browser), it contains at least one example of every thing you can do with this.
 
 ## LyX → HTML
 
