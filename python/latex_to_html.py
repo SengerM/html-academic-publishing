@@ -150,6 +150,20 @@ def translate_emph(latex_node):
 		em_tag.append(translate_node(content))
 	return em_tag
 
+def translate_textbf(latex_node):
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'textbf')
+	b_tag = A.new_tag('b')
+	for content in latex_node:
+		b_tag.append(translate_node(content))
+	return b_tag
+
+def translate_uline(latex_node):
+	check_node_type_rise_error_else(latex_node, 'latex_node', 'uline')
+	tag = A.new_tag('u')
+	for content in latex_node:
+		tag.append(translate_node(content))
+	return tag
+
 def translate_href(latex_node):
 	check_node_type_rise_error_else(latex_node, 'latex_node', 'href')
 	link = latex_node.args[0].string.replace(r'\#','#')
@@ -306,6 +320,8 @@ def translate_node(latex_node):
 		'item': translate_item,
 		'footnote': translate_footnote,
 		'emph': translate_emph,
+		'textbf': translate_textbf,
+		'uline': translate_uline,
 		'href': translate_href,
 		'textbackslash': translate_textbackslash,
 		'author': translate_author,
