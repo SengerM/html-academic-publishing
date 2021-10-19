@@ -1,0 +1,33 @@
+.211019_images_gallery_with_zoom {
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+	justify-content: equally-spaced;
+	
+}
+
+.211019_images_gallery_with_zoom * {
+	max-height: 24vh;
+	margin: 5px;
+	border-radius: 5px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: white;
+	transition: filter .2s;
+}
+
+.211019_images_gallery_with_zoom *:hover:not(:active) {
+	filter: drop-shadow(0 0 4px black);
+}
+
+.211019_images_gallery_with_zoom *:active {
+	position: fixed;
+	top: 7vh;
+	max-width: 88vw;
+	max-height: 88vh;
+	z-index: 99999;
+	transition: .2s;
+	background: rgba(0,0,0,.9);
+	padding: 99999px;
+	margin: -99999px;
+}
