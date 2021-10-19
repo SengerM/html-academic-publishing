@@ -1,12 +1,11 @@
-.211019_images_gallery_with_zoom {
+.images_gallery_with_zoom_211019 {
 	display: flex;
 	width: 100%;
 	flex-wrap: wrap;
 	justify-content: equally-spaced;
-	
 }
 
-.211019_images_gallery_with_zoom * {
+.images_gallery_with_zoom_211019 * {
 	max-height: 24vh;
 	margin: 5px;
 	border-radius: 5px;
@@ -16,11 +15,11 @@
 	transition: filter .2s;
 }
 
-.211019_images_gallery_with_zoom *:hover:not(:active) {
+.images_gallery_with_zoom_211019 *:hover:not(:active) {
 	filter: drop-shadow(0 0 4px black);
 }
 
-.211019_images_gallery_with_zoom *:active {
+.images_gallery_with_zoom_211019 *:active {
 	position: fixed;
 	top: 7vh;
 	max-width: 88vw;
