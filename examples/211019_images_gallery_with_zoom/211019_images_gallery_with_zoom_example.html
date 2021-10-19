@@ -14,7 +14,7 @@
 
 <div id="document_title"></div>
 
-<p>To use the <code>images_gallery_with_zoom_211019</code> just include the CSS file by adding <code>&lt;link rel="stylesheet" href="https://sengerm.github.io/html-academic-publishing/css_and_scripts/images_gallery/images_gallery_with_zoom_211019.css"></code> in the head of your HTML. Then wrap all the images (or videos or whatever) you want to display as a gallery with miniatures and zoom on click within a <code>div</code> with <code>class="images_gallery_with_zoom_211019"</code>. Result is below.</p>
+<p>To use the <code>images_gallery_with_zoom_211019</code> just include the CSS file by adding <code>&lt;link rel="stylesheet" href="https://sengerm.github.io/html-academic-publishing/css_and_scripts/images_gallery/images_gallery_with_zoom_211019.css"></code> in the head of your HTML. Then wrap all the images (or videos or whatever) you want to display as a gallery with miniatures and zoom on click within a <code>div</code> with <code>class="images_gallery_with_zoom_211019"</code>. Result is below. Not perfect yet.</p>
 
 <div class="images_gallery_with_zoom_211019">
 	<image src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Hubble_01_Cropped.jpg"></image>
@@ -24,6 +24,38 @@
 	<image src="https://i.natgeofe.com/n/c188c292-0e60-4643-97b9-9c732cd7922b/1057.jpg"></image>
 	<image src="https://www.kosmologien.ch/wp-content/uploads/2020/05/NGC_6302_Kaefernebel_1280.jpg"></image>
 </div>
+
+<p>This photo gallery is useful for presentations, in which you want to show many pictures and have the possibility to show some of them big if required.</p>
+
+<p>In order for the zoom to be held after you release the mouse button, what works for me now is to drag a little bit the mouse before releasing the button. It's a hack that works.</p>
+
+<p>It is possible to set the height of miniatures for each gallery with the argument <code>--miniatures_height</code>. See examples in <crossref toid="Figure: miniatures with height 33px"></crossref> and <crossref toid="Figure: miniatures with height 10vh"></crossref>.</p>
+
+<float class="Figure" id="Figure: miniatures with height 33px">
+	<div class="images_gallery_with_zoom_211019" style="--miniatures_height: 33px;">
+		<image src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Hubble_01_Cropped.jpg"></image>
+		<image src="https://cms-api.galileo.tv/app/uploads/2020/04/creation-500x500.jpg"></image>
+		<image src="https://hubblesite.org/files/live/sites/hubble/files/home/hubble-30th-anniversary/images/_images/hubble_30th_images/hubble-30th-milky-way-bulge.jpg"></image>
+		<image src="https://www.nasa.gov/sites/default/files/thumbnails/image/potw2120a.jpg"></image>
+		<image src="https://i.natgeofe.com/n/c188c292-0e60-4643-97b9-9c732cd7922b/1057.jpg"></image>
+		<image src="https://www.kosmologien.ch/wp-content/uploads/2020/05/NGC_6302_Kaefernebel_1280.jpg"></image>
+	</div>
+	<floatcaption>Image gallery with miniatures of 33px fixed height.</floatcaption>
+</float>
+
+<float class="Figure" id="Figure: miniatures with height 10vh">
+	<div class="images_gallery_with_zoom_211019" style="--miniatures_height: 10vh;">
+		<image src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Hubble_01_Cropped.jpg"></image>
+		<image src="https://cms-api.galileo.tv/app/uploads/2020/04/creation-500x500.jpg"></image>
+		<image src="https://hubblesite.org/files/live/sites/hubble/files/home/hubble-30th-anniversary/images/_images/hubble_30th_images/hubble-30th-milky-way-bulge.jpg"></image>
+		<image src="https://www.nasa.gov/sites/default/files/thumbnails/image/potw2120a.jpg"></image>
+		<image src="https://i.natgeofe.com/n/c188c292-0e60-4643-97b9-9c732cd7922b/1057.jpg"></image>
+		<image src="https://www.kosmologien.ch/wp-content/uploads/2020/05/NGC_6302_Kaefernebel_1280.jpg"></image>
+	</div>
+	<floatcaption>Image gallery with miniatures of 10vh fixed height (i.e. 10 percent of window height).</floatcaption>
+</float>
+
+<p>For full reference, see the source code of the document you are reading right now.</p>
 
 <script src="https://sengerm.github.io/html-academic-publishing/css_and_scripts/script.js"></script>
 <script src="https://sengerm.github.io/html-academic-publishing/css_and_scripts/authors.js"></script>

@@ -1,3 +1,7 @@
+:root {
+  --miniatures_height: 22vh;
+}
+
 .images_gallery_with_zoom_211019 {
 	display: flex;
 	width: 100%;
@@ -6,7 +10,7 @@
 }
 
 .images_gallery_with_zoom_211019 * {
-	max-height: 24vh;
+	max-height: var(--miniatures_height);
 	margin: 5px;
 	border-radius: 5px;
 	border-style: solid;
