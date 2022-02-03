@@ -3,7 +3,7 @@
 body {
 	background-color: #ffffff;
 	margin: 5% 5%;
-	font-family: sans-serif;
+	font-family: 'Libre Baskerville', serif;
 	text-align: justify;
 }
 h1 {
@@ -118,7 +118,6 @@ iframe.plotly {
     top: 0px;
     animation: popups_fade_in 0.1s linear;
     font-size: 1rem;
-    font-family: sans-serif;
     font-weight: normal;
 }
 @keyframes popups_fade_in {
